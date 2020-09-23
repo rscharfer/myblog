@@ -29,7 +29,6 @@ function List({ listItems }) {
 
 ```javascript
 const withData = (needsToBeTruthyProp) => (Component) => (props) => {
-
   if (!props[needsToBeTruthyProp]) return <div>Need data!!</div>;
 
   return <Component {...props} />;
@@ -93,3 +92,5 @@ function App() {
 ```
 
 Rather than using an immediately invoked function expression, we are using an object literal mapping different states of the component to React elements and passing in the state we want rendered with bracket notation. Cool, isn't it?
+
+[Play with the code here in Code Sandbox.](https://codesandbox.io/s/blog-three-conditional-rendering-patterns-o57kq)
