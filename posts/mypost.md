@@ -13,7 +13,7 @@ So rather than a `List` component which looks like this...
 
 ```javascript
 function List({ listItems }) {
-  if (!listItems) return <CustomErrorComponent />;
+  if (!listItems) return <div>Need data!!</div>;
 
   return (
     <ul>
@@ -28,18 +28,17 @@ function List({ listItems }) {
 ... we can utilize a higher-order component which will make sure the data we need is there and take care of rendering the error message when it isn't:
 
 ```javascript
+const withData = (needsToBeTruthyProp) => (Component) => (props) => {
 
- const withData = needsToBeTruthyProp => Component  => props => {
+  if (!props[needsToBeTruthyProp]) return <div>Need data!!</div>;
 
-   if (!propThatNeedsToBeTruthy) return <CustomErrorComponent/>
+  return <Component {...props} />;
+};
 
-   return <Component ...props>
- }
-
- const ListWithData = withData('listItems')(List);
+const ListWithData = withData("listItems")(List);
 ```
 
-Higher order components take a React component and return a React component and conventionally begin with the word "with". This is a signal to other developers that the function is a higher order component (HOC).
+Higher order components take a React component and return a React component and conventionally begin with the word "with". This is a signal to other developers that the function is a higher order component (HOC). In this case, if `listItems` is a missing or has a falsey value, the error message will be rendered.
 
 ## Conditional Rendering with a Switch Statement
 
