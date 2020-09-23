@@ -16,7 +16,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
         <h1>{frontmatter.title}</h1>
         <p>By {frontmatter.author}</p>
         <div>
-          <ReactMarkdown escapeHtml={false} source={markdownBody} />
+          <ReactMarkdown source={markdownBody} />
         </div>
       </article>
     </Layout>
@@ -40,7 +40,6 @@ export async function getStaticProps({ ...ctx }) {
 }
 
 export async function getStaticPaths() {
-
   const blogSlugs = ((context) => {
     const keys = context.keys();
     const data = keys.map((key, index) => {
