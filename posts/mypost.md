@@ -1,9 +1,9 @@
 ---
-title: "Two Conditional Rendering Patterns"
+title: "Three Conditional Rendering Patterns"
 author: "Ryan Scharfer"
 ---
 
-There are a couple of conditional rendering patterns which I have recently learned about and which I am excited about using more of in the future. Here is a short description of each:
+There are three conditional rendering patterns which I have recently learned about and I am excited about using more of in the future. Two are cool and one is **really** cool. Here is a short description of each:
 
 ## Conditional Rendering with Higher Order Components
 
@@ -12,12 +12,9 @@ Rather than performing the "do we even have data?" check in a component and rend
 So rather than a `List` component which looks like this...
 
 ```javascript
-import React from "react";
-
 function List({ listItems }) {
-  // here is the "do we have data?" check which we might be doing in a lot of components
   if (!listItems) return <CustomErrorComponent />;
-  // the "yes, we have data" scenario
+
   return (
     <ul>
       {listItems.map((item) => (
@@ -31,15 +28,69 @@ function List({ listItems }) {
 ... we can utilize a higher-order component which will make sure the data we need is there and take care of rendering the error message when it isn't:
 
 ```javascript
- // returns a component which will either render <CustomErrorComponent/> or the previously passed component if the prop is truthy
+
  const withData = needsToBeTruthyProp => Component  => props => {
+
    if (!propThatNeedsToBeTruthy) return <CustomErrorComponent/>
+
    return <Component ...props>
  }
 
  const ListWithData = withData('listItems')(List);
-
- export default ListWithData
 ```
 
 Higher order components take a React component and return a React component and conventionally begin with the word "with". This is a signal to other developers that the function is a higher order component (HOC).
+
+## Conditional Rendering with a Switch Statement
+
+For a recent code challenge, I was under a lot of time pressure, and I discovered a way to conditionally render by using a switch statement inside of an immediately invoked function expression. I copied and pasted it into my code, and I have since taken the time to understand it. 😁  This is what it looks like..
+
+```javascript
+export default function App() {
+  const [view, setView] = React.useState("hello");
+
+  return (
+    <div className="App">
+      <button onClick={() => setView("hello")}>View 1</button>
+      <button onClick={() => setView("bye")}>View 2</button>
+      <button onClick={() => setView("fun")}>View 3</button>
+
+      {(function () {
+        switch (view) {
+          case "hello":
+            return <Hello />;
+          case "bye":
+            return <Bye />;
+          case "fun":
+            return <Fun />;
+          default:
+            return null;
+        }
+      })()}
+    </div>
+  );
+}
+```
+
+This definitely worked for my use case defining, but defining and calling a function within my return statement seemed like something that one could do without somehow.
+
+## Conditional Rendering with an Enum Pattern
+
+Here is the **really** cool one. A colleague looked at what I sumbitted and suggested something way cooler to replace my conditional rendering using a switch statement getup. It is using using an emum pattern 😍. This is what that looks like:
+
+```javascript
+export default function App() {
+  const [view, setView] = React.useState("hello");
+
+  return (
+    <div className="App">
+      <button onClick={() => setView("hello")}>View 1</button>
+      <button onClick={() => setView("bye")}>View 2</button>
+      <button onClick={() => setView("fun")}>View 3</button>
+      {{ hello: <Hello />, bye: <Bye />, fun: <Fun /> }[view]}
+    </div>
+  );
+}
+```
+
+Rather than using an immediately invoked function expression, we are using an object literal mapping different states of the component to React elements and passing in the state we want rendered with bracket notation. Cool, isn't it?

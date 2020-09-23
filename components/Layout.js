@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Header from "./Header";
 
+import { DARK_GRAY } from "../color";
+
 export default function Layout({ children, pageTitle, ...props }) {
   return (
     <>
@@ -10,16 +12,25 @@ export default function Layout({ children, pageTitle, ...props }) {
       </Head>
       <section className="layout">
         <style jsx global>{`
+          html {
+            font-size: 18px;
+            color: ${DARK_GRAY};
+          }
           body {
             padding: 2rem;
             max-width: 80%;
             margin: 0 auto;
           }
+          h1 {
+            font-size: 2rem;
+          }
+          h2 {
+            font-size: 1.5rem;
+          }
         `}</style>
         <Header />
         <div className="content">{children}</div>
       </section>
-      <foooter>Built by Ryan Scharfer</foooter>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TOMATO, BLUE_TOMATO } from "../color";
+import { TOMATO, DARK_BLUE_TOMATO } from "../color";
 
 export default function Header() {
   return (
@@ -16,7 +16,7 @@ export default function Header() {
           }
           a {
             text-decoration: none;
-            color: ${BLUE_TOMATO};
+            color: ${'black'};
           }
         `}
       </style>

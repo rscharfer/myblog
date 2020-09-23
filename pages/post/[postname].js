@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import ReactMarkdown from "react-markdown";
 
 import Layout from "../../components/Layout";
+import CodeBlockRenderer from "../../components/CodeBlockRenderer";
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   if (!frontmatter) return <></>;
@@ -14,19 +15,10 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
       </Link>
       <article>
         <h1>{frontmatter.title}</h1>
-        <p>By {frontmatter.author}</p>
         <div>
           <ReactMarkdown
             renderers={{
-              code: ({ value }) => (
-                <pre
-                  style={{
-                    overflow: "scroll",
-                  }}
-                >
-                  <code>{value}</code>
-                </pre>
-              ),
+              code: CodeBlockRenderer,
             }}
             source={markdownBody}
           />
