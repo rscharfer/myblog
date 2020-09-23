@@ -16,7 +16,20 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
         <h1>{frontmatter.title}</h1>
         <p>By {frontmatter.author}</p>
         <div>
-          <ReactMarkdown source={markdownBody} />
+          <ReactMarkdown
+            renderers={{
+              code: ({ value }) => (
+                <pre
+                  style={{
+                    overflow: "scroll",
+                  }}
+                >
+                  <code>{value}</code>
+                </pre>
+              ),
+            }}
+            source={markdownBody}
+          />
         </div>
       </article>
     </Layout>
