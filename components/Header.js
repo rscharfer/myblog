@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TOMATO, DARK_BLUE_TOMATO } from "../color";
+import { TOMATO, DARK_BLUE_TOMATO, DARK_GRAY } from "../color";
 
 export default function Header() {
   return (
@@ -7,16 +7,17 @@ export default function Header() {
       <style jsx>
         {`
           .nav {
-            background: ${TOMATO};
             height: 80px;
+            font-size: 1.3rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
+            justify-content: space-around;
+            border-bottom: 1px solid ${DARK_GRAY};
           }
           a {
             text-decoration: none;
-            color: ${'black'};
+            color: ${TOMATO};
           }
         `}
       </style>

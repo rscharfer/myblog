@@ -4,14 +4,23 @@ import ReactMarkdown from "react-markdown";
 
 import Layout from "../../components/Layout";
 import CodeBlockRenderer from "../../components/CodeBlockRenderer";
+import { DARK_BLUE_TOMATO } from "../../color";
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   if (!frontmatter) return <></>;
 
   return (
     <Layout pageTitle={`${siteTitle} | ${frontmatter.title}`}>
+      <style jsx>
+        {`
+          a {
+            text-decoration: none;
+            color: ${DARK_BLUE_TOMATO}
+          }
+        `}
+      </style>
       <Link href="/">
-        <a>Back to post list</a>
+        <a> &#8592; Back to post list</a>
       </Link>
       <article>
         <h1>{frontmatter.title}</h1>
