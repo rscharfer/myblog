@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "./Header";
 
 import { DARK_GRAY } from "../color";
+import { GOLDEN_RATIO } from "../constants";
 
 export default function Layout({ children, pageTitle, ...props }) {
   return (
@@ -14,6 +15,7 @@ export default function Layout({ children, pageTitle, ...props }) {
         <style jsx global>{`
           html {
             font-size: 18px;
+            line-height: ${GOLDEN_RATIO};
             color: ${DARK_GRAY};
           }
           body {
@@ -22,10 +24,12 @@ export default function Layout({ children, pageTitle, ...props }) {
             margin: 0 auto;
           }
           h1 {
-            font-size: 2rem;
+            font-size: ${GOLDEN_RATIO * 2}rem;
+            line-height: 1.2;
           }
           h2 {
-            font-size: 1.5rem;
+            font-size: ${GOLDEN_RATIO}rem;
+            line-height: 1.2;
           }
           .content {
             padding: 1rem 0 0;
