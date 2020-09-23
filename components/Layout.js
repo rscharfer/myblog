@@ -27,6 +27,9 @@ export default function Layout({ children, pageTitle, ...props }) {
           h2 {
             font-size: 1.5rem;
           }
+          .content {
+            padding: 1rem 0 0;
+          }
         `}</style>
         <Header />
         <div className="content">{children}</div>
