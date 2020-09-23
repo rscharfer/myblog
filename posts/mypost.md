@@ -6,9 +6,6 @@ author: "Ryan Scharfer"
 There are a couple of conditional rendering patterns which I have recently learned about and which I am excited about using more of in the future. Here is a short description of each:
 
 ## Conditional Rendering with Higher Order Components
-
-<br/>
-
 Rather than performing the "do we even have data?" check in a component and rendering something completely different when we don't, we can let a higher order component take care of this scenario for us, and safely assume the data we need will always be there.
 
 So rather than a <code>List</code> component which looks like this...
