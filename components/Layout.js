@@ -3,7 +3,6 @@ import Header from "./Header";
 
 import { DARK_GRAY } from "../color";
 import { GOLDEN_RATIO } from "../constants";
-
 export default function Layout({ children, pageTitle, ...props }) {
   return (
     <>
@@ -36,7 +35,7 @@ export default function Layout({ children, pageTitle, ...props }) {
           }
         `}</style>
         <Header />
-        <div className="content">{children}</div>
+        <div className="content">{children}</div>,
       </section>
     </>
   );
