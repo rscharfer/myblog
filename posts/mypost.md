@@ -43,10 +43,10 @@ Higher order components take a React component and return a React component and 
 
 ## Conditional Rendering with a Switch Statement
 
-For a recent code challenge, I was under a lot of time pressure, and I discovered a way to conditionally render by using a switch statement inside of an immediately invoked function expression. I copied and pasted it into my code, and I have since taken the time to understand it. 😁  This is what it looks like..
+For a recent code challenge, I was under a lot of time pressure, and I discovered a way to conditionally render by using a switch statement inside of an immediately invoked function expression. I copied and pasted it into my code, and I have since taken the time to understand it. 😁 This is what it looks like..
 
 ```javascript
-export default function App() {
+function App() {
   const [view, setView] = React.useState("hello");
 
   return (
@@ -79,7 +79,7 @@ This definitely worked for my use case defining, but defining and calling a func
 Here is the **really** cool one. A colleague looked at what I sumbitted and suggested something way cooler to replace my conditional rendering using a switch statement getup. It is using using an emum pattern 😍. This is what that looks like:
 
 ```javascript
-export default function App() {
+function App() {
   const [view, setView] = React.useState("hello");
 
   return (
