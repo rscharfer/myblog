@@ -9,6 +9,13 @@ export default function Layout({ children, pageTitle, ...props }) {
         <title>{pageTitle}</title>
       </Head>
       <section className="layout">
+        <style jsx global>{`
+          body {
+            padding: 2rem;
+            max-width: 80%;
+            margin: 0 auto;
+          }
+        `}</style>
         <Header />
         <div className="content">{children}</div>
       </section>
