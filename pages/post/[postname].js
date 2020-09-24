@@ -5,7 +5,6 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../../components/Layout";
 import CodeBlockRenderer from "../../components/CustomRenderers/CodeBlockRenderer";
 import LinkRenderer from "../../components/CustomRenderers/LinkRenderer";
-import LinkReference from "../../components/CustomRenderers/LinkReference";
 import { DARK_BLUE_TOMATO } from "../../color";
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
