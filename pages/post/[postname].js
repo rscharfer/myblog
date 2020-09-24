@@ -35,6 +35,14 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
           />
         </div>
       </article>
+      <script
+        src="https://utteranc.es/client.js"
+        repo="rscharfer/myblog"
+        issue-term="pathname"
+        theme="github-light"
+        crossOrigin="anonymous"
+        async
+      ></script>
     </Layout>
   );
 }
