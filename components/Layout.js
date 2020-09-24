@@ -36,15 +36,15 @@ export default function Layout({ children, pageTitle, ...props }) {
         `}</style>
         <Header />
         <div className="content">{children}</div>
+        <script
+          src="https://utteranc.es/client.js"
+          repo="rscharfer/myblog"
+          issue-term="pathname"
+          theme="github-light"
+          crossOrigin="anonymous"
+          async
+        ></script>
       </section>
-      <script
-        src="https://utteranc.es/client.js"
-        repo="rscharfer/myblog"
-        issue-term="pathname"
-        theme="github-light"
-        crossOrigin="anonymous"
-        async
-      ></script>
     </>
   );
 }
