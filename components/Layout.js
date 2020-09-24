@@ -42,7 +42,6 @@ export default function Layout({ children, pageTitle, ...props }) {
           issue-term="pathname"
           theme="github-light"
           crossOrigin="anonymous"
-          async
         ></script>
       </section>
     </>
