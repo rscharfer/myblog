@@ -3,7 +3,9 @@ import matter from "gray-matter";
 import ReactMarkdown from "react-markdown";
 
 import Layout from "../../components/Layout";
-import CodeBlockRenderer from "../../components/CodeBlockRenderer";
+import CodeBlockRenderer from "../../components/CustomRenderers/CodeBlockRenderer";
+import LinkRenderer from "../../components/CustomRenderers/LinkRenderer";
+import LinkReference from "../../components/CustomRenderers/LinkReference";
 import { DARK_BLUE_TOMATO } from "../../color";
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
@@ -15,7 +17,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
         {`
           a {
             text-decoration: none;
-            color: ${DARK_BLUE_TOMATO}
+            color: ${DARK_BLUE_TOMATO};
           }
         `}
       </style>
@@ -28,6 +30,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
           <ReactMarkdown
             renderers={{
               code: CodeBlockRenderer,
+              link: LinkRenderer,
             }}
             source={markdownBody}
           />

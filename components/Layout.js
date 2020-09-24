@@ -35,7 +35,7 @@ export default function Layout({ children, pageTitle, ...props }) {
           }
         `}</style>
         <Header />
-        <div className="content">{children}</div>,
+        <div className="content">{children}</div>
       </section>
     </>
   );
