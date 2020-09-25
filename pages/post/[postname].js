@@ -9,7 +9,7 @@ import { DARK_BLUE_TOMATO } from "../../color";
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   if (!frontmatter) return <></>;
-  const commentContainer = React.useRef(null)
+  const commentContainer = React.useRef(null);
 
   React.useEffect(() => {
     let script = document.createElement("script");

@@ -24,12 +24,12 @@ export default function Layout({ children, pageTitle, ...props }) {
             margin: 0 auto;
           }
           h1 {
-            font-size: 1.6rem;
+            font-size: 2rem;
             font-weight: 700;
             line-height: 1.2;
           }
           h2 {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             line-height: 1.2;
           }
           .content {
@@ -39,6 +39,15 @@ export default function Layout({ children, pageTitle, ...props }) {
 
           .utterances {
             max-width: 1100px;
+          }
+
+          @media screen and (min-width: 800px) {
+            h1 {
+              font-size: 2.5rem;
+            }
+            h2 {
+              font-size: 1.5rem;
+            }
           }
         `}</style>
         <Header />
