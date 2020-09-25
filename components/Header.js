@@ -12,7 +12,7 @@ export default function Header() {
             font-weight: 700;
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-between;
             border-bottom: 1px solid ${DARK_GRAY};
           }
           a {
