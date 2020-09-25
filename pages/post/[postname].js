@@ -9,17 +9,17 @@ import { DARK_BLUE_TOMATO } from "../../color";
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   if (!frontmatter) return <></>;
+  const commentContainer = React.useRef(null)
 
   React.useEffect(() => {
     let script = document.createElement("script");
-    let anchor = document.getElementById("inject-comments-for-uterances");
     script.setAttribute("src", "https://utteranc.es/client.js");
     script.setAttribute("crossorigin", "anonymous");
     script.setAttribute("async", true);
     script.setAttribute("repo", "rscharfer/myblog");
     script.setAttribute("issue-term", "pathname");
     script.setAttribute("theme", "github-light");
-    anchor.appendChild(script);
+    commentContainer.current.appendChild(script);
   }, []);
 
   return (
@@ -47,7 +47,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
           />
         </div>
       </article>
-      <div id="inject-comments-for-uterances"></div>
+      <div ref={commentContainer}></div>
     </Layout>
   );
 }
