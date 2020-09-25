@@ -10,6 +10,18 @@ import { DARK_BLUE_TOMATO } from "../../color";
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   if (!frontmatter) return <></>;
 
+  React.useEffect(() => {
+    let script = document.createElement("script");
+    let anchor = document.getElementById("inject-comments-for-uterances");
+    script.setAttribute("src", "https://utteranc.es/client.js");
+    script.setAttribute("crossorigin", "anonymous");
+    script.setAttribute("async", true);
+    script.setAttribute("repo", "rscharfer/myblog");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    anchor.appendChild(script);
+  }, []);
+
   return (
     <Layout pageTitle={`${siteTitle} | ${frontmatter.title}`}>
       <style jsx>
@@ -35,14 +47,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
           />
         </div>
       </article>
-      <script
-        src="https://utteranc.es/client.js"
-        repo="rscharfer/myblog"
-        issue-term="pathname"
-        theme="github-light"
-        crossOrigin="anonymous"
-        async
-      ></script>
+      <div id="inject-comments-for-uterances"></div>
     </Layout>
   );
 }
