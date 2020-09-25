@@ -23,11 +23,12 @@ export default function Layout({ children, pageTitle, ...props }) {
             margin: 0 auto;
           }
           h1 {
-            font-size: ${GOLDEN_RATIO * 2}rem;
+            font-size: 1.6rem;
+            font-weight: 700;
             line-height: 1.2;
           }
           h2 {
-            font-size: ${GOLDEN_RATIO}rem;
+            font-size: 1.3rem;
             line-height: 1.2;
           }
           .content {
