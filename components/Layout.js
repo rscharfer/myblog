@@ -35,6 +35,10 @@ export default function Layout({ children, pageTitle, ...props }) {
             margin: 0 auto;
             padding: 1rem 0 0;
           }
+
+          .utterances {
+            max-width: 1100px;
+          }
         `}</style>
         <Header />
         <div className="content">{children}</div>
