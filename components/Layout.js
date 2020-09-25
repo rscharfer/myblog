@@ -19,7 +19,7 @@ export default function Layout({ children, pageTitle, ...props }) {
           }
           body {
             padding: 2rem;
-            max-width: 80%;
+            max-width: 1100px;
             margin: 0 auto;
           }
           h1 {
@@ -32,6 +32,7 @@ export default function Layout({ children, pageTitle, ...props }) {
             line-height: 1.2;
           }
           .content {
+            margin: 0 auto;
             padding: 1rem 0 0;
           }
         `}</style>
