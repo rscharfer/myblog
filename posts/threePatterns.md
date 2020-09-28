@@ -85,7 +85,13 @@ function App() {
       <button onClick={() => setView("hello")}>View 1</button>
       <button onClick={() => setView("bye")}>View 2</button>
       <button onClick={() => setView("fun")}>View 3</button>
-      {{ hello: <Hello />, bye: <Bye />, fun: <Fun /> }[view]}
+      {
+        {
+          hello: <Hello />,
+          bye: <Bye />,
+          fun: <Fun />,
+        }[view]
+      }
     </div>
   );
 }
