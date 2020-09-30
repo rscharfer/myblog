@@ -3,7 +3,7 @@ title: "Adding a third party script to a React app"
 author: "Ryan Scharfer"
 ---
 
-I recently wanted to add a third party script for a comments widgit to this blog, and I realized utilizing some of the conventional ways to add third-party scripts to React apps would not work. This was because the widgit's installation instructions required me to place the script tag not in the `<head/>` of the document, but in the `<body/>`, and at the exact location where I wanted to widget to be inserted, The script would then use `document.currentScript.insertAdjacentHTML` to insert a the widgit immediately after itself in the DOM. Pretty cool, but I wasn't sure where I would place the thing.
+I recently wanted to add a third party script for a comments widget to this blog, and I realized utilizing some of the conventional ways to add third-party scripts to React apps would not work. This was because the widget's installation instructions required me to place the script tag not in the `<head/>` of the document, but in the `<body/>`, and at the exact location where I wanted to widget to be inserted, The script would then use `document.currentScript.insertAdjacentHTML` to insert a the widget immediately after itself in the DOM. Pretty cool, but I wasn't sure where I would place the thing.
 
 Lacking any other ideas, I first tried placing the script tag directly in the returned JSX.
 
@@ -12,7 +12,7 @@ function Post() {
   return (
     <>
       <div>Post body....</div>
-      <script src="commentsWidgit.js"></script>
+      <script src="commentswidget.js"></script>
     </>
   );
 }
@@ -63,7 +63,7 @@ After some research, [I found out browsers will not execute scripts in script ta
 
 ## Why isn't the script tag removed from React on subsequent renders
 
-Between renders, React will only touch the DOM nodes it has to touch. If a node doesn't change between renders, then it won't touch it. And _as far as React knows_ the DOM node holding the widgit never changes. The script container starts as a empty `div` (according to the JSX) and remains an empty `div` (according to the JSX). For React, the React element tree is the single source of truth.
+Between renders, React will only touch the DOM nodes it has to touch. If a node doesn't change between renders, then it won't touch it. And _as far as React knows_ the DOM node holding the widget never changes. The script container starts as a empty `div` (according to the JSX) and remains an empty `div` (according to the JSX). For React, the React element tree is the single source of truth.
 
 So that is what I found out after a couple days of research. Hoped it helped!
 
