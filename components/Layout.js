@@ -13,7 +13,7 @@ export default function Layout({ children, pageTitle, ...props }) {
       <section className="layout">
         <style jsx global>{`
           * {
-            outline: 1px red sold
+            outline: 1px solid red
           }
           html {
             font-size: 18px;
