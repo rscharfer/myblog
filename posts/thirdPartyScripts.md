@@ -59,7 +59,7 @@ But then I was curious:
 
 ## What keeps browsers from executing a script in a script tag
 
-After some research, [I found out browsers will not execute scripts in script tag inserted into the DOM via `innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML#Security_considerations). (This is the reason why inserting a third-party-script with `dangerouslySetInnerHTML` doesn't work. You will see the script in the DOM, but it will be "inert".) And this is exactly how React renders script tags into the DOM. [Here is it in the source code.](https://github.com/facebook/react/blob/a08ae9f147a716520a089055e2dec8f5397a4b0f/packages/react-dom/src/client/ReactDOMComponent.js#L439)
+After some research, [I found out browsers will not execute scripts in script tag inserted into the DOM via innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML#Security_considerations). (This is the reason why inserting a third-party-script with `dangerouslySetInnerHTML` doesn't work. You will see the script in the DOM, but it will be "inert".) And this is exactly how React renders script tags into the DOM. [Here is it in the source code.](https://github.com/facebook/react/blob/a08ae9f147a716520a089055e2dec8f5397a4b0f/packages/react-dom/src/client/ReactDOMComponent.js#L439)
 
 ## Why isn't the script tag removed from React on subsequent renders
 

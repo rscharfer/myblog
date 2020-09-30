@@ -19,7 +19,8 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
     script.setAttribute("repo", "rscharfer/myblog");
     script.setAttribute("issue-term", "pathname");
     script.setAttribute("theme", "github-light");
-    commentContainer.current.appendChild(script);
+    commentContainer.current.append(script);
+    return () => script.remove();
   }, []);
 
   return (
