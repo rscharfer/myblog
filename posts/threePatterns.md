@@ -37,7 +37,7 @@ const withData = (needsToBeTruthyProp) => (Component) => (props) => {
 const ListWithData = withData("listItems")(List);
 ```
 
-Higher order components take a React component and return a React component and conventionally begin with the word "with". This is a signal to other developers that the function is a higher order component (HOC). In this case, if `listItems` is a missing or has a falsey value, the error message will be rendered.
+Higher order components take a React component and return a React component and conventionally begin with the word "with". This is a signal to other developers that the function is a higher order component (HOC). In this case, if `listItems` has a falsey value, the error message will be rendered.
 
 ## Conditional Rendering with a Switch Statement
 
@@ -70,11 +70,11 @@ function App() {
 }
 ```
 
-This definitely worked for my use case defining, but defining and calling a function within my return statement seemed like something that one could do without somehow.
+This definitely worked for my use case, but defining and calling a function within a return statement seemed a little verbose somehow.
 
 ## Conditional Rendering with an Enum Pattern
 
-Here is the **really** cool one. A colleague looked at what I sumbitted and suggested something way cooler to replace my conditional rendering using a switch statement getup. It is using using an emum pattern 😍. This is what that looks like:
+Here is the **really** cool one. A colleague looked at what I sumbitted and suggested something way cooler to replace the switch statement. It uses an emum pattern 😍. This is what that looks like:
 
 ```javascript
 function App() {
