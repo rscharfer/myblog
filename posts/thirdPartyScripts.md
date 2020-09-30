@@ -28,14 +28,13 @@ function ThirdPartyCodeExample() {
   const scriptContainer = React.useRef(null);
 
   React.useEffect(() => {
-    const container = scriptContainer.current;
     const script = document.createElement("script");
     // this can be any third party script
     script.src = "https://utteranc.es/client.js";
     script.integrity = "sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=";
     script.crossOrigin = "anonymous";
-    scriptContainer.current.appendChild(script);
-    return () => container.removeChild(script);
+    scriptContainer.current.append(script);
+    return () => script.remove();
   }, []);
 
   return (
