@@ -12,6 +12,9 @@ export default function Layout({ children, pageTitle, ...props }) {
       </Head>
       <section className="layout">
         <style jsx global>{`
+          * {
+            outline: 1px red sold
+          }
           html {
             font-size: 18px;
             line-height: ${GOLDEN_RATIO};
