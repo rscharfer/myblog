@@ -57,7 +57,7 @@ But then I was curious:
 
 - And why wasn't the script tag _removed_ by React on subsequent re-renders? It seems if React would compare the JSX to the DOM on subsequent re-renders, it would see there was a difference and remove the script tag again to smooth out those differences.
 
-## What keeps browsers from executing a script in a script tag
+## id=what_keeps_browsers What keeps browsers from executing a script in a script tag
 
 After some research, [I found out browsers will not execute scripts in script tags inserted into the DOM via innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML#Security_considerations). (This is the reason why inserting a third-party-script with `dangerouslySetInnerHTML` doesn't work. You will see the script in the DOM, but it will be "inert".) And this is exactly how React renders script tags into the DOM. [Here is it in the source code.](https://github.com/facebook/react/blob/a08ae9f147a716520a089055e2dec8f5397a4b0f/packages/react-dom/src/client/ReactDOMComponent.js#L439)
 

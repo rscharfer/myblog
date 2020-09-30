@@ -4,7 +4,6 @@ import Layout from "../components/Layout";
 import PostList from "../components/PostList";
 
 const Index = ({ title, description, posts, ...props }) => {
-  console.log('here are some posts', posts);
   return (
     <Layout pageTitle={title}>
       <h1 className="title">Welcome to my blog!</h1>

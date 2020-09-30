@@ -5,6 +5,8 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../../components/Layout";
 import CodeBlockRenderer from "../../components/CustomRenderers/CodeBlockRenderer";
 import LinkRenderer from "../../components/CustomRenderers/LinkRenderer";
+import InlineCodeRenderer from "../../components/CustomRenderers/InlineCodeRenderer";
+import HeadingRenderer from "../../components/CustomRenderers/HeadingRenderer";
 import { DARK_BLUE_TOMATO } from "../../color";
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
@@ -38,15 +40,15 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
       </Link>
       <article>
         <h1>{frontmatter.title}</h1>
-        <div>
-          <ReactMarkdown
-            renderers={{
-              code: CodeBlockRenderer,
-              link: LinkRenderer,
-            }}
-            source={markdownBody}
-          />
-        </div>
+        <ReactMarkdown
+          renderers={{
+            code: CodeBlockRenderer,
+            link: LinkRenderer,
+            inlineCode: InlineCodeRenderer,
+            heading: HeadingRenderer,
+          }}
+          source={markdownBody}
+        />
       </article>
       <div ref={commentContainer}></div>
     </Layout>
