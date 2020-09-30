@@ -23,7 +23,7 @@ export default function Layout({ children, pageTitle, ...props }) {
           body {
             padding: 2rem;
             max-width: 700px;
-            width: 90%;
+            width: 100%;
             margin: 0 auto;
           }
           h1 {
