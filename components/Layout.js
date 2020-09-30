@@ -12,6 +12,9 @@ export default function Layout({ children, pageTitle, ...props }) {
       </Head>
       <section className="layout">
         <style jsx global>{`
+          * {
+            box-sizing: border-box;
+          }
           html {
             font-size: 18px;
             line-height: ${GOLDEN_RATIO};
