@@ -26,7 +26,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   }, []);
 
   return (
-    <Layout pageTitle={`${siteTitle} | ${frontmatter.title}`}>
+    <Layout docTitle={`${siteTitle} | ${frontmatter.title}`}>
       <style jsx>
         {`
           a {
@@ -64,7 +64,7 @@ export async function getStaticProps({ ...ctx }) {
 
   return {
     props: {
-      siteTitle: config.title,
+      siteTitle: config.docTitle,
       frontmatter: data.data,
       markdownBody: data.content,
     },

@@ -3,12 +3,12 @@ import Header from "./Header";
 
 import { DARK_GRAY } from "../color";
 import { GOLDEN_RATIO } from "../constants";
-export default function Layout({ children, pageTitle, ...props }) {
+export default function Layout({ children, docTitle, ...props }) {
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>{pageTitle}</title>
+        <title>{docTitle}</title>
       </Head>
       <section className="layout">
         <style jsx global>{`

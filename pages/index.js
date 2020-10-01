@@ -3,9 +3,9 @@ import matter from "gray-matter";
 import Layout from "../components/Layout";
 import PostList from "../components/PostList";
 
-const Index = ({ title, description, posts, ...props }) => {
+const Index = ({ docTitle, description, posts, ...props }) => {
   return (
-    <Layout pageTitle={title}>
+    <Layout docTitle={docTitle}>
       <h1 className="title">Welcome to my blog!</h1>
       <p className="description">{description}</p>
       <main>
@@ -16,13 +16,21 @@ const Index = ({ title, description, posts, ...props }) => {
 };
 
 export async function getStaticProps() {
-  const configData = await import(`../siteconfig.json`);
+  // asynchronously load title and description of the blog
+  const {
+    default: { docTitle, description },
+  } = await import(`../siteconfig.json`);
 
-  const foo = (context) => {
+  const getParsedPosts = (context) => {
+    // context.keys() returns an array of paths to the files in given directory with given directory as current directory
+    // e.g. ['./thirdPartyScripts.md','./threePatterns.md']
     const keys = context.keys();
+    // use the context function to map the file paths to their contents
     const values = keys.map(context);
 
-    const data = keys.map((key, index) => {
+    // use another function to map each of the paths to
+    // an object containing the "slug" of the path as well its contents frontmatter and body
+    const parsedPosts = keys.map((key, index) => {
       let slug = key.replace(/^.*[\\\/]/, "").slice(0, -3);
       const value = values[index];
       const document = matter(value.default);
@@ -32,16 +40,17 @@ export async function getStaticProps() {
         slug,
       };
     });
-    return data;
+    // only return the posts which are "ready"
+    return parsedPosts.filter((post) => post.frontmatter.status === "ready");
   };
 
-  const posts = foo(require.context("../posts", true, /\.md$/));
+  const posts = getParsedPosts(require.context("../posts", true, /\.md$/));
 
   return {
     props: {
       posts,
-      title: configData.default.title,
-      description: configData.default.description,
+      docTitle,
+      description,
     },
   };
 }

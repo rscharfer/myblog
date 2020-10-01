@@ -1,19 +1,18 @@
 import React from "react";
 
 const HeadingRenderer = ({ level, children: [TextRenderer] }) => {
-  // a TextRenderer React element is the only child 
+  // a TextRenderer React element is the only child
   const headingText = TextRenderer.props.value;
 
   // this markdown...
   // ## id=what_keeps_browsers What keeps browsers from executing a script in a script tag
   // will be rendered to ...
   // <h2 id="what_keeps_browsers">What keeps browsers from executing a script in a script tag</h2>
-  
 
   // get the id "tag" if there is one
   const idRegEx = /^id=(.+?)\s/;
   // if there is a match, grab the first group, otherwise leave undefined
-  const id = headingText.match(idRegEx)?.[1]
+  const id = headingText.match(idRegEx)?.[1];
 
   // remove the id tag from the text
   const cleanedText = headingText.replace(idRegEx, "");

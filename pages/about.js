@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 
 const About = ({ title, description }) => (
-  <Layout pageTitle={`${title} | About`}>
+  <Layout docTitle={`${title} | About`}>
     <p className="description">{description} </p>
     <p>I live with my wife and two kids in Hamburg. 👨‍👨‍👧‍👦 </p>
   </Layout>
