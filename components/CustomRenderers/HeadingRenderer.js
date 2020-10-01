@@ -13,9 +13,7 @@ const HeadingRenderer = ({ level, children: [TextRenderer] }) => {
   // get the id "tag" if there is one
   const idRegEx = /^id=(.+?)\s/;
   // if there is a match, grab the first group, otherwise leave undefined
-  const id = headingText.match(idRegEx)
-    ? headingText.match(idRegEx)[1]
-    : undefined;
+  const id = headingText.match(idRegEx)?.[1]
 
   // remove the id tag from the text
   const cleanedText = headingText.replace(idRegEx, "");
@@ -23,6 +21,7 @@ const HeadingRenderer = ({ level, children: [TextRenderer] }) => {
 
   return React.createElement(hTag, { id }, cleanedText);
 };
+
 export default HeadingRenderer;
 
 /**
