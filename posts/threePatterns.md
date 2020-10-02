@@ -1,6 +1,6 @@
 ---
-title: "Three Conditional Rendering Patterns"
-status: "ready"
+title: Three Conditional Rendering Patterns
+status: ready
 ---
 
 There are three conditional rendering patterns which I have recently learned about and I am excited about using more of in the future. Two are cool and one is **really** cool. Here is a short description of each:

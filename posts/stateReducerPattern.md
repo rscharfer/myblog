@@ -1,74 +1,111 @@
 ---
-title: "State Reducer Pattern"
+title: State Reducer Pattern
 keywords:
   - patterns
   - React
   - Kent Dodds
 published: 10.01.2020
-status: "ready"
+status: ready
 ---
 
-Premise : an external entity X gives another entity Y control over its state. Y informs X how it wants X's state to change what an event Z occurs.
+The premise : A stateful component (or hook) has its own state by default, and its own way of updating it, but that component (or hook) gives the user of it the opportunity to override this behavior if it wants.
 
-Let's look at an example. Let's say there is an external entity, a custom hook called `useToggle`. `useToggle` uses `useReducer`. `useToggle` allows the users of it to customize how it makes changes to the state by accepting a reducer function from the user. It still defines the actions that can be disptached, but allows the user to define how state is modified by those actions (via this reducer function). In this case, the user wants to first get the state as it would look if it didn't provide a custom reducer function. (Kent Dodds calls this the "changes" object.) It then overrides some of the properties in the state (or "changes" object) if it deems necessary, usually based on what is going on in its own state or on what type of action it is.
+Let's look at an example. Let's say there is a custom hook called `usePointTotal`. By default, `usePointTotal` will react to events this way: if an `ADD_ONE` action is dispatched, the point total in the state will be increased by one. If an `ADD_FIVE` action is dispatched, the point total in the state will be increased by five. And a dispatched `ADD_TEN` action would do what you would expect it to do. 😉
+
+However, `usePointTotal` also gives its users the opportunity to override this behavior. Let's say a user wanted the point total to reset to 0 when it exceeds 100. It can do that by passing in its _own_ reducer. The customer reducer actually uses the default reducer first to get what the default reducer would return given the state and action, but overrides the return value in certain cases. And it's this state which is saved in memory somewhere and passed to the custom reducer (and by extension the default reducer it uses) that next time it is called.
+
+Here is what that looks like:
 
 ```javascript
-const defaultReducer = (state, action) => {
+const actionTypes = {
+  ADD_FIVE: "ADD_FIVE",
+  ADD_ONE: "ADD_ONE",
+  ADD_TEN: "ADD_TEN",
+};
+
+function defaultReducer(state, action) {
   switch (action.type) {
-    case "INCREMENT_BY_FIVE":
-      return { pointTotal: state.pointTotal + 5 };
-    case "INCREMENT":
-      return { pointTotal: state.pointTotal + 1 };
+    case actionTypes.ADD_ONE:
+      return { ...state, pointTotal: state.pointTotal + 1 };
+    case actionTypes.ADD_FIVE:
+      return { ...state, pointTotal: state.pointTotal + 5 };
+    case actionTypes.ADD_TEN:
+      return { ...state, pointTotal: state.pointTotal + 10 };
     default:
       return state;
   }
-};
+}
+
+// we have a custom hook here
+// which has some local state when called
+// it returns its state and methods to update its state
 
 function usePointTotal({ reducer = defaultReducer } = {}) {
+  // we are going to keep track of some state, which will be an object with the property "point total" on it.
   const [{ pointTotal }, dispatch] = React.useReducer(reducer, {
     pointTotal: 0,
   });
-  const incrementByFive = () => dispatch({ type: "INCREMENT_BY_FIVE" });
-  const increment = () => dispatch({ type: "INCREMENT" });
-  return [pointTotal, incrementByFive, increment];
+
+  const addTen = () => dispatch({ type: actionTypes.ADD_TEN });
+  const addOne = () => dispatch({ type: actionTypes.ADD_ONE });
+  const addFive = () => dispatch({ type: actionTypes.ADD_FIVE });
+
+  return {
+    addOne,
+    addFive,
+    addTen,
+    pointTotal,
+  };
 }
 
 export default function App() {
-  const [buttonClicks, setButtonClicks] = React.useState(0);
-
-  const [pointTotal, incrementByFive, increment] = usePointTotal({
+  const { pointTotal, addOne, addFive, addTen } = usePointTotal({
     reducer(state, action) {
-      let { pointTotal } = defaultReducer(state, action);
-      return buttonClicks > 5 ? { pointTotal: "DONE" } : { pointTotal };
+      const { pointTotal } = defaultReducer(state, action);
+      if (pointTotal > 100) {
+        return { pointTotal: 0 };
+      } else
+        return {
+          pointTotal,
+        };
     },
   });
   return (
     <div className="App">
-      <div>Point total {pointTotal}</div>
-      <div>Clicks {buttonClicks}</div>
+      <h1>Hello CodeSandbox</h1>
       <div>
         <button
           onClick={() => {
-            incrementByFive();
-            setButtonClicks(buttonClicks + 1);
+            addOne();
           }}
         >
-          Increment Points By 5
+          Add One
         </button>
       </div>
       <div>
         <button
           onClick={() => {
-            increment();
-            setButtonClicks(buttonClicks + 1);
+            addTen();
           }}
         >
-          Increment Points By 1
+          Add Ten
         </button>
+      </div>
+      <div>
+        <button
+          onClick={() => {
+            addFive();
+          }}
+        >
+          Add Five
+        </button>
+      </div>
+      <div>
+        Point total <span>{pointTotal}</span>
       </div>
     </div>
   );
 }
 ```
 
-It seems like this state reducer pattern, which allows users of entities to determine how the state in those entities will change in response to certain events is a huge violation of object orienting programming policy. In OOP, objects provide methods to others to call and the objects choose how they will respond to (and how their state will change in respose to) those events. In this case _the user_ determines how the state in the entity changes in response to a certain event. This isn't OOP, however.
+[Here is the code on CodePen.](https://codesandbox.io/dashboard/all/Blog?workspace=162522ac-f6a7-47f3-99c0-5d08f717afc3)
