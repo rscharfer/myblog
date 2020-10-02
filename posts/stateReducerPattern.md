@@ -1,5 +1,5 @@
 ---
-title: State Reducer Pattern
+title: State reducer pattern
 keywords:
   - patterns
   - React

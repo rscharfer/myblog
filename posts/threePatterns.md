@@ -1,5 +1,5 @@
 ---
-title: Three Conditional Rendering Patterns
+title: Three conditional rendering patterns
 status: ready
 ---
 
