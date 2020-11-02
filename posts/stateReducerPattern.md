@@ -1,11 +1,11 @@
 ---
-title: State reducer pattern
+title: Advanced React pattern - State reducer pattern
 keywords:
   - patterns
   - React
   - Kent Dodds
 published: 10.01.2020
-status: ready
+status: not
 ---
 
 The premise : A stateful component (or hook) has its own state by default, and its own way of updating it, but that component (or hook) gives the user of it the opportunity to override this behavior if it wants.
