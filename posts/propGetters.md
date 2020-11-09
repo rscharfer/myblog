@@ -1,5 +1,5 @@
 ---
-title: Epic React Pattern 3 - Prop Collections and Prop Getters
+title: Epic React Pattern 4 - Prop Collections and Prop Getters
 keywords:
   - React
   - Kent Dodds
