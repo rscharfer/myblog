@@ -1,11 +1,10 @@
 ---
 title: Epic React Pattern 2 - Compound Components
-keywords:
-  - React
-  - Kent Dodds
-  - advance React patterns
-published: 11.06.2020
-status: ready
+# keywords:
+#   - React
+#   - Kent Dodds
+#   - advance React patterns
+published: 2020.10.26
 ---
 
 

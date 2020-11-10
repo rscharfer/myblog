@@ -1,11 +1,10 @@
 ---
 title: Epic React Pattern 1 - Context module function
-keywords:
-  - React
-  - Kent Dodds
-  - advance React patterns
-published: 10.26.2020
-status: ready
+# keywords:
+#   - React
+#   - Kent Dodds
+#   - advance React patterns
+published: 2020.10.26
 ---
 
 Essentially, what Kent C. Dodds dubs the "context module pattern" is a combination of two things:

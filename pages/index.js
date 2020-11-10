@@ -3,6 +3,8 @@ import matter from "gray-matter";
 import Layout from "../components/Layout";
 import PostList from "../components/PostList";
 
+import { validateDate, latestFirst } from "../utils/publishDate.tsx";
+
 const Index = ({ docTitle, description, posts, ...props }) => {
   return (
     <Layout docTitle={docTitle}>
@@ -41,7 +43,14 @@ export async function getStaticProps() {
       };
     });
     // only return the posts which are "ready"
-    return parsedPosts.filter((post) => post.frontmatter.status === "ready");
+    return parsedPosts
+      .filter((post) => Boolean(post.frontmatter.published))
+      .sort(function (post1, post2) {
+        return latestFirst(
+          validateDate(post1.frontmatter.published),
+          validateDate(post2.frontmatter.published)
+        );
+      });
   };
 
   const posts = getParsedPosts(require.context("../posts", true, /\.md$/));

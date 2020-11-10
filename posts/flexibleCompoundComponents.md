@@ -1,11 +1,10 @@
 ---
 title: Epic React Pattern 3 - Flexible Compound Components
-keywords:
-  - React
-  - Kent Dodds
-  - advance React patterns
-published: 11.09.2020
-status: ready
+# keywords:
+#   - React
+#   - Kent Dodds
+#   - advance React patterns
+published: 2020.11.08
 ---
 
 ## What is weakness of making "compound component"s with `React.cloneElement`
