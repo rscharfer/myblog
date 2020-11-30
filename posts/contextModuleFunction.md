@@ -23,7 +23,7 @@ Essentially, what Kent C. Dodds dubs the "context module pattern" is a combinati
   };
   ```
 
-- a helper exported from the "context module". Although there is no helper passed from the provider when you use this pattern, you can still (and are encouraged to) use helpers.  The context module is the module is where you might define the context and define the provider above. In contrast to a helper function provided by the context provider, an `export`ed/`import`ed function can be lazily loaded on an as-needed basis, providing a performance gain. The helper function takes the naked updater as an argument.
+- a helper exported from the "context module". Although there is no helper passed from the provider when you use this pattern, you can still (and are encouraged to) use helpers.  The context module is the module is where you might create the context and define the provider above. In contrast to a helper function provided by the context provider, an `export`ed/`import`ed function from the _context module_ can be lazily loaded on an as-needed basis, providing a performance gain. The helper function takes the naked updater as an argument.
 
 ```javascript
 export async function updateUser(dispatch, user, updates) {
@@ -43,7 +43,7 @@ export async function updateUser(dispatch, user, updates) {
 
 1. Ultimate flexibility as the consumer has access to the 'naked' updater. It can, for example, dispatch any variety of actions with the `dispatch` function if it wishes to.
 
-2. You can still provide helpers which ease the burden on the user. A helper which dispatches a sequence of action objects would be an example.
+2. You can still provide helpers which ease the burden on the user. A helper which dispatches a sequence of actions would be an example.
 
 3. Because the helpers are imported as needed, they can be loaded on an as-needed basis via code-splitting.
 
