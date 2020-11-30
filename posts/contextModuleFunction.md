@@ -39,7 +39,7 @@ export async function updateUser(dispatch, user, updates) {
 }
 ```
 
-## What is good about this pattern
+## What is good about this pattern?
 
 1. Ultimate flexibility as the consumer has access to the 'naked' updater. It can, for example, dispatch any variety of actions with the `dispatch` function if it wishes to.
 
@@ -49,14 +49,14 @@ export async function updateUser(dispatch, user, updates) {
 
 4. React knows the updaters such as those returned as the second item in the arrays returned from `useReducer` and `useState` do not change, so there is no need to memoize them.
 
-## What is not so good about this pattern
+## What is not so good about this pattern?
 
 1. More flexibility is not always something you want. It may be easier on the user if you restrict what the user can do with the updater. This can be done by passing down helpers such as `increment` via the provider, and not the naked updater function.
 
 ---
 [The context module pattern on Code Sandbox](https://codesandbox.io/s/context-module-function-8z83p)
 
-## How you can enhance this pattern
+## How you can enhance this pattern?
 
 You can pass the updater and the actual state into two different providers.  That one the user of one does not have to subscribe to other.  For example, if the component just subscribes to the updater function, it will not be rerendered just because the state part of the context value changes. 
 

@@ -7,7 +7,7 @@ title: Epic React Pattern 3 - Flexible Compound Components
 published: 2020.11.08
 ---
 
-## What downside is there making compound components with React.cloneElement
+## What downside is there making compound components with React.cloneElement?
 
 The "clone element and add props to the clone" method of sharing state with the child elements becomes cumbersome if you want to share state with "grandchildren" and descendents even further down the React element tree. And if one of the children is a built-in React element, such as `div`, you have to remember there is a restricted set of "props" you can add to it; you can only add props which are valid attributes of DOM elements.
 
@@ -32,7 +32,7 @@ export default function App() {
 }
 ```
 
-## What alternatives are there to React.cloneElement if I want to "covertly" share state
+## What alternatives are there to React.cloneElement if I want to "covertly" share state?
 
 You can share state via a React context. In this case, you would have to make sure that the children which need access to this state use `React.useContext` either directly or indirectly. Using this technique, ancestors several layers deep will have access to the state provided by the parent component.
 
