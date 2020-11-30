@@ -65,7 +65,7 @@ const [coolNumber, setCoolNumber] = useState(calculateCoolNumber);
 
 ```
 
-When you pass a function into `useState`, the function is defined and saved into memory on every render, but it is only called in the initial render and the value created on the initial render, which is now in memory, is returned.
+When you pass a function into `useState`, the function is defined and saved into memory on every render, but it is only called on the initial render and the value created, which is now in memory, is returned (but not used!).
 
 ```javascript
 function App() {
