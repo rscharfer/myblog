@@ -20,7 +20,7 @@ export default function PostList({ posts }) {
         {posts &&
           posts.map((post) => (
             <li key={post.slug}>
-              <Link href={{ pathname: `/post/${post.slug}` }}>
+              <Link legacyBehavior href={{ pathname: `/post/${post.slug}` }}>
                 <a>{post.frontmatter.title}</a>
               </Link>
               <PublishedDate date={post.frontmatter.published} />

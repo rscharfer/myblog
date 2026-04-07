@@ -35,7 +35,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
           }
         `}
       </style>
-      <Link href="/">
+      <Link legacyBehavior href="/">
         <a> &#8592; Back to post list</a>
       </Link>
       <article>

@@ -23,10 +23,10 @@ export default function Header() {
       </style>
       <header className="header">
         <nav className="nav">
-          <Link href="/">
+          <Link legacyBehavior href="/">
             <a>My Blog</a>
           </Link>
-          <Link href="/about">
+          <Link legacyBehavior href="/about">
             <a>About</a>
           </Link>
         </nav>
