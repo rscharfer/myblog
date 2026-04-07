@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import matter from "gray-matter";
 import ReactMarkdown from "react-markdown";
@@ -5,15 +6,14 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../../components/Layout";
 import CodeBlockRenderer from "../../components/CustomRenderers/CodeBlockRenderer";
 import LinkRenderer from "../../components/CustomRenderers/LinkRenderer";
-import InlineCodeRenderer from "../../components/CustomRenderers/InlineCodeRenderer";
 import HeadingRenderer from "../../components/CustomRenderers/HeadingRenderer";
 import { DARK_BLUE_TOMATO } from "../../color";
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   if (!frontmatter) return <></>;
-  const commentContainer = React.useRef(null);
+  const commentContainer = useRef(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let script = document.createElement("script");
     script.setAttribute("src", "https://utteranc.es/client.js");
     script.setAttribute("crossorigin", "anonymous");
@@ -41,14 +41,19 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
       <article>
         <h1>{frontmatter.title}</h1>
         <ReactMarkdown
-          renderers={{
+          components={{
             code: CodeBlockRenderer,
-            link: LinkRenderer,
-            inlineCode: InlineCodeRenderer,
-            heading: HeadingRenderer,
+            a: LinkRenderer,
+            h1: HeadingRenderer,
+            h2: HeadingRenderer,
+            h3: HeadingRenderer,
+            h4: HeadingRenderer,
+            h5: HeadingRenderer,
+            h6: HeadingRenderer,
           }}
-          source={markdownBody}
-        />
+        >
+          {markdownBody}
+        </ReactMarkdown>
       </article>
       <div ref={commentContainer}></div>
     </Layout>
