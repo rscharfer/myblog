@@ -58,6 +58,6 @@ export async function updateUser(dispatch, user, updates) {
 
 ## How you can enhance this pattern?
 
-You can pass the updater and the actual state into two different providers.  That one the user of one does not have to subscribe to other.  For example, if the component just subscribes to the updater function, it will not be rerendered just because the state part of the context value changes. 
+You can pass the updater and the actual state into two different providers.  That way the user of one does not have to subscribe to the other.  For example, if the component just subscribes to the updater function, it will not be rerendered just because the state part of the context value changes. 
 
 [Enhanced pattern on Code Sandbox](https://codesandbox.io/s/two-providers-for-state-and-state-updater-yu3sn)

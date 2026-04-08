@@ -1,5 +1,5 @@
 ---
-title: (React 19) Compound Comoponents Pattern
+title: (React 19) Compound Components Pattern
 # keywords:
 #   - React
 #   - Kent C. Dodds
@@ -16,7 +16,7 @@ You can think of compound components as groups of components which cannot live w
 
 - the parent component shares state _implicitly_ with its children components
 
-## How do you implement a compount component?
+## How do you implement a compound component?
 
 You first create a root component which wraps its children in a context provider.  Via the value prop, the root component can share state and ways to manipuate that state with its children.  Via `use` the children component can consume the state and ways to manipulate that state provided by the parent and act accordingly.
 

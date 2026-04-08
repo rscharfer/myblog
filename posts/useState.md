@@ -7,7 +7,7 @@ published: 2020.10.18
 
 ---
 
-When you initialize `useState` with a prop, you have to remember that all you are doing is _initializing_ the state with the prop. I was working on a project recently, and I had forgotten this fact, and I was wondering why the state of our component was not remaining in sync with prop changes. But of course this is silly because if you want a piece of state to remain in sync with a prop, you would probably just use the prop to begin with and not bother creating creating state in the compomnent that tracks the prop changes. Once a component creates a piece of state, it is not meant to be overridden from a prop coming in from the outside; the state is meant to be completely controlled by the component.
+When you initialize `useState` with a prop, you have to remember that all you are doing is _initializing_ the state with the prop. I was working on a project recently, and I had forgotten this fact, and I was wondering why the state of our component was not remaining in sync with prop changes. But of course this is silly because if you want a piece of state to remain in sync with a prop, you would probably just use the prop to begin with and not bother creating state in the component that tracks the prop changes. Once a component creates a piece of state, it is not meant to be overridden from a prop coming in from the outside; the state is meant to be completely controlled by the component.
 
 ```javascript
 function App() {
@@ -34,7 +34,7 @@ function CounterDisplay({ parentCounterVal }) {
 }
 
 function SmarterCounterDisplay({ parentCounterVal }) {
-  // if you something to stay in sync with the props, use the props directly
+  // if you want something to stay in sync with the props, use the props directly
   return (
     <>
       <h1 style={{ color: "tomato" }}>{parentCounterVal} </h1>

@@ -74,7 +74,7 @@ This definitely worked for my use case, but defining and calling a function with
 
 ## Conditional Rendering with an Enum Pattern
 
-Here is the **really** cool one. A colleague looked at what I sumbitted and suggested something way cooler to replace the switch statement. It uses an emum pattern 😍. This is what that looks like:
+Here is the **really** cool one. A colleague looked at what I submitted and suggested something way cooler to replace the switch statement. It uses an enum pattern 😍. This is what that looks like:
 
 ```javascript
 function App() {

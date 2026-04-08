@@ -1,17 +1,31 @@
 import matter from "gray-matter";
+// get matter from gray-matter
 
 import Layout from "../components/Layout";
+// get the layout component which seems to accept any amount of children 
 import PostList from "../components/PostList";
 
 import { validateDate, latestFirst } from "../utils/publishDate.tsx";
 
 const Index = ({ docTitle, description, posts, ...props }) => {
+  const postsByYear = new Map();
+  for (let post of posts) {
+    const postYear = post.frontmatter.published.match(/^\d{4}/)[0];
+    const yearsPosts = postsByYear.get(postYear);
+    postsByYear.set(postYear, yearsPosts? [...yearsPosts, post]: [post])
+  }
+
+
+
   return (
     <Layout docTitle={docTitle}>
       <h1 className="title">Welcome to my blog!</h1>
       <p className="description">{description}</p>
       <main>
-        <PostList posts={posts} />
+        {Array.from(postsByYear).map(([year, posts]) => {
+
+        return <PostList key={year} year={year} posts={posts} />
+        })}
       </main>
     </Layout>
   );
