@@ -1,5 +1,5 @@
 ---
-title: Epic React Pattern 2 - Compound Components (Updated)
+title: (React 19): Compound Comoponents Pattern
 # keywords:
 #   - React
 #   - Kent C. Dodds
