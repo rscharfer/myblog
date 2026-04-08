@@ -1,5 +1,5 @@
 ---
-title: (React 19): Compound Comoponents Pattern
+title: (React 19) Compound Comoponents Pattern
 # keywords:
 #   - React
 #   - Kent C. Dodds
