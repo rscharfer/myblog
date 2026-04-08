@@ -11,7 +11,7 @@ The premise : A stateful component (or hook) has its own state by default, and i
 
 Let's look at an example. Let's say there is a custom hook called `usePointTotal`. By default, `usePointTotal` will react to events this way: if an `ADD_ONE` action is dispatched, the point total in the state will be increased by one. If an `ADD_FIVE` action is dispatched, the point total in the state will be increased by five. And a dispatched `ADD_TEN` action will do what you expect it to do. 😉
 
-However, `usePointTotal` also gives its users the opportunity to override this behavior. Let's say a user wanted the point total to reset to 0 when it exceeds 100 in addition to what was described aboveg. It can do that by passing in its _own_ reducer. The customer reducer actually uses the default reducer first to get what the default reducer would return given the state and action, but overrides the return value in certain cases.
+However, `usePointTotal` also gives its users the opportunity to override this behavior. Let's say a user wanted the point total to reset to 0 when it exceeds 100 in addition to what was described above. It can do that by passing in its _own_ reducer. The customer reducer actually uses the default reducer first to get what the default reducer would return given the state and action, but overrides the return value in certain cases.
 
 Here is what that looks like:
 
@@ -107,4 +107,4 @@ export default function App() {
 }
 ```
 
-[Here is the code on CodePen.](https://codesandbox.io/dashboard/all/Blog?workspace=162522ac-f6a7-47f3-99c0-5d08f717afc3)
+[Here is the code on CodePen.](https://codesandbox.io/p/sandbox/blog-state-reducer-pattern-eyrsc)
