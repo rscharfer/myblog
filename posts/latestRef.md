@@ -90,8 +90,8 @@ This problem illustrated in use case #2 can actually also be solved by [useEffec
 ## In summary
 
 Two use cases where the latest ref pattern could be beneficial are:
-a. an async event handler needs access to the latest state / props i.e. use case #1
-b. a value used in your use effect is causing re-synchronization of that effect, and that is not a good thing.  i.e. use case #2.  The [useEffectEvent](https://react.dev/reference/react/useEffectEvent) hook can now help us with this. 
+* an async event handler needs access to the latest state / props i.e. use case #1
+* a value used in your use effect is causing re-synchronization of that effect, and that is not a good thing.  i.e. use case #2.  The [useEffectEvent](https://react.dev/reference/react/useEffectEvent) hook can now help us with this. 
 
 
 
