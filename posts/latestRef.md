@@ -39,6 +39,47 @@ Instead of having `summonHelp` grab x and y from its lexical scope, have it grab
 
 [Sandbox Link](https://codesandbox.io/p/sandbox/latest-ref-solution-d3gzg2) 
 
+## Can't we do this with useEffectEvent
+
+Some use this pattern remove a dependency for an effect that is causing the entire effect to re-synchronize when its value changes, something you do not want to happen.
+
+So if increment is updated with a button and you need to know its value to set the count, you may be forced by the linter to add it as a dependency, which makes sense too because you want the interval callback to change to reflect the new increment. Problem is you do not want the interval to be cleared and reset because that means hammering on the increment button would have the effect of stalling the counter. 
+
+```js
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + increment);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, [increment]);
+
+```
+
+This is where using the ref pattern could potentially help.
+
+```js
+
+  const incrementRef = useRef(increment);
+  
+  useEffect(() => {
+    incrementRef.current = increment
+  })
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + incrementRef.current);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+
+```
+
+No. useEffectEvent helps you remove references from your effect when you do not want changes in their value to re-synchronize your effect. We do not have that problem here.
+
 ## In a nutshell...
 
 If you have an async function which needs access to the latest state i.e. not the state in its lexical scope, you can save that state to a ref either in `useEffect` or `useLayoutEffect`. 
