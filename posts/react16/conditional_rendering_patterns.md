@@ -1,5 +1,5 @@
 ---
-title: Three conditional rendering patterns
+title: React 16 - Conditional rendering patterns
 published: 2020.10.18
 ---
 

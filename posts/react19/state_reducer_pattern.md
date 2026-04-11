@@ -1,5 +1,5 @@
 ---
-title: (React 19) State Reducer Pattern
+title: React 19 - State Reducer Pattern
 # keywords:
 #   - React
 #   - Kent Dodds

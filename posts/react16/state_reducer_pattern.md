@@ -1,5 +1,5 @@
 ---
-title: Epic React Pattern 5 - State Reducer
+title: React 16 - State Reducer Pattern
 # keywords:
 #   - patterns
 #   - React

@@ -1,5 +1,5 @@
 ---
-title: useState and props
+title: React 16 - useState and props
 # keywords:
 #   - React
 #   - Kent Dodds

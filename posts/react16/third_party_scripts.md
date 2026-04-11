@@ -1,5 +1,5 @@
 ---
-title: Adding a third party script to a React app
+title: React 16 - Adding a third party script to a React app
 published: 2020.10.18
 ---
 

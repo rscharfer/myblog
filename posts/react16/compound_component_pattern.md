@@ -1,5 +1,5 @@
 ---
-title: Epic React Pattern 2 - Compound Components
+title: React 16 - Compound Component Pattern
 # keywords:
 #   - React
 #   - Kent Dodds

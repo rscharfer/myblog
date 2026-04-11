@@ -1,5 +1,5 @@
 ---
-title: (React 19) Latest Ref Pattern
+title: React 19 - Latest Ref Pattern
 # keywords:
 #   - React
 #   - Kent C. Dodds

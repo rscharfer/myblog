@@ -1,5 +1,5 @@
 ---
-title: Epic React Pattern 1 - Context module function
+title: React 16 - Context module pattern
 # keywords:
 #   - React
 #   - Kent Dodds

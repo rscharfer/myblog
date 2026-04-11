@@ -1,5 +1,5 @@
 ---
-title: Epic React Pattern 3 - Flexible Compound Components
+title: React 16 - Flexible Compound Components
 # keywords:
 #   - React
 #   - Kent Dodds

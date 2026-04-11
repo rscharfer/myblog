@@ -1,5 +1,5 @@
 ---
-title: Epic React Pattern 4 - Prop Collections and Prop Getters
+title: React 16 - Prop Getter Pattern
 # keywords:
 #   - React
 #   - Kent Dodds

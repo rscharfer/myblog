@@ -7,7 +7,7 @@ import PostList from "../components/PostList";
 
 import { validateDate, latestFirst } from "../utils/publishDate.tsx";
 
-const Index = ({ docTitle, description, posts, ...props }) => {
+const Index = ({ docTitle, description, posts }) => {
   const postsByYear = new Map();
   for (let post of posts) {
     const postYear = post.frontmatter.published.match(/^\d{4}/)[0];
