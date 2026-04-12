@@ -47,7 +47,7 @@ export async function getStaticProps() {
     // use another function to map each of the paths to
     // an object containing the "slug" of the path as well its contents frontmatter and body
     const parsedPosts = keys.map((key, index) => {
-      let slug = key.replace(/^.*[\\\/]/, "").slice(0, -3);
+      let slug = key.replace(/^\.\//, "").replace(/\.md$/, "");
       const value = values[index];
       const document = matter(value.default);
       return {

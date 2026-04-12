@@ -60,12 +60,10 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   );
 }
 
-export async function getStaticProps({ ...ctx }) {
-  const { postname } = ctx.params;
-
-  const folder = postname.match(/^(.*?)_/)[1]
-
-  const content = await import(`../../posts/${folder}/${postname}.md`);
+export async function getStaticProps({ params }) {
+  const { slug } = params;
+  const filePath = slug.join("/");
+  const content = await import(`../../posts/${filePath}.md`);
   const config = await import(`../../siteconfig.json`);
   const data = matter(content.default);
 
@@ -79,17 +77,13 @@ export async function getStaticProps({ ...ctx }) {
 }
 
 export async function getStaticPaths() {
-  const blogSlugs = ((context) => {
-    const keys = context.keys();
-    const data = keys.map((key, index) => {
-      let slug = key.replace(/^.*[\\\/]/, "").slice(0, -3);
-
-      return slug;
+  const paths = ((context) => {
+    return context.keys().map((key) => {
+      // key is like './react19/latest_ref_pattern.md'
+      const slug = key.replace(/^\.\//, "").replace(/\.md$/, "").split("/");
+      return { params: { slug } };
     });
-    return data;
   })(require.context("../../posts", true, /\.md$/));
-
-  const paths = blogSlugs.map((slug) => `/post/${slug}`);
 
   return {
     paths,
