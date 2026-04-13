@@ -1,13 +1,40 @@
 ---
-title: React 16 - Prop Getter Pattern
+title: Use prop collections to pass on aria attributes
 published: November 9, 2020
-subtitle: here is the subtitle
+subtitle: Package up the props which always need to be passed to a component in a hook.
 ---
 
 
 ## Why use them?
 
-Some hooks are used to build UI. If you are building one of these hooks for others, you may want to use "prop collections" or "prop getters" to make it easy to automatically add important properties to the UI, such as event handlers and `aria` attributes used for accessibility.
+Sometimes a set of properties needs to be passed to a component which you do not necessarily need to customize all of the time, such as aria props. One way to make this easy on yourself is to a write a hook that can always provided the "fixed" properties - i.e. a property colleciton -- and you spread the return value from that hook into your component.
+
+```javascript
+function useToggle() {
+	const [on, setOn] = useState(false)
+	const toggle = () => setOn(!on)
+
+	return {
+		on,
+		toggle,
+		togglerProps: {
+			'aria-checked': on,
+			onClick: toggle,
+		},
+	}
+}
+
+function App() {
+	const { on, togglerProps } = useToggle()
+	return (
+        <button aria-label="custom-button" {...togglerProps}>
+            {on ? 'on' : 'off'}
+        </button>
+
+	)
+}
+```
+
 
 ## Where can I find these in the "real world"?
 
