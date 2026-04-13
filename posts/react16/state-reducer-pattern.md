@@ -1,7 +1,7 @@
 ---
-title: React 16 - State Reducer Pattern
+title: Control a child components inner state
 published: November 10, 2020
-subtitle: here is the subtitle
+subtitle: This works if you are using the state reducer pattern. 
 ---
 
 The premise : A stateful component (or hook) has its own state by default, and its own way of updating it, but that component (or hook) gives the user of it the opportunity to override this behavior if it wants.
