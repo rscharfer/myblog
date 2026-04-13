@@ -1,7 +1,7 @@
 ---
-title: React 19 - Compound Components Pattern
+title: Using React context to implicitly share state in compound components
 published: April 7, 2026
-subtitle: here is the subtitle
+subtitle: Fun fact{:} This was previously accomplished with React.cloneElement
 ---
 
 

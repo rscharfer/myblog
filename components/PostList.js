@@ -43,7 +43,7 @@ export default function PostList({ posts }) {
             }}href={`/post/${post.slug}`}>
               <div className="title">{post.frontmatter.title}</div>
               <div className="date">{post.frontmatter.published}</div>
-              <div className="subtitle">{post.frontmatter.subtitle}</div>
+              <div className="subtitle">{post.frontmatter.subtitle.replace("{:}", ":")}</div>
             </Link>
           </div>
         ))}

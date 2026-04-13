@@ -1,7 +1,7 @@
 ---
-title: React 19 - Latest Ref Pattern
+title: Get the latest props in an async click handler by using "latest ref" pattern
 published: April 7, 2026
-subtitle: here is the subtitle
+subtitle: Closure in Javascript makes this a challenge otherwise.
 ---
 
 

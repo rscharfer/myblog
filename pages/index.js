@@ -30,20 +30,14 @@ const Index = ({ docTitle, posts }) => {
 };
 
 export async function getStaticProps() {
-  // asynchronously load title and description of the blog
   const {
     default: { docTitle, description },
   } = await import(`../siteconfig.json`);
 
   const getParsedPosts = (context) => {
-    // context.keys() returns an array of paths to the files in given directory with given directory as current directory
-    // e.g. ['./thirdPartyScripts.md','./threePatterns.md']
     const keys = context.keys();
-    // use the context function to map the file paths to their contents
     const values = keys.map(context);
 
-    // use another function to map each of the paths to
-    // an object containing the "slug" of the path as well its contents frontmatter and body
     const parsedPosts = keys.map((key, index) => {
       let slug = key.replace(/^\.\//, "").replace(/\.md$/, "");
       const value = values[index];
@@ -54,7 +48,6 @@ export async function getStaticProps() {
         slug,
       };
     });
-    // only return the posts which are "ready"
     return parsedPosts
       .filter((post) => Boolean(post.frontmatter.published))
       .sort(function (post1, post2) {
