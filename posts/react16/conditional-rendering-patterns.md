@@ -1,6 +1,7 @@
 ---
-title: React 16 - Conditional rendering patterns
-published: 2020.10.18
+title: Conditionally rendering JSX
+published: October 18, 2020
+subtitle: Some conditional rendering tools to add to your toolbox.
 ---
 
 There are three conditional rendering patterns which I have recently learned about and I am excited about using more of in the future. Two are cool and one is **really** cool. Here is a short description of each:

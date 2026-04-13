@@ -1,10 +1,7 @@
 ---
 title: React 16 - Prop Getter Pattern
-# keywords:
-#   - React
-#   - Kent Dodds
-#   - advance React patterns
-published: 2020.11.09
+published: November 9, 2020
+subtitle: here is the subtitle
 ---
 
 

@@ -1,9 +1,7 @@
 ---
-title: React 16 - useState and props
-# keywords:
-#   - React
-#   - Kent Dodds
-published: 2020.10.18
+title: Use a prop, not another piece of state
+published: October 18, 2020
+subtitle: The argument passed to useState is only used once.
 
 ---
 

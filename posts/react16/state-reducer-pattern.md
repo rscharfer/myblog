@@ -1,10 +1,7 @@
 ---
 title: React 16 - State Reducer Pattern
-# keywords:
-#   - patterns
-#   - React
-#   - Kent Dodds
-published: 2020.11.10
+published: November 10, 2020
+subtitle: here is the subtitle
 ---
 
 The premise : A stateful component (or hook) has its own state by default, and its own way of updating it, but that component (or hook) gives the user of it the opportunity to override this behavior if it wants.

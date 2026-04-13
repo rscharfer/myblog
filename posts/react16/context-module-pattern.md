@@ -1,10 +1,7 @@
 ---
-title: React 16 - Context module pattern
-# keywords:
-#   - React
-#   - Kent Dodds
-#   - advance React patterns
-published: 2020.10.26
+title: Export helpers from a "context module"
+published: October 26, 2020
+subtitle: Rather than passing helpers down in context value, exporting them separately could have readability and performance advantages. 
 ---
 
 Essentially, what Kent C. Dodds dubs the "context module pattern" is a combination of two things:

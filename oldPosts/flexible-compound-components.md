@@ -1,10 +1,7 @@
 ---
 title: React 16 - Flexible Compound Components
-# keywords:
-#   - React
-#   - Kent Dodds
-#   - advance React patterns
-published: 2020.11.08
+published: November 8, 2020
+subtitle: here is the subtitle
 ---
 
 ## What downside is there making compound components with React.cloneElement?

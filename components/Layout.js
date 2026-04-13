@@ -19,6 +19,7 @@ export default function Layout({ children, docTitle, ...props }) {
             font-size: 18px;
             line-height: ${GOLDEN_RATIO};
             color: ${DARK_GRAY};
+            font-family: Lato;
           }
           body {
             padding: 2rem;
@@ -37,7 +38,7 @@ export default function Layout({ children, docTitle, ...props }) {
           }
           .content {
             margin: 0 auto;
-            padding: 1rem 0 0;
+            padding: 1.5rem 0 0;
           }
 
           .utterances {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { TOMATO, DARK_BLUE_TOMATO } from "../color";
+import { TOMATO, DARK_GRAY } from "../color";
 
 export default function PostList({ posts }) {
   if (posts === "undefined") return null;
@@ -9,40 +9,44 @@ export default function PostList({ posts }) {
     <div>
       <style jsx>
         {`
-          a {
-            text-decoration: none;
+          .entry {
+            margin-bottom: 2.5rem;
+          }
+          .title {
+            font-family: var(--font-montserrat);
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
             color: ${TOMATO};
+           
+          }
+          .date {
+            font-family: var(--font-lato);
+            font-size: 0.875rem;
+            color: ${DARK_GRAY};
+          }
+          .subtitle {
+            font-family: var(--font-lato);
+            font-size: 1.125rem;
+            color: ${DARK_GRAY};
           }
         `}
       </style>
-      {!posts && <div>No posts!! </div>}
-      <ul>
-        {posts &&
-          posts.map((post) => (
-            <li key={post.slug}>
-              <Link legacyBehavior href={{ pathname: `/post/${post.slug}` }}>
-                <a>{post.frontmatter.title}</a>
-              </Link>
-              <PublishedDate date={post.frontmatter.published} />
-            </li>
-          ))}
-      </ul>
+      {posts &&
+        posts.map((post) => (
+          <div key={post.slug} className="entry">
+            <Link style={{
+              textDecoration: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+           
+            }}href={`/post/${post.slug}`}>
+              <div className="title">{post.frontmatter.title}</div>
+              <div className="date">{post.frontmatter.published}</div>
+              <div className="subtitle">{post.frontmatter.subtitle}</div>
+            </Link>
+          </div>
+        ))}
     </div>
-  );
-}
-
-function PublishedDate({ date }) {
-  return (
-    <span
-      style={{
-        color: TOMATO,
-        fontStyle: "italic",
-        display: "inline-block",
-        padding: ".5rem",
-      }}
-    >
-      {" "}
-      (<strong>{date}</strong>)
-    </span>
   );
 }

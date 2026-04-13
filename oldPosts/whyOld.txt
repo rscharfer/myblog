@@ -1,0 +1,1 @@
+flexible-compount-components discusses a parent sharing state with children via React context, which is essentially the same blog post as the compound-component-pattern from React 19 

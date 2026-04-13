@@ -1,45 +1,26 @@
 // validate post date with helpful error messages
 
-type DateValidater = (date: string) => RegExpMatchArray
+type DateValidator = (date: string) => Date;
 
-
-export const validateDate: DateValidater = (date) => {
-  const validDateFormat = /^(?<year>\d{4})\.(?<month>\d{2})\.(?<day>\d{2})$/;
+export const validateDate: DateValidator = (date) => {
+  const validDateFormat = /^[A-Za-z]+ \d{1,2}, \d{4}$/;
 
   if (!validDateFormat.test(date))
     throw new Error(
-      `publish data ${date} should be in the format year.month.day format such as 2021.12.01`
+      `publish date "${date}" should be in the format "Month D, YYYY" such as "April 7, 2026"`
     );
 
-  const dateObject = date.match(validDateFormat);
+  const parsed = new Date(date);
+  if (isNaN(parsed.getTime()))
+    throw new Error(`publish date "${date}" is not a valid date`);
 
-  if (Number(dateObject.groups.month) > 12)
-    throw new Error(
-      "The month in your publish date for a post is greater than 12"
-    );
-
-  if (Number(dateObject.groups.day) > 31)
-    throw new Error(
-      "The day in your publish date for a post is greater than 31"
-    );
-
-  if (
-    dateObject.groups.day.length !== 2 ||
-    dateObject.groups.month.length !== 2
-  )
-    throw new Error(
-      "All days and months in the publish dates need to be two digits"
-    );
-
-  return dateObject;
+  return parsed;
 };
 
-type DateComparer = (pd1: RegExpMatchArray, pd2: RegExpMatchArray) => 1 | -1 | 0;
+type DateComparer = (pd1: Date, pd2: Date) => 1 | -1 | 0;
 
 export const latestFirst: DateComparer = (pd1, pd2) => {
-  for (let index = 1; index <= 3; index++) {
-    if (Number(pd1[index]) < Number(pd2[index])) return 1;
-    else if (Number(pd1[index]) > Number(pd2[index])) return -1;
-  }
+  if (pd1 < pd2) return 1;
+  if (pd1 > pd2) return -1;
   return 0;
 };

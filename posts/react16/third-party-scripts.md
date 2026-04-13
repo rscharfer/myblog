@@ -1,6 +1,7 @@
 ---
-title: React 16 - Adding a third party script to a React app
-published: 2020.10.18
+title: Why you can't add a third party script in the render function
+published: October 18, 2020
+subtitle: Turns out scripts added with innerHTML are inert.
 ---
 
 I recently wanted to add a third party script for a comments widget to this blog, and I realized utilizing some of the conventional ways to add third-party scripts to React apps did not work. This was because the widget's installation instructions required me to place the script tag not in the `<head/>` of the document, but in the `<body/>`, and at the exact location where I wanted to widget to be inserted. The script would then use `document.currentScript.insertAdjacentHTML` to insert a the widget immediately after itself in the DOM. Pretty cool, but I wasn't sure where I could place the thing.

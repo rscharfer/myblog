@@ -1,10 +1,7 @@
 ---
 title: React 19 - State Reducer Pattern
-# keywords:
-#   - React
-#   - Kent Dodds
-#   - advance React patterns
-published: 2026.04.08
+published: April 8, 2026
+subtitle: here is the subtitle
 ---
 
 The premise : A stateful component (or hook) uses `useReducer` to keep track of state. The consumer of this stateful component (or hook) can pass in its _own_ reducer, which is then passed to `useReducer` and used instead of the stateful component's (or hook's) default one. In this way, the consumer can control state updates from from the "outside". This is an example of [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control).

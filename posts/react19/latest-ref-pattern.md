@@ -1,10 +1,7 @@
 ---
 title: React 19 - Latest Ref Pattern
-# keywords:
-#   - React
-#   - Kent C. Dodds
-#   - advanced React patterns
-published: 2026.04.07
+published: April 7, 2026
+subtitle: here is the subtitle
 ---
 
 

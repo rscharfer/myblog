@@ -1,10 +1,7 @@
 ---
-title: React 16 - Compound Component Pattern
-# keywords:
-#   - React
-#   - Kent Dodds
-#   - advance React patterns
-published: 2020.10.26
+title: The React version of HTML's <select> component
+published: October 26, 2020
+subtitle: The compound component pattern has a root component implicitly sharing state with a set of possible children.
 ---
 
 
