@@ -7,7 +7,6 @@ export default ({ inline, children }) => {
   }
 
   const value = String(children).replace(/\n$/, "");
-  debugger
 
   return (
     <Highlight {...defaultProps} theme={theme} code={value} language="jsx">

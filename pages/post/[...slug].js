@@ -15,14 +15,27 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
 
   useEffect(() => {
     let script = document.createElement("script");
+    script.id = 'utterance-script' //  giving an id so I can track it in DOM to see how the script deletes itself after executing
     script.setAttribute("src", "https://utteranc.es/client.js");
-    script.setAttribute("crossorigin", "anonymous");
-    script.setAttribute("async", true);
+    script.setAttribute("crossorigin", "anonymouse"); 
+    // ^^ because the response from the server allows all cross origin 
+    // requests i.e. access-control-allow-origin is "*"
+    // this HAS to be "anonymous" which sets the credentials flag to false
+    // if we set value to "use-credentials" , then the credentials flag is set to true
+    // note: the credentials flag is hard to see on the request, hut if the credentials flag is set to true, there will be associated headers in the request
+    // which correspond to credentials=true request such as the security header: Sec-Fetch-Storage-Access
+
+
+    script.setAttribute("defer", true);
+    // wait for DOM to be in tact because it needs to replace a particular element.. async does not wait for the DOM
+    // to be in tact.. it just starts executing once it has downloaded (async)
     script.setAttribute("repo", "rscharfer/myblog");
     script.setAttribute("issue-term", "pathname");
     script.setAttribute("theme", "github-light");
     commentContainer.current.append(script);
-    return () => script.remove();
+    return () => {
+    //  script.remove(); // actually unnecessary because the script deletes itself after its down executing
+    };
   }, []);
 
   return (
@@ -55,7 +68,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
           {markdownBody}
         </ReactMarkdown>
       </article>
-      <div ref={commentContainer}></div>
+      <div id="comment-container" ref={commentContainer}></div>
     </Layout>
   );
 }
