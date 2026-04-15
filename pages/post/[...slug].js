@@ -17,7 +17,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
     let script = document.createElement("script");
     script.id = 'utterance-script' //  giving an id so I can track it in DOM to see how the script deletes itself after executing
     script.setAttribute("src", "https://utteranc.es/client.js");
-    script.setAttribute("crossorigin", "anonymouse"); 
+    script.setAttribute("crossorigin", "anonymous"); 
     // ^^ because the response from the server allows all cross origin 
     // requests i.e. access-control-allow-origin is "*"
     // this HAS to be "anonymous" which sets the credentials flag to false
@@ -68,7 +68,9 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
           {markdownBody}
         </ReactMarkdown>
       </article>
-      <div id="comment-container" ref={commentContainer}></div>
+      <div id="comment-container" ref={commentContainer}>
+        <div className='thingy'>beforeorafter</div>
+      </div>
     </Layout>
   );
 }
