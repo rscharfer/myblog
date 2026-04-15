@@ -68,9 +68,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
           {markdownBody}
         </ReactMarkdown>
       </article>
-      <div id="comment-container" ref={commentContainer}>
-        <div className='thingy'>beforeorafter</div>
-      </div>
+      <div ref={commentContainer}></div>
     </Layout>
   );
 }
