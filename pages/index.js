@@ -49,7 +49,6 @@ export async function getStaticProps() {
       };
     });
     return parsedPosts
-      .filter((post) => Boolean(post.frontmatter.published))
       .sort(function (post1, post2) {
         return latestFirst(
           validateDate(post1.frontmatter.published),
@@ -64,7 +63,6 @@ export async function getStaticProps() {
     props: {
       posts,
       docTitle,
-      description,
     },
   };
 }
