@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 const About = ({ docTitle, description }) => (
   <Layout docTitle={`${docTitle} | About`}>
     <p className="description">{description} </p>
-    <p>I live with my wife and two kids in Hamburg. 👨‍👨‍👧‍👦 </p>
+    <p>I live with my wife and two kids in Springfield, OR. 👨‍👨‍👧‍👦 </p>
   </Layout>
 );
 
