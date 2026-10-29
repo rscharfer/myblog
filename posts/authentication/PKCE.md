@@ -9,15 +9,15 @@ subtitle: How does it work?
 
 In its most general terms, it's challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. When one request kicks off the request for something very valuable, and the other request receives what is requested, the server has to somehow know the requests are from the same entity.  In the context of PKCE, this "very valuable" thing is an *access token* which allows the entity to access a set of APIs.
 
-## How it works (at a high level) in the context of the authorization code flow with a web server in play \*
+## How it works (at a high level) in the context of the authorization code flow with a web server in play †
 
-When a user opts to use a social login -- Google, Facebook, Apple, etc -- to log into an app, the back-end creates a secret string and a hash of that string. The browser is then redirected to Google, Facebook, Apple, etc, with the hash and the algorithm used to make it as query parameters. Once the user logs in and consents to the app using the social site's data on the user, the authorization server will use the redirect to redirect the user back to the app's site, passing along an authorization code as a parameter. 
+When a user opts to use a social login -- Google, Facebook, Apple, etc -- to log into an app, the back-end creates a random string and a hash of that string. The browser is then redirected to Google, Facebook, Apple, etc, with the hash and the algorithm used to make it as query parameters. Once the user logs in and consents to the app using the social site's data on the user, the authorization server will use the redirect to redirect the user back to the app's site, passing along an authorization code as a parameter. 
 
-At that point the web server will send the _actual string_ along with the authorization code to the social site. The social site will hash the string from the web server with the hashing algorithm it got in the first request, and if the hash it creates is identical to the hash it got in the first request, it knows the two requests came from the same entity. It knows this because you cannot reverse-engineer a hash back into its original string, so an entity that can deliver the original string is very likely the same entity which produced the hash to begin with.
+At that point the web server will send the _actual string_ along with the authorization code to the social site. The social site will hash the string from the web server with the hashing algorithm it got in the first request, and if the hash it creates is identical to the hash it got in the first request, it knows the two requests came from the same entity and returns the access token. It knows this because you cannot reverse-engineer a hash back into its original string, so an entity that can deliver the original string is very likely the same entity which produced the hash to begin with.
 
 Once the web server has the access token, it can use it to access API endpoints provided by the social site.
 
-* When an app does not have a web server, the random string is saved in session storage and JavaScript will make a `fetch` call to exchange the code and the random string for an access token, which is then typically stored in local storage. Alternatively, it could be stored in memory.
+† When an app does not have a web server, the random string is saved in session storage and JavaScript will make a `fetch` call to exchange the code and the random string for an access token, which is then typically stored in local storage. Alternatively, it could be stored in memory.
 
 ## Here's what OAuth calls each piece of the flow above
 
@@ -51,7 +51,7 @@ This was done in the past, and a client getting an access token to an API this w
 
 ## Why is it called PKCE
 
-Because the client is presenting the unhashed *key* as *proof* that it is the same entity which initiated the *code* *exchange* to begin with.  The client basically is saying "Here's a key that is proof that I am the same entity that started the flow."
+PKCE stands for Proof Key for Code Exchange. The client is presenting the unhashed *key* as *proof* that it is the same entity which initiated the *code* *exchange* to begin with.  The client basically is saying "Here's a key that is proof that I am the same entity that started the flow."
 
 
 
