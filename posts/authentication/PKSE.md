@@ -1,3 +1,10 @@
+---
+title: how PKCE works
+published: October 29, 2026
+subtitle: Why do we need PKSE?
+---
+
+
 How Proof Key of Code Exchange works: PKCE
 
 
