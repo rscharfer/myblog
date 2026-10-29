@@ -9,17 +9,31 @@ subtitle: How does it work?
 
 In its most general terms, it's challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. When one request kicks off the request for something very valuable, and the other request receives what is requested, the server has to somehow know the requests are from the same entity.  In the context of PKCE, this "very valuable" thing is an *access token* which allows the entity to access a set of APIs.
 
-## How it works (at a high level) in the context of the authorization code flow with a web server in play*
+## How it works (at a high level) in the context of the authorization code flow with a web server in play [^no-server]
 
 When a user opts to use a social login -- Google, Facebook, Apple, etc -- to log into an app, the back-end creates a secret string and a hash of that string. The browser is then redirected to Google, Facebook, Apple, etc, with the hash and the algorithm used to make it as query parameters. Once the user logs in and consents to the app using the social site's data on the user, the authorization server will use the redirect to redirect the user back to the app's site, passing along an authorization code as a parameter. 
 
 At that point the web server will send the _actual string_ along with the authorization code to the social site. The social site will hash the string from the web server with the hashing algorithm it got in the first request, and if the hash it creates is identical to the hash it got in the first request, it knows the two requests came from the same entity. It knows this because you cannot reverse-engineer a hash back into its original string, so an entity that can deliver the original string is very likely the same entity which produced the hash to begin with.
 
-* When an app does not have a web server, the random string is saved in session storage and JavaScript will make a `fetch` call to exchange the code and the random string for an access token, which is then typically stored in local storage. Alternatively, it could be stored in memory.
+Once the web server has the access token, it can use it to access API endpoints provided by the social site.
 
-## And now with OAuth terminology
+[^no-server] When an app does not have a web server, the random string is saved in session storage and JavaScript will make a `fetch` call to exchange the code and the random string for an access token, which is then typically stored in local storage. Alternatively, it could be stored in memory.
 
-When a user (the "resource owner") wants to log into a web site (the "client"), the front-end of the client can send the user to Facebook, Google, Github, etc, (the "authorization server") to login. When it does this, if the OAuth flow is using PKCE, the client will send a "code challenge", which is the hash of a random string it creates. The random string is called the "code verifier" and stays on the web server.  It will also send the algorithm it used to create the hash as well as a redirect for the browser to open once the user has consented. All of these will be sent as query parameters.  If the user consents to allowing the client access to data hosted by the resource server, which is in cahoots with the authorization server, the authorization server will hang on to the code challenge and return an authorization code to the client by having the browser open up a url to the client and appending the authorization code as a query parameter. The client then makes a server-to-server ("back channel") request with the random string, the "code verifier", to the authorization server to exchange the code for an access token. If the authorization server is happy with the hash-string combo after hashing the code verifier itself and comparing the two hashes, it will return an access token. The client can attach the access token to every API call it makes to the resource server which informs the resource server whether the client has legitimate access to a particular API endpoint.
+## Here's what OAuth calls each piece of the flow above
+
+
+| Plain language | OAuth term |
+| --- | --- |
+| The user | **Resource owner** |
+| The app the user is logging into | **Client** |
+| Google, Facebook, Apple, etc., where the user logs in and consents | **Authorization server** |
+| The API holding the user's data | **Resource server** |
+| The random string | **Code verifier** |
+| The hash of the random string | **Code challenge** |
+| The algorithm used to make the hash | **Code challenge method** (e.g. `S256`) |
+| The code sent back in the redirect | **Authorization code** |
+| The direct server-to-server request | **Back channel** |
+| The browser redirects carrying data in the URL | **Front channel** |
 
 ## What problem did it solve?
 
