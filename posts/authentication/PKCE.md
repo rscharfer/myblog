@@ -9,7 +9,7 @@ subtitle: How does it work?
 
 In its most general terms, it's challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. When one request kicks off the request for something very valuable, and the other request receives what is requested, the server has to somehow know the requests are from the same entity.  In the context of PKCE, this "very valuable" thing is an *access token* which allows the entity to access a set of APIs.
 
-## How it works (at a high level) in the context of the authorization code flow with a web server in play [^no-server]
+## How it works (at a high level) in the context of the authorization code flow with a web server in play \*
 
 When a user opts to use a social login -- Google, Facebook, Apple, etc -- to log into an app, the back-end creates a secret string and a hash of that string. The browser is then redirected to Google, Facebook, Apple, etc, with the hash and the algorithm used to make it as query parameters. Once the user logs in and consents to the app using the social site's data on the user, the authorization server will use the redirect to redirect the user back to the app's site, passing along an authorization code as a parameter. 
 
@@ -17,23 +17,20 @@ At that point the web server will send the _actual string_ along with the author
 
 Once the web server has the access token, it can use it to access API endpoints provided by the social site.
 
-[^no-server] When an app does not have a web server, the random string is saved in session storage and JavaScript will make a `fetch` call to exchange the code and the random string for an access token, which is then typically stored in local storage. Alternatively, it could be stored in memory.
+* When an app does not have a web server, the random string is saved in session storage and JavaScript will make a `fetch` call to exchange the code and the random string for an access token, which is then typically stored in local storage. Alternatively, it could be stored in memory.
 
 ## Here's what OAuth calls each piece of the flow above
 
-
-| Plain language | OAuth term |
-| --- | --- |
-| The user | **Resource owner** |
-| The app the user is logging into | **Client** |
-| Google, Facebook, Apple, etc., where the user logs in and consents | **Authorization server** |
-| The API holding the user's data | **Resource server** |
-| The random string | **Code verifier** |
-| The hash of the random string | **Code challenge** |
-| The algorithm used to make the hash | **Code challenge method** (e.g. `S256`) |
-| The code sent back in the redirect | **Authorization code** |
-| The direct server-to-server request | **Back channel** |
-| The browser redirects carrying data in the URL | **Front channel** |
+- **Resource owner:** the user
+- **Client:** the app the user is logging into
+- **Authorization server:** Google, Facebook, Apple, etc., where the user logs in and consents
+- **Resource server:** the API holding the user's data
+- **Code verifier:** the random string
+- **Code challenge:** the hash of the random string
+- **Code challenge method:** the algorithm used to make the hash (e.g. `S256`)
+- **Authorization code:** the code sent back in the redirect
+- **Back channel:** the direct server-to-server request
+- **Front channel:** browser redirects carrying data in the URL
 
 ## What problem did it solve?
 
