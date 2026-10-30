@@ -25,7 +25,7 @@ Every new post element can be expressed in plain Markdown, using a few small rem
 | Note / footnote | `:::note[* No web server?]{#no-web-server}` … `:::` (remark-directive). For posts already written with a marker convention (heading ending in `†`/`*`, paragraph starting with the same marker) a small plugin converts them automatically, so post text is unchanged. | `aside.note` + `sup.dagger` link |
 | Ordered steps | ordinary `1.` list | `ol.steps` |
 | Icon list | list where every item is `**Term:** definition` | `ul.ilist`; per-term icon from optional front matter `icons:` (role / artifact / channel) |
-| Figure (wide + narrow SVG) | `::figure{wide="pkce-wide.svg" narrow="pkce-narrow.svg" caption="…"}` | SVGs live in `public/figures/`, inlined at build time (so they can use theme tokens) |
+| Figure (wide + narrow SVG) | `::figure{wide="pkce-wide.svg" narrow="pkce-narrow.svg" caption="…"}` | SVG files sit next to the .md file and are inlined at build time (so they can use theme tokens) |
 | Blockquote with attribution | `>` quote, last line starting with `— ` | `blockquote` + `footer` |
 | Related reading | front matter `related:` list | `section.related` |
 | Reading time | n/a | computed in `getStaticProps` (words / 230) |

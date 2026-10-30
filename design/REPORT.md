@@ -1,0 +1,97 @@
+# Redesign report
+
+Branch **`redesign`** (7 commits on top of `master`, nothing pushed). `npm run build` passes, and so does `npm run export`, the command Netlify runs.
+
+## How to review
+
+```sh
+git log --oneline master..redesign      # one commit per phase
+npm run build && npx next start          # http://localhost:3000
+SHOW_FIXTURES=1 npm run build && npx next start
+# then open /post/_fixtures/kitchen-sink  (every post element, see below)
+```
+
+Pages to look at: `/`, `/about`, `/post/authentication/PKCE`, `/post/react16/use-state`. Check each at 1440px and 390px, and toggle dark mode with the moon button.
+
+**Read this first:** the reference PKCE page has content your real `posts/authentication/PKCE.md` doesn't: three code samples, the five steps, the sequence diagram, the pull-quote, related reading and reworded headings. Because of the "don't change post content" rule, I did **not** add any of it. The template supports all of those elements, and `/post/_fixtures/kitchen-sink` shows them working. The real PKCE post renders with what it actually has.
+
+## What I built
+
+| Phase | Commit | What |
+|---|---|---|
+| 1 | `8c96bad` | `design/PLAN.md`; the `design/` folder is now tracked on the branch |
+| 2 | `ec1c62c` | `styles/blog.css` (tokens + styles ported from the reference), fonts via `next/font`, no-flash theme script in `pages/_document.js` |
+| 3 | `1f3127f` | Top bar (Posts / About + `aria-current`), sun/moon toggle, 2px progress bar, footer. Author details live in `lib/site.js` |
+| 4 | `e6b1faf` | Post template: header and meta row, contents (sticky list / `<details>` bar), body styles, code blocks, notes, steps, icon list, figure, pull-quote, related reading, reading time at build time |
+| 5 | `90c8963` | Posts list generated from front matter, newest first, grouped by year |
+| 6 | `7e0e4c3` | About page; the text is in `content/about.md` |
+| fix | `d7af499` | Code blocks that scroll horizontally can now be reached by keyboard (axe finding) |
+
+## Rendering decision
+
+I kept **plain `.md` + react-markdown 8** and added a few small remark plugins (`lib/markdown.js`). I did not use MDX: it would have meant converting posts and changing the loader, for no gain this design needs. The plugins run at build time (`lib/posts.js`, which builds the contents list and reading time) and again during render, with identical output, so heading ids always match the contents links.
+
+Markdown syntax for the new elements:
+
+- **Code:** ```` ```js title="pkce.js" {2-3,11} caption="What to notice" ````. Highlighted lines become `.ln.hl`. Prism (already a dependency) token types are mapped to the `t-k/t-s/t-f/t-p/t-c` classes, which are coloured by the `syn-*` tokens. Copy copies the original source string, not the rendered lines.
+- **Note / footnote:** write `:::note[Label]{#id}` … `:::`. Your existing † convention also works automatically: a heading ending in `†` plus a paragraph starting with `† ` becomes a dagger link and a note. That's how the PKCE post gets its note with no text changes.
+- **Steps:** any ordered list.
+- **Icon list:** any bullet list where every item is `**Term:** definition`. Icons come from an optional front-matter map `icons: { Term: role | artifact | channel }`.
+- **Figure:** `::figure{wide="a.svg" narrow="b.svg" caption="…"}`. The SVGs sit next to the `.md` file and are inlined at build time so they pick up the theme tokens.
+- **Pull-quote attribution:** a blockquote whose last line starts with `— `.
+- **Related reading:** front matter `related: [{label, title, href, description}]`.
+- The old `## id=foo Heading` syntax still works.
+
+## Packages added
+
+- `remark-directive@2`: for `:::note` and `::figure`.
+- `unified@10`, `remark-parse@10`, `mdast-util-to-string@3`, `unist-util-visit@4`: these were already installed as react-markdown 8 dependencies. I declared them directly because I import them, so there's no new code in the install.
+
+No other packages. Highlighting still uses `prism-react-renderer`.
+
+## Acceptance checklist
+
+I tested in headless Chrome (Playwright + axe-core) against `next start`, with 49 automated checks, plus Lighthouse 12.
+
+| Item | Result |
+|---|---|
+| Light and dark match the screenshots; the theme survives reloads and doesn't flash | **Pass.** The post page matches the reference HTML side by side in both themes. The no-flash check: `data-theme` is already `dark` when `<body>` starts parsing after a reload. Prefers-color-scheme fallback and persistence across pages also checked. *Posts and About: see "Not sure about" #1.* |
+| At 390px: no horizontal scroll, code wraps, diagram fits, meta hidden, contents bar works | **Pass** on all pages. The bar opens, a link scrolls to the section and closes it. The code wraps with a hanging indent, and the narrow diagram shows. |
+| At 1440px: sticky contents highlights the current section; "% read" updates | **Pass** (e.g. 0% → 71%, active = "What problem did it solve?", stays at top 64px) |
+| Copy buttons copy the unwrapped code | **Pass.** The clipboard exactly equals the source, tested at 390px where the lines are visually wrapped. |
+| Posts list from real data, newest first, grouped by year | **Pass.** 13 posts in 2026 and 2020, built from front matter. |
+| 4.5:1 contrast; visible keyboard focus; `aria-current` in the top bar | **Pass** on all real pages: axe reports 0 violations, light and dark, 1440 and 390. Focus shows as a 2px outline. `aria-current` is `page` on `/` and `/about`, and `true` on posts. **Fail in the design itself:** comments on *highlighted* code lines are 4.25:1 (light) and 4.37:1 (dark): `syn-c` on `code-hl`. The reference has the same case. No current post triggers it (old posts have no highlighted lines). I didn't change the tokens; that's your call (e.g. darken `syn-c` slightly). |
+| Lighthouse accessibility ≥ 95 | **Pass.** 100 on `/`, `/about`, PKCE and use-state (mobile and desktop); 96 on the fixture (because of the contrast item above). |
+
+## Not sure about / judgment calls
+
+1. **The Posts and About screenshots are unstyled.** `reference/styles.css` has no rules for `.plist`, `.pitem`, `.datenote`, `.about-me` or `.elsewhere`, so those screenshots show default numbered lists with the text run together. I styled them from the HANDOFF text (120px topic/date column, one line on phones, year kicker over an ink rule), using only existing tokens and the `.related` row pattern. The rules are marked in `styles/blog.css`. Please look at these two pages with fresh eyes; this is the only place I made design decisions.
+2. **Note label.** The reference uses "* No web server?", but your post uses †, so the note reads "† Note". I didn't invent a label or change your marker. The `:::note[Label]` syntax lets you set any label.
+3. **Glossary punctuation.** In the icon list, "**Term:** def" renders as "**Term** — def", per the spec. The Markdown is unchanged.
+4. **Comments (utterances) are kept.** The design doesn't mention them. They now sit below the article and follow the light/dark toggle. Remove `<Comments />` in `pages/post/[...slug].js` if you don't want them.
+5. **The "N sections" count** includes h3s (the reference shows 9 for 6 h2 + 3 h3, so I matched that).
+6. **Reading time** = words ÷ 230, rounded, minimum 1, code included.
+7. **Share links** point at `https://ryansblog.netlify.app/post/<topic>/<slug>` (the reference used a placeholder `/oauth-pkce`).
+8. **Raw HTML in Markdown is escaped**, as before: I didn't add `rehype-raw`. Figures come through `::figure` instead.
+
+## Placeholders still to replace
+
+- GitHub / LinkedIn URLs in `lib/site.js` (currently the sites' home pages).
+- Avatar initials "RS".
+- About text in `content/about.md`. Your old `othermarkdown/aboutMe.md` has material you might want there.
+- The related-reading "Shopify storefront" post exists only in the fixture.
+
+## Files I didn't delete but think could go
+
+Nothing imports these any more:
+
+- `color.js`, `constants.js` (old palette and golden-ratio constant)
+- `siteconfig.json` (old "The Real Dev Dad" title; titles now come from `lib/site.js`)
+- `othermarkdown/` (`frontPage.md`, `learningLog.md`, `aboutMe.md`), `oldPosts/`
+- The `raw-loader` dependency and its rule in `next.config.js`: posts are now read with `fs` in `getStaticProps`. I left `next.config.js` alone.
+
+I did delete `components/CustomRenderers/` and `customPrismTheme.js`, because the new template replaces them directly.
+
+## Untouched
+
+Netlify config, env files and CI. Post bodies are unchanged: the only post edit is new `icons:` front matter in `posts/authentication/PKCE.md`. No files were renamed, so URLs are the same. `.claude/` was untracked at the start and is still untracked.
