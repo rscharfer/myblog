@@ -55,17 +55,17 @@ I tested in headless Chrome (Playwright + axe-core) against `next start`, with 4
 
 | Item | Result |
 |---|---|
-| Light and dark match the screenshots; the theme survives reloads and doesn't flash | **Pass.** The post page matches the reference HTML side by side in both themes. The no-flash check: `data-theme` is already `dark` when `<body>` starts parsing after a reload. Prefers-color-scheme fallback and persistence across pages also checked. *Posts and About: see "Not sure about" #1.* |
+| Light and dark match the screenshots; the theme survives reloads and doesn't flash | **Pass.** The post page matches the reference HTML side by side in both themes. Posts and About are pixel-identical to the reference HTML rendered in the same browser (≤0.002% of pixels differ at 1440 and 390), and the same size as the screenshots. The no-flash check: `data-theme` is already `dark` when `<body>` starts parsing after a reload. Prefers-color-scheme fallback and persistence across pages also checked. |
 | At 390px: no horizontal scroll, code wraps, diagram fits, meta hidden, contents bar works | **Pass** on all pages. The bar opens, a link scrolls to the section and closes it. The code wraps with a hanging indent, and the narrow diagram shows. |
 | At 1440px: sticky contents highlights the current section; "% read" updates | **Pass** (e.g. 0% → 71%, active = "What problem did it solve?", stays at top 64px) |
 | Copy buttons copy the unwrapped code | **Pass.** The clipboard exactly equals the source, tested at 390px where the lines are visually wrapped. |
 | Posts list from real data, newest first, grouped by year | **Pass.** 13 posts in 2026 and 2020, built from front matter. |
-| 4.5:1 contrast; visible keyboard focus; `aria-current` in the top bar | **Pass** on all real pages: axe reports 0 violations, light and dark, 1440 and 390. Focus shows as a 2px outline. `aria-current` is `page` on `/` and `/about`, and `true` on posts. **Fail in the design itself:** comments on *highlighted* code lines are 4.25:1 (light) and 4.37:1 (dark): `syn-c` on `code-hl`. The reference has the same case. No current post triggers it (old posts have no highlighted lines). I didn't change the tokens; that's your call (e.g. darken `syn-c` slightly). |
-| Lighthouse accessibility ≥ 95 | **Pass.** 100 on `/`, `/about`, PKCE and use-state (mobile and desktop); 96 on the fixture (because of the contrast item above). |
+| 4.5:1 contrast; visible keyboard focus; `aria-current` in the top bar | **Pass.** axe reports 0 violations on every page, including the fixture, in light and dark, at 1440 and 390. With the updated `syn-c` tokens, comments are 5.09:1 (light) / 5.03:1 (dark) on highlighted lines and 5.77 / 5.78 on `code-bg`. Focus shows as a 2px outline. `aria-current` is `page` on `/` and `/about`, and `true` on posts. |
+| Lighthouse accessibility ≥ 95 | **Pass.** 100 on `/`, `/about`, PKCE, use-state and the fixture, mobile and desktop. |
 
 ## Not sure about / judgment calls
 
-1. **The Posts and About screenshots are unstyled.** `reference/styles.css` has no rules for `.plist`, `.pitem`, `.datenote`, `.about-me` or `.elsewhere`, so those screenshots show default numbered lists with the text run together. I styled them from the HANDOFF text (120px topic/date column, one line on phones, year kicker over an ink rule), using only existing tokens and the `.related` row pattern. The rules are marked in `styles/blog.css`. Please look at these two pages with fresh eyes; this is the only place I made design decisions.
+1. **Posts and About styles (resolved).** The first version of `reference/styles.css` had no rules for these pages, so I improvised them from the HANDOFF text. Once you added styled screenshots and the rules, I replaced my improvised CSS with yours, copied exactly.
 2. **Note label.** The reference uses "* No web server?", but your post uses †, so the note reads "† Note". I didn't invent a label or change your marker. The `:::note[Label]` syntax lets you set any label.
 3. **Glossary punctuation.** In the icon list, "**Term:** def" renders as "**Term** — def", per the spec. The Markdown is unchanged.
 4. **Comments (utterances) are kept.** The design doesn't mention them. They now sit below the article and follow the light/dark toggle. Remove `<Comments />` in `pages/post/[...slug].js` if you don't want them.
