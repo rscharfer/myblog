@@ -2,6 +2,17 @@
 title: OAuth - What is the purpose of PKCE?
 published: October 29, 2026
 subtitle: How does it work?
+icons:
+  Resource owner: role
+  Client: role
+  Authorization server: role
+  Resource server: role
+  Code verifier: artifact
+  Code challenge: artifact
+  Code challenge method: artifact
+  Authorization code: artifact
+  Back channel: channel
+  Front channel: channel
 ---
 
 
