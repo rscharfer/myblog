@@ -1,6 +1,6 @@
 # Redesign report
 
-Branch **`redesign`** (7 commits on top of `master`, nothing pushed). `npm run build` passes, and so does `npm run export`, the command Netlify runs.
+Branch **`redesign`** (one commit per phase plus follow-ups, on top of `master`; nothing pushed). `npm run build` passes, and so does `npm run export`, the command Netlify runs.
 
 ## How to review
 
