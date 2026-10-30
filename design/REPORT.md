@@ -69,6 +69,18 @@ I tested in headless Chrome (Playwright + axe-core) against `next start`, with 4
 2. **Note label.** The reference uses "* No web server?", but your post uses †, so the note reads "† Note". I didn't invent a label or change your marker. The `:::note[Label]` syntax lets you set any label.
 3. **Glossary punctuation.** In the icon list, "**Term:** def" renders as "**Term** — def", per the spec. The Markdown is unchanged.
 4. **Comments: giscus replaced utterances.** Utterances' layout was poor on phones. giscus stores comments in GitHub Discussions, lazy-loads, has reactions and replies, and follows the light/dark toggle. It's configured in `lib/site.js` under `comments` and stays hidden until `categoryId` is set. The two old utterances issues (#1, #4) were only test comments, so there was nothing to migrate.
+   - **Custom paper/ink comment theme:** `public/giscus/light.css` and `dark.css`, built from the design tokens. It's off (`comments.customTheme: false`) because giscus loads themes cross-origin, and Netlify doesn't send CORS headers by default. To turn it on:
+     1. Add `public/_headers` containing:
+
+        ```
+        /giscus/*
+          Access-Control-Allow-Origin: https://giscus.app
+        ```
+
+     2. Deploy.
+     3. Set `customTheme: true`.
+
+     Tested locally with the header injected in the test browser: the theme loads in light and dark at 390 and 1440.
 5. **The "N sections" count** includes h3s (the reference shows 9 for 6 h2 + 3 h3, so I matched that).
 6. **Reading time** = words ÷ 230, rounded, minimum 1, code included.
 7. **Share links** point at `https://ryansblog.netlify.app/post/<topic>/<slug>` (the reference used a placeholder `/oauth-pkce`).

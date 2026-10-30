@@ -2,7 +2,12 @@ import { useEffect, useRef } from "react";
 
 import { site } from "../../lib/site";
 
-const giscusTheme = (theme) => (theme === "dark" ? "noborder_dark" : "noborder_light");
+// Custom themes in public/giscus/ match the site's tokens. giscus loads them cross-origin,
+// so they only work where /giscus/* is served with Access-Control-Allow-Origin: https://giscus.app.
+const giscusTheme = (theme) => {
+  const mode = theme === "dark" ? "dark" : "light";
+  return site.comments.customTheme ? `${window.location.origin}/giscus/${mode}.css` : `noborder_${mode}`;
+};
 
 // giscus comments (GitHub Discussions on site.comments.repo), themed to match the site.
 // Renders nothing until the discussion category is configured in lib/site.js.
