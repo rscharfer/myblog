@@ -24,8 +24,12 @@ Three page types share the top bar, `layout`, type scale and footer:
 
 ## Visual foundations
 
-- **Type:** Newsreader (serif) for everything you read: title 56px light, h2 30px, h3 22px italic, body 20px/1.7. Inter only for small-caps kickers, metadata and captions (`kicker`, `meta`). JetBrains Mono for code.
-- **Measure:** `measure` (64ch, about 680px) on tablet and desktop; phones use the full width minus 24px gutters.
+- **Type ("Font Modern"):** three families, as tokens.
+  - `--font-display`, **Bricolage Grotesque**: h1, article h2 and h3, the top-bar links, the post subtitle, pull-quotes, the footer name, related-reading titles, post titles on the Posts page and the name on the About page.
+  - `--font-body`, **Figtree**: everything else, i.e. body text plus kickers, metadata, captions and the contents list (`kicker`, `meta`).
+  - `--font-mono`, **JetBrains Mono**: code.
+- **Type sizes and weights:** title 56px at weight 650 with -0.025em tracking. h2 30px and h3 22px, both 650; h3 is not italic. Body is 18px/1.72 at every width. The subtitle is upright, and pull-quotes are upright at weight 500. About paragraphs are 19px (18px on phones). Inline *em* stays italic, since Figtree has true italics. There is no drop cap.
+- **Measure:** `measure` (706px) on tablet and desktop; phones use the full width minus 24px gutters. It was 64ch of the old 20px serif, and is fixed in px so changing fonts doesn't move the layout.
 - **Colour:** one accent, `link` (rust), used for links, step numbers, the active contents item, back-channel arrows and the footnote marker. Everything else is `ink`, `muted` and `paper`. Text passes 4.5:1 in both themes.
 - **Dividers:** hairlines in `rule` are the only borders, plus a 40px `ink` rule above each h2. There are no shadows, and corners are square (`radius` 0).
 - **Code:** full-bleed `code-bg` bands with `code-hl` on highlighted lines and a quiet file label plus Copy above. On phones, long lines wrap with a hanging indent instead of scrolling.
@@ -39,7 +43,7 @@ Three page types share the top bar, `layout`, type scale and footer:
 | 641–1219px (tablet) | Bordered "Contents · 9 sections" bar with arrow | Shown | Same | Wide |
 | ≤ 640px (phone) | Same bar | Hidden (byline lives in the footer) | Wraps with hanging indent | Narrow 340px version |
 
-Phones also turn off hyphenation and the drop cap.
+Phones also turn off hyphenation.
 
 ## Iconography
 
