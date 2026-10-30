@@ -40,7 +40,8 @@ export default function BlogPost({ post }) {
           ))}
         </section>
       )}
-      <Comments />
+      {/* keyed so client-side navigation between posts loads that post's thread */}
+      <Comments key={post.slug} />
     </Layout>
   );
 }
