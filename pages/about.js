@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import ReactMarkdown from "react-markdown";
 
+import Avatar from "../components/Avatar";
 import Layout from "../components/Layout";
 import { site } from "../lib/site";
 
@@ -12,9 +13,7 @@ const About = ({ markdown }) => (
     </header>
     <main className="about-body">
       <div className="about-me">
-        <span className="avatar" aria-hidden="true">
-          {site.initials}
-        </span>
+        <Avatar />
         <div>
           <b>{site.author}</b>
           <span>{site.location}</span>

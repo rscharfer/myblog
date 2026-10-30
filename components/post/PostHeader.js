@@ -1,3 +1,4 @@
+import Avatar from "../Avatar";
 import Icon from "../icons";
 import { TocMobile } from "./Toc";
 import { site } from "../../lib/site";
@@ -13,9 +14,7 @@ export default function PostHeader({ post }) {
       {post.subtitle && <p className="subtitle">{post.subtitle}</p>}
       <div className="meta">
         <span className="author">
-          <span className="avatar" aria-hidden="true">
-            {site.initials}
-          </span>
+          <Avatar />
           {site.author}
         </span>
         <span className="m">

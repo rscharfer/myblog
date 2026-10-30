@@ -16,10 +16,10 @@ icons:
   Back channel: channel
   Front channel: channel
 related:
-  - label: Series · Auth in the wild
-    title: How a Shopify storefront logs you in
-    href: "#"
-    description: "Part 1 of the auth series: tracing a real customer-account login end to end."
+  - label: Also on this blog
+    title: Git-worktree in my own words
+    href: /post/git/worktree
+    description: Why are work trees so awesome?
   - label: Spec
     title: "RFC 7636: Proof Key for Code Exchange"
     href: https://www.rfc-editor.org/rfc/rfc7636

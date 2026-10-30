@@ -1,12 +1,11 @@
+import Avatar from "./Avatar";
 import Icon from "./icons";
 import { site } from "../lib/site";
 
 export default function SiteFooter() {
   return (
     <footer className="site">
-      <span className="avatar" aria-hidden="true">
-        {site.initials}
-      </span>
+      <Avatar />
       <b>{site.author}</b>
       {site.bio}
       <div className="links">
