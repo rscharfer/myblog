@@ -11,7 +11,7 @@ const Index = ({ posts }) => {
   }
 
   return (
-    <Layout docTitle={`Posts — ${site.author}`} description={site.description}>
+    <Layout docTitle={site.name} description={site.description}>
       <header className="post index-head">
         <h1>Posts</h1>
         <p className="subtitle">{site.description}</p>

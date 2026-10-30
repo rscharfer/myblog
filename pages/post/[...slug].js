@@ -14,7 +14,7 @@ export default function BlogPost({ post }) {
   usePostBehaviour();
 
   return (
-    <Layout docTitle={`${post.title} — ${site.author}`} description={post.subtitle}>
+    <Layout docTitle={`${post.title} — ${site.name}`} description={post.subtitle}>
       <PostHeader post={post} />
       {post.toc.length > 0 && <TocSide toc={post.toc} />}
       <article>

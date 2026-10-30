@@ -95,7 +95,7 @@ The fonts are now Bricolage Grotesque (`--font-display`) and Figtree (`--font-bo
 Nothing imports these any more:
 
 - `color.js`, `constants.js` (old palette and golden-ratio constant)
-- `siteconfig.json` (old "The Real Dev Dad" title; titles now come from `lib/site.js`)
+- `siteconfig.json` (unused; the site name, now "Second Draft", lives in `lib/site.js`)
 - `othermarkdown/` (`frontPage.md`, `learningLog.md`, `aboutMe.md`), `oldPosts/`
 - The `raw-loader` dependency and its rule in `next.config.js`: posts are now read with `fs` in `getStaticProps`. I left `next.config.js` alone.
 
