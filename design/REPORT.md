@@ -74,12 +74,23 @@ I tested in headless Chrome (Playwright + axe-core) against `next start`, with 4
 7. **Share links** point at `https://ryansblog.netlify.app/post/<topic>/<slug>` (the reference used a placeholder `/oauth-pkce`).
 8. **Raw HTML in Markdown is escaped**, as before: I didn't add `rehype-raw`. Figures come through `::figure` instead.
 
+## Typography update ("Font Modern")
+
+The fonts are now Bricolage Grotesque (`--font-display`) and Figtree (`--font-body`), with JetBrains Mono kept for code. The old `--font-serif` / `--font-sans` tokens are gone, and the drop cap is removed. `design/tokens.json` and `DESIGN.md` describe the new type.
+
+- **`--measure` is now `706px`, not `64ch`.** `ch` depends on the font, so switching to 18px Figtree widened the text column from 706px to 738px. I pinned it to the old width so the layout stays exactly the same.
+- **Rendered fonts:** checked through Chrome's `CSS.getPlatformFontsForNode`, on every element of Posts, PKCE, use-state and About, at 1440 and 390, light and dark. Only Bricolage Grotesque, Figtree and JetBrains Mono render, and code is all JetBrains Mono. CLS is 0, there's no horizontal scroll, and the column is 706px on desktop. There are two system-font glyphs, and neither was caused by the switch:
+  - The 👍🏼 in use-state renders in Apple Color Emoji. No web font has emoji.
+  - The `⁂` end mark (`hr.end::before`) renders in the system font. None of the new fonts has that glyph, and neither did Newsreader or Inter, so it was always a fallback.
+- `next/font` serves the full variable weight axis (Bricolage 200–800, Figtree 300–900) rather than exactly 400–700. That's a self-hosting detail and doesn't change any styles.
+- `design/reference/styles.css` still uses the old fonts. It's the original handoff reference, so I left it as is.
+
 ## Placeholders still to replace
 
-- GitHub / LinkedIn URLs in `lib/site.js` (currently the sites' home pages).
-- Avatar initials "RS".
-- About text in `content/about.md`. Your old `othermarkdown/aboutMe.md` has material you might want there.
-- The related-reading "Shopify storefront" post exists only in the fixture.
+- Avatar initials "RS" (there's no photo yet).
+- About text in `content/about.md`: the two placeholder lines from the design. Your old `othermarkdown/aboutMe.md` has material you might want there.
+- The related-reading "Shopify storefront" post exists only in the fixture, so nothing on the live site points to it yet.
+- GitHub and LinkedIn are done: `lib/site.js` now points at your profiles.
 
 ## Files I didn't delete but think could go
 
