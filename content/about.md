@@ -1,5 +1,3 @@
-<!-- TODO(Ryan): placeholder text from the design. Each paragraph here becomes a paragraph on /about. -->
+Most of what's on this blog was first taught, with great conviction, to an audience of one hair brush (my daughter's) and a pile of laundry on my living-room floor. They never ask questions and they never take notes. This blog is my attempt to find a slightly livelier crowd.
 
-I'm a full-stack engineer who spent most of my career on the front end, mostly React and TypeScript.
-
-I write here about the parts of the web I had to learn twice, so the second time sticks.
+I'm a developer in Springfield, Oregon, where I live with my wife and two kids. I came to code late, by way of logistics and a move to Germany, so I explain things the way I wish someone had explained them to me.
