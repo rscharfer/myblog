@@ -99,8 +99,7 @@ The fonts are now Bricolage Grotesque (`--font-display`) and Figtree (`--font-bo
 
 ## Placeholders still to replace
 
-- **Avatar:** the initials "RS" show until you add a drawing. Put a square image in `public/` (e.g. `public/avatar.png`) and set `avatar: "/avatar.png"` in `lib/site.js`. It's cropped to a circle everywhere the avatar appears.
-- **Done:** About text (`content/about.md`), GitHub and LinkedIn profile URLs. Location is now Springfield, Oregon. The fixture's related-reading link points at the git-worktree post instead of the Shopify placeholder.
+- **Done:** avatar (`public/avatar.png`: your drawing cropped to the head, 256px; to swap it, replace that file), About text (`content/about.md`), GitHub and LinkedIn profile URLs. Location is now Springfield, Oregon. The fixture's related-reading link points at the git-worktree post instead of the Shopify placeholder.
 
 ## Files I didn't delete but think could go
 
