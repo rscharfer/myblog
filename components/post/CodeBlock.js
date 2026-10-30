@@ -57,7 +57,8 @@ export default function CodeBlock({ code, lang, meta }) {
       </div>
       <Highlight {...defaultProps} theme={undefined} code={code} language={LANGUAGES[lang] || lang || "jsx"}>
         {({ tokens }) => (
-          <pre>
+          // Focusable so keyboard users can scroll long lines (they only wrap on phones).
+          <pre tabIndex={0}>
             <code>
               {tokens.map((line, i) => (
                 <span key={i} className={lines.has(i + 1) ? "ln hl" : "ln"}>
