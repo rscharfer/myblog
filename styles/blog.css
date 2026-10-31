@@ -219,10 +219,11 @@ footer.site .links svg{width:15px;height:15px;fill:none;stroke:currentColor;stro
 .pmeta .topic{font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:11.5px;color:var(--link)}
 .pmeta time{font-variant-numeric:tabular-nums}
 .pmeta .updated{font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:10.5px;margin-top:2px}
-.post-kicker{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;margin:0 0 20px}
+/* center, not baseline: .upd starts with an icon, which would become its baseline */
+.post-kicker{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;margin:0 0 20px}
 .post-kicker .topic{color:var(--link)}
 .post-kicker .upd{display:inline-flex;align-items:center;gap:6px}
-.post-kicker svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;align-self:center}
+.post-kicker svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .ptitle{font-family:var(--font-display);font-size:24px;line-height:1.3;font-weight:500;letter-spacing:-.005em;text-wrap:balance}
 .psub{grid-column:2;font-size:17.5px;line-height:1.55;color:var(--muted)}
 .pitem:hover .ptitle{color:var(--link)}
