@@ -7,7 +7,7 @@ subtitle: Package up the props which always need to be passed to a component in 
 
 ## Why use them?
 
-Sometimes a set of properties needs to be passed to a component which you do not necessarily need to customize all of the time, such as aria props. One way to make this easy on yourself is to a write a hook that can always provided the "fixed" properties - i.e. a property colleciton -- and you spread the return value from that hook into your component.
+Sometimes a set of properties needs to be passed to a component which you do not necessarily need to customize all of the time, such as aria props. One way to make this easy on yourself is to write a hook that always provides the "fixed" properties - i.e. a prop collection - and you spread the return value from that hook into your component.
 
 ```javascript
 function useToggle() {

@@ -2,16 +2,27 @@
 title: OAuth - What is the purpose of PKCE?
 published: October 29, 2026
 subtitle: How does it work?
+icons:
+  Resource owner: role
+  Client: role
+  Authorization server: role
+  Resource server: role
+  Code verifier: artifact
+  Code challenge: artifact
+  Code challenge method: artifact
+  Authorization code: artifact
+  Back channel: channel
+  Front channel: channel
 ---
 
 
 ## What is it at a very high level?
 
-In its most general terms, it's challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. When one request kicks off the request for something very valuable, and the other request receives what is requested, the server has to somehow know the requests are from the same entity.  In the context of PKCE, this "very valuable" thing is an *access token* which allows the entity to access a set of APIs.
+In its most general terms, it's challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. When one request kicks off the request for something very valuable, and the other request receives what is requested, the server has to somehow know the requests are from the same entity. In the context of PKCE, this "very valuable" thing is an *access token* which allows the entity to access a set of APIs.
 
 ## How it works (at a high level) in the context of the authorization code flow with a web server in play †
 
-When a user opts to use a social login -- Google, Facebook, Apple, etc -- to log into an app, the back-end creates a random string and a hash of that string. The browser is then redirected to Google, Facebook, Apple, etc, with the hash and the algorithm used to make it as query parameters. Once the user logs in and consents to the app using the social site's data on the user, the authorization server will use the redirect to redirect the user back to the app's site, passing along an authorization code as a parameter. 
+When a user opts to use a social login -- Google, Facebook, Apple, etc. -- to log into an app, the back-end creates a random string and a hash of that string. The browser is then redirected to Google, Facebook, Apple, etc., with the hash and the algorithm used to make it as query parameters. Once the user logs in and consents to the app using the social site's data on the user, the authorization server will use the redirect to redirect the user back to the app's site, passing along an authorization code as a parameter. 
 
 At that point the web server will send the _actual string_ along with the authorization code to the social site. The social site will hash the string from the web server with the hashing algorithm it got in the first request, and if the hash it creates is identical to the hash it got in the first request, it knows the two requests came from the same entity and returns the access token. It knows this because you cannot reverse-engineer a hash back into its original string, so an entity that can deliver the original string is very likely the same entity which produced the hash to begin with.
 
@@ -38,7 +49,7 @@ PKCE solves two security problems:
 
 ### Cross-Site Request Forgery attacks
 
-In the OAuth authorization code flow, a malicious user could go through the process of logging onto the client with their credentials at the authorization server, provide their consent, and intercept the callback link with the newly minted authorization code attached to it. An innocent person could then be tricked into opening the callback link that has the malicious user's authorization code attached to it. After clicking on the link, the code will be exchanged for the token, the access token will be mapped to the bad actor and the innocent user will be logged in as the bad actor.  From that point on and until they realize they are logged on as the bad actor, everything they can do can be recorded to the actor's account including personal information the user types in.
+In the OAuth authorization code flow, a malicious user could go through the process of logging into the client with their credentials at the authorization server, provide their consent, and intercept the callback link with the newly minted authorization code attached to it. An innocent person could then be tricked into opening the callback link that has the malicious user's authorization code attached to it. After clicking on the link, the code will be exchanged for the token, the access token will be mapped to the bad actor and the innocent user will be logged in as the bad actor. From that point on and until they realize they are logged on as the bad actor, everything they do can be recorded to the actor's account including personal information the user types in.
 
 ### Authorization Code Interception Attack
 
@@ -49,9 +60,9 @@ This is the "opposite" problem, and it was primarily a problem for mobile apps. 
 
 This was done in the past, and a client getting an access token to an API this way was said to be using the OAuth "implicit flow".  This method was used by apps which did not have a back end, so the access token had to be passed via the URL, and this is not great because URLs can be exposed in browser history, referrer headers, and logs.
 
-## Why is it called PKCE
+## Why is it called PKCE?
 
-PKCE stands for Proof Key for Code Exchange. The client is presenting the unhashed *key* as *proof* that it is the same entity which initiated the *code* *exchange* to begin with.  The client basically is saying "Here's a key that is proof that I am the same entity that started the flow."
+PKCE stands for Proof Key for Code Exchange. The client is presenting the unhashed *key* as *proof* that it is the same entity which initiated the *code* *exchange* to begin with. The client basically is saying "Here's a key that is proof that I am the same entity that started the flow."
 
 
 

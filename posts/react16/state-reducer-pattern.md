@@ -1,10 +1,10 @@
 ---
-title: Control a child components inner state
+title: Control a child component's inner state
 published: November 10, 2020
 subtitle: This works if you are using the state reducer pattern. 
 ---
 
-The premise : A stateful component (or hook) has its own state by default, and its own way of updating it, but that component (or hook) gives the user of it the opportunity to override this behavior if it wants.
+The premise: A stateful component (or hook) has its own state by default, and its own way of updating it, but that component (or hook) gives the user of it the opportunity to override this behavior if it wants.
 
 Let's look at an example. Let's say there is a custom hook called `usePointTotal`. By default, `usePointTotal` will react to events this way: if an `ADD_ONE` action is dispatched, the point total in the state will be increased by one. If an `ADD_FIVE` action is dispatched, the point total in the state will be increased by five. And a dispatched `ADD_TEN` action will do what you expect it to do. 😉
 
@@ -37,7 +37,7 @@ function defaultReducer(state, action) {
 // it returns its state and methods to update its state
 
 function usePointTotal({ reducer = defaultReducer } = {}) {
-  // we are going to keep track of some state, which will be an object with the property "point total" on it.
+  // we are going to keep track of some state, which will be an object with the property "pointTotal" on it.
   const [{ pointTotal }, dispatch] = React.useReducer(reducer, {
     pointTotal: 0,
   });

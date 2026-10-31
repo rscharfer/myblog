@@ -1,7 +1,7 @@
 ---
 title: Export helpers from a "context module"
 published: October 26, 2020
-subtitle: Rather than passing helpers down in context value, exporting them separately could have readability and performance advantages. 
+subtitle: Rather than passing helpers down in the context value, exporting them separately could have readability and performance advantages. 
 ---
 
 Essentially, what Kent C. Dodds dubs the "context module pattern" is a combination of two things:
@@ -15,12 +15,12 @@ Essentially, what Kent C. Dodds dubs the "context module pattern" is a combinati
     const value = [count, setCount];
     // we are merely providing the naked updater, setCount, and the count itself to consumers.
     // we are _not_ passing down a helper from the provider such as:
-    // const increment = () => setState(state => state + 1);
+    // const increment = () => setCount(count => count + 1);
     return <CountContext.Provider value={value} {...props} />;
   };
   ```
 
-- a helper exported from the "context module". Although there is no helper passed from the provider when you use this pattern, you can still (and are encouraged to) use helpers.  The context module is the module is where you might create the context and define the provider above. In contrast to a helper function provided by the context provider, an `export`ed/`import`ed function from the _context module_ can be lazily loaded on an as-needed basis, providing a performance gain. The helper function takes the naked updater as an argument.
+- a helper exported from the "context module". Although there is no helper passed from the provider when you use this pattern, you can still (and are encouraged to) use helpers. The context module is where you might create the context and define the provider above. In contrast to a helper function provided by the context provider, an `export`ed/`import`ed function from the _context module_ can be lazily loaded on an as-needed basis, providing a performance gain. The helper function takes the naked updater as an argument.
 
 ```javascript
 export async function updateUser(dispatch, user, updates) {
@@ -53,8 +53,8 @@ export async function updateUser(dispatch, user, updates) {
 ---
 [The context module pattern on Code Sandbox](https://codesandbox.io/s/context-module-function-8z83p)
 
-## How you can enhance this pattern?
+## How can you enhance this pattern?
 
-You can pass the updater and the actual state into two different providers.  That way the user of one does not have to subscribe to the other.  For example, if the component just subscribes to the updater function, it will not be rerendered just because the state part of the context value changes. 
+You can pass the updater and the actual state into two different providers. That way the user of one does not have to subscribe to the other. For example, if the component just subscribes to the updater function, it will not be rerendered just because the state part of the context value changes. 
 
 [Enhanced pattern on Code Sandbox](https://codesandbox.io/s/two-providers-for-state-and-state-updater-yu3sn)

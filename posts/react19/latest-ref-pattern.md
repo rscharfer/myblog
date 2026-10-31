@@ -1,7 +1,7 @@
 ---
-title: Get the latest props in an async click handler by using "latest ref" pattern
+title: Get the latest props in an async click handler by using the "latest ref" pattern
 published: April 7, 2026
-subtitle: Closure in Javascript makes this a challenge otherwise.
+subtitle: Closure in JavaScript makes this a challenge otherwise.
 ---
 
 
@@ -22,9 +22,9 @@ Functions that are created inside of function components have immediate access t
 
 ```
 
-Sometimes though, a function is async and by the time it gets around to finishing, the props and state of the function have changed. If the function needs the newest state and props, it would be out of luck;  it only has access to the values in its lexical scope.
+Sometimes though, a function is async and by the time it gets around to finishing, the props and state of the component have changed. If the function needs the newest state and props, it would be out of luck; it only has access to the values in its lexical scope.
 
-[Here we have a "game" where the you can summon help from another user](https://codesandbox.io/p/sandbox/blog-react-19-latest-ref-problem-xhyr9v).  Unfortunately, summoning help takes about two seconds because the back end needs to choose a player to help you.  After the server returns a helper, it tries to place the helper in the same location you (represented by your pointer) currently are.  Unfortunately, it can't do that because your old location is "locked in" its lexical scope. As a result, if you keep moving your mouse while the helper is being fetched, the helper is placed somewhere you aren't. 
+[Here we have a "game" where you can summon help from another user](https://codesandbox.io/p/sandbox/blog-react-19-latest-ref-problem-xhyr9v).  Unfortunately, summoning help takes about two seconds because the back end needs to choose a player to help you. After the server returns a helper, it tries to place the helper in the same location you (represented by your pointer) currently are.  Unfortunately, it can't do that because your old location is "locked in" its lexical scope. As a result, if you keep moving your mouse while the helper is being fetched, the helper is placed somewhere you aren't. 
 
 ```js
  const summonHelp = async () => {
@@ -38,7 +38,7 @@ Sometimes though, a function is async and by the time it gets around to finishin
 
 ## What can we do about this?
 
-Instead of having `summonHelp` grab x and y from its lexical scope, have it grab them from a ref.  That is the latest ref pattern.
+Instead of having `summonHelp` grab `location` from its lexical scope, have it grab it from a ref. That is the latest ref pattern.
 
 
 [Here is the fixed version of the game.](https://codesandbox.io/p/sandbox/latest-ref-solution-d3gzg2) 
@@ -47,7 +47,7 @@ Instead of having `summonHelp` grab x and y from its lexical scope, have it grab
 
 Some use this pattern to remove a dependency for an effect that is causing the entire effect to re-synchronize when the dependency's value changes, which they do not want to happen.
 
-In this example, `increment` is updated with a button in the UI.  An interval set in an effect is used to update `count` every second. Because of the reference to `increment`, the linter requires it to be listed as a dependency. The drawback of listing `increment` as a dependency is that the interval is cleared and re-set each time `increment` changes, which could make the count update appear to hang.
+In this example, `increment` is updated with a button in the UI. An interval set in an effect is used to update `count` every second. Because of the reference to `increment`, the linter requires it to be listed as a dependency. The drawback of listing `increment` as a dependency is that the interval is cleared and re-set each time `increment` changes, which could make the count update appear to hang.
 
 ```js
 
@@ -88,7 +88,7 @@ This problem illustrated in use case #2 can actually also be solved by [useEffec
 
 Two use cases where the latest ref pattern could be beneficial are:
 * an async event handler needs access to the latest state / props i.e. use case #1
-* a value used in your use effect is causing re-synchronization of that effect, and that is not a good thing.  i.e. use case #2.  The [useEffectEvent](https://react.dev/reference/react/useEffectEvent) hook can now help us with this. 
+* a value used in your `useEffect` is causing re-synchronization of that effect, and that is not a good thing, i.e. use case #2.  The [useEffectEvent](https://react.dev/reference/react/useEffectEvent) hook can now help us with this. 
 
 
 

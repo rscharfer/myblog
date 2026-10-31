@@ -7,15 +7,15 @@ subtitle: Fun fact{:} This was previously accomplished with React.cloneElement
 
 ## What is a compound component?
 
-You can think of compound components as groups of components which cannot live without each other, such as the  `select` and `option` elements in HTML. They will always have the following characteristics:
+You can think of compound components as groups of components which cannot live without each other, such as the `select` and `option` elements in HTML. They will always have the following characteristics:
 
 - a parent component with nested child components
 
-- the parent component shares state _implicitly_ with its children components
+- the parent component shares state _implicitly_ with its child components
 
 ## How do you implement a compound component?
 
-You first create a root component which wraps its children in a context provider.  Via the value prop, the root component can share state and ways to manipuate that state with its children.  Via `use` the children component can consume the state and ways to manipulate that state provided by the parent and act accordingly.
+You first create a root component which wraps its children in a context provider. Via the value prop, the root component can share state and ways to manipulate that state with its children. Via `use` the child components can consume the state and ways to manipulate that state provided by the parent and act accordingly.
 
 [Here is an example.](<https://codesandbox.io/p/sandbox/blog-compound-components-react-19-ynjyln>)
 
@@ -33,7 +33,7 @@ The way for a root component to implicitly share state and functionality with it
 
 - `React.cloneElement` - We do not need to clone the children to make sure they have access to the parent's state. Instead the children will grab the state from the parent directly with the `use` API. 
 
-- `React.Children.map` - As mentioned above, we do not need to map through the children to make clones which receive parent state and functionality.  Instead the children will grab global state directly from the parent via the `use` API.
+- `React.Children.map` - As mentioned above, we do not need to map through the children to make clones which receive parent state and functionality. Instead the children will grab global state directly from the parent via the `use` API.
 
 ## A note on adding child components to the root component via static properties
 
@@ -43,5 +43,5 @@ Toggle.On = ({ on, children }) => on && children;
 Toggle.Off = ({ on, children }) => !on && children;
 Toggle.Button = ({ on, toggle }) => <button onClick={toggle}> Toggle </button>;
 ```
-An advantage of doing this is that only `Toggle` needs to be imported and the allowed children come along for the ride.  The React 19 allows for any children - not just the "allowed" ones which receive state from the provider. 
+An advantage of doing this is that only `Toggle` needs to be imported and the allowed children come along for the ride. The React 19 allows for any children - not just the "allowed" ones which receive state from the provider. 
 

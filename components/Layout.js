@@ -1,62 +1,51 @@
 import Head from "next/head";
-import Header from "./Header";
 
-import { DARK_GRAY } from "../color";
-import { GOLDEN_RATIO } from "../constants";
-export default function Layout({ children, docTitle, ...props }) {
+import Header from "./Header";
+import SiteFooter from "./SiteFooter";
+import { site } from "../lib/site";
+
+// `path` is the page's URL path ("/", "/about", "/post/react19/hooks"), used for the
+// canonical and og:url. Pass `article` ({ title, description, date }) on post pages.
+export default function Layout({ children, docTitle, description, path, article }) {
+  const url = path && site.url + path;
+  const image = site.url + site.avatar;
+  const jsonLd = article && {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.title,
+    description: article.description,
+    url,
+    mainEntityOfPage: url,
+    image,
+    // Front matter only has `published`, which is the last-updated date.
+    datePublished: article.date,
+    dateModified: article.date,
+    author: { "@type": "Person", name: site.author, url: `${site.url}/about` },
+    publisher: { "@type": "Person", name: site.author },
+  };
+
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{docTitle}</title>
+        {description && <meta name="description" content={description} />}
+        {url && <link rel="canonical" href={url} />}
+        <meta property="og:site_name" content={site.name} />
+        <meta property="og:title" content={article ? article.title : docTitle} />
+        {description && <meta property="og:description" content={description} />}
+        {url && <meta property="og:url" content={url} />}
+        <meta property="og:type" content={article ? "article" : "website"} />
+        <meta property="og:image" content={image} />
+        {article && <meta property="article:modified_time" content={article.date} />}
+        <meta name="twitter:card" content="summary" />
+        {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
       </Head>
-      <section className="layout">
-        <style jsx global>{`
-          * {
-            box-sizing: border-box;
-          }
-          html {
-            font-size: 18px;
-            line-height: ${GOLDEN_RATIO};
-            color: ${DARK_GRAY};
-            font-family: Lato;
-          }
-          body {
-            padding: 2rem;
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto;
-          }
-          h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            line-height: 1.2;
-          }
-          h2 {
-            font-size: 1.25rem;
-            line-height: 1.2;
-          }
-          .content {
-            margin: 0 auto;
-            padding: 1.5rem 0 0;
-          }
-
-          .utterances {
-            max-width: 1100px;
-          }
-
-          @media screen and (min-width: 800px) {
-            h1 {
-              font-size: 2.5rem;
-            }
-            h2 {
-              font-size: 1.5rem;
-            }
-          }
-        `}</style>
-        <Header />
-        <div className="content">{children}</div>
-      </section>
+      <Header />
+      <div className="layout">
+        {children}
+        <SiteFooter />
+      </div>
     </>
   );
 }

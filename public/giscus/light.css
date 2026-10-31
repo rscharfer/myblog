@@ -1,0 +1,85 @@
+/* giscus theme for Second Draft (light). Colours are the design tokens in design/tokens.json.
+   Builds on giscus's borderless theme and overrides its variables. Loaded by components/post/Comments.js. */
+@import url("https://giscus.app/themes/noborder_light.css");
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;600&display=swap");
+
+main {
+  --primary-default: 154,52,18;
+  --bg-default: 245,242,236;
+
+  --color-fg-default: #1c1b19;
+  --color-fg-muted: #68645d;
+  --color-fg-subtle: #68645d;
+  --color-canvas-default: #fdfcfa;
+  --color-canvas-overlay: #fdfcfa;
+  --color-canvas-inset: #f5f2ec;
+  --color-canvas-subtle: #f5f2ec;
+  --color-border-default: #e6e1d8;
+  --color-border-muted: #e6e1d8;
+  --color-neutral-muted: #efe3d2;
+  --color-accent-fg: #9a3412;
+  --color-accent-emphasis: #9a3412;
+  --color-accent-muted: rgba(var(--primary-default), 0.4);
+  --color-accent-subtle: rgba(var(--primary-default), 0.1);
+
+  /* Secondary buttons, tabs, reactions */
+  --color-btn-text: #1c1b19;
+  --color-btn-bg: #fdfcfa;
+  --color-btn-border: #e6e1d8;
+  --color-btn-hover-bg: #f5f2ec;
+  --color-btn-hover-border: #e6e1d8;
+  --color-btn-active-bg: #efe3d2;
+  --color-btn-active-border: #e6e1d8;
+  --color-btn-selected-bg: #efe3d2;
+  --color-btn-shadow: none;
+  --color-btn-inset-shadow: none;
+  --color-segmented-control-bg: #f5f2ec;
+  --color-segmented-control-button-bg: #fdfcfa;
+  --color-segmented-control-button-selected-border: #e6e1d8;
+  --color-action-list-item-default-hover-bg: #f5f2ec;
+  --color-scale-gray-1: #efe3d2;
+  --color-scale-gray-7: #efe3d2;
+  --color-scale-blue-1: rgba(var(--primary-default), 0.12);
+  --color-scale-blue-8: rgba(var(--primary-default), 0.12);
+  --color-social-reaction-bg-hover: #efe3d2;
+  --color-social-reaction-bg-reacted-hover: rgba(var(--primary-default), 0.12);
+  --color-primer-shadow-inset: none;
+
+  /* Primary button (Sign in, Comment): ink on paper, like the avatar */
+  --color-btn-primary-text: #fdfcfa;
+  --color-btn-primary-bg: #1c1b19;
+  --color-btn-primary-border: #1c1b19;
+  --color-btn-primary-hover-bg: #68645d;
+  --color-btn-primary-hover-border: #68645d;
+  --color-btn-primary-selected-bg: #1c1b19;
+  --color-btn-primary-selected-shadow: none;
+  --color-btn-primary-shadow: none;
+  --color-btn-primary-inset-shadow: none;
+  --color-btn-primary-disabled-text: #fdfcfa;
+  --color-btn-primary-disabled-bg: #68645d;
+  --color-btn-primary-disabled-border: #68645d;
+
+  /* Code in comments: the site's syntax colours */
+  --color-prettylights-syntax-comment: #625e57;
+  --color-prettylights-syntax-constant: #8a2c0d;
+  --color-prettylights-syntax-entity: #1e3a8a;
+  --color-prettylights-syntax-storage-modifier-import: #1c1b19;
+  --color-prettylights-syntax-entity-tag: #8a2c0d;
+  --color-prettylights-syntax-keyword: #8a2c0d;
+  --color-prettylights-syntax-string: #3f6212;
+  --color-prettylights-syntax-variable: #6b21a8;
+  --color-prettylights-syntax-string-regexp: #3f6212;
+
+  font-family: Figtree, system-ui, sans-serif;
+  color: var(--color-fg-default);
+}
+
+main code, main pre, main kbd, main samp {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+/* Square corners and no shadows, like the rest of the site. Avatars stay round. */
+main *:not(img) {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
