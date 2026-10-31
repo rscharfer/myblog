@@ -28,7 +28,7 @@ At that point the web server will send the _actual string_ along with the author
 
 Once the web server has the access token, it can use it to access API endpoints provided by the social site.
 
-† When an app does not have a web server, the random string is saved in session storage and JavaScript will make a `fetch` call to exchange the code and the random string for an access token, which is then typically stored in local storage. Alternatively, it could be stored in memory.
+† Let's say the app is statically built and served from a CDN. In this case there may not be a web server to exchange the random string and authorization code for an authorization server's access token. Instead, the app's front-end could keep the random string saved in `sessionStorage` and use JavaScript to make a `fetch` call, passing along the random string and authorization code in exchange for the access token. It's common for apps to save the access token in `localStorage`, but the IETF recommends a [backend-for-frontend](https://datatracker.ietf.org/doc/rfc10017/), or at minimum keeping it in memory.
 
 ## Here's what OAuth calls each piece of the flow above
 
@@ -58,7 +58,7 @@ This is the "opposite" problem, and it was primarily a problem for mobile apps. 
 
 ## Why doesn’t the authorization server just give the client the access token to begin with?
 
-This was done in the past, and a client getting an access token to an API this way was said to be using the OAuth "implicit flow".  This method was used by apps which did not have a back end, so the access token had to be passed via the URL, and this is not great because URLs can be exposed in browser history, referrer headers, and logs.
+Before CORS, a browser-only app couldn't make the cross-origin POST to the authorization server's token endpoint, so apps without a back end couldn't do the code exchange at all. The OAuth "implicit flow" worked around this: the authorization server skipped the code and put the access token directly in the redirect URL. That put the token on the front channel, where it could end up in browser history, be read by any script on the page, or be sent somewhere else through a manipulated redirect. The app also had no way to verify that the token was issued for its own login. Once CORS made the exchange possible from the browser, the authorization code flow with PKCE replaced it, and the IETF's [guidance for browser-based apps](https://datatracker.ietf.org/doc/rfc10017/) now lists the implicit flow as deprecated.
 
 ## Why is it called PKCE?
 
