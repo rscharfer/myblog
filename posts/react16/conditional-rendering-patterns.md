@@ -6,9 +6,9 @@ subtitle: Some conditional rendering tools to add to your toolbox.
 
 There are three conditional rendering patterns which I have recently learned about and I am excited about using more of in the future. Two are cool and one is **really** cool. Here is a short description of each:
 
-## Conditional Rendering with Higher Order Components
+## Conditional Rendering with Higher-Order Components
 
-Rather than performing the "do we even have data?" check in a component and rendering something completely different when we don't, we can let a higher order component take care of this scenario for us, and safely assume the data we need will always be there.
+Rather than performing the "do we even have data?" check in a component and rendering something completely different when we don't, we can let a higher-order component take care of this scenario for us, and safely assume the data we need will always be there.
 
 So rather than a `List` component which looks like this...
 
@@ -38,11 +38,11 @@ const withData = (needsToBeTruthyProp) => (Component) => (props) => {
 const ListWithData = withData("listItems")(List);
 ```
 
-Higher order components take a React component and return a React component and conventionally begin with the word "with". This is a signal to other developers that the function is a higher order component (HOC). In this case, if `listItems` has a falsey value, the error message will be rendered.
+Higher-order components take a React component and return a React component and conventionally begin with the word "with". This is a signal to other developers that the function is a higher-order component (HOC). In this case, if `listItems` has a falsy value, the error message will be rendered.
 
 ## Conditional Rendering with a Switch Statement
 
-For a recent code challenge, I was under a lot of time pressure, and I discovered a way to conditionally render by using a switch statement inside of an immediately invoked function expression. I copied and pasted it into my code, and I have since taken the time to understand it. 😁 This is what it looks like..
+For a recent code challenge, I was under a lot of time pressure, and I discovered a way to conditionally render by using a switch statement inside of an immediately invoked function expression. I copied and pasted it into my code, and I have since taken the time to understand it. 😁 This is what it looks like:
 
 ```javascript
 function App() {
