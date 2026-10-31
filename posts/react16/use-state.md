@@ -1,11 +1,12 @@
 ---
 title: Use a prop, not another piece of state
 created: October 18, 2020
+updated: October 31, 2026
 subtitle: The argument passed to useState is only used once.
 
 ---
 
-When you initialize `useState` with a prop, you have to remember that all you are doing is _initializing_ the state with the prop. I was working on a project recently, and I had forgotten this fact, and I was wondering why the state of our component was not remaining in sync with prop changes. But of course this is silly because if you want a piece of state to remain in sync with a prop, you would probably just use the prop to begin with and not bother creating state in the component that tracks the prop changes. Once a component creates a piece of state, it is not meant to be overridden from a prop coming in from the outside; the state is meant to be completely controlled by the component.
+When you pass a value into `useState`, you have to remember that all you are doing is _initializing_ the state with the value. I was working on a project recently, and I had forgotten this fact. The value given to `useState` was a prop that was passed to the component, and I was wondering why the state of the component was not remaining in sync with prop changes. In hindsight, the fix was obvious. If you want a piece of state to remain in sync with a prop, you would probably just use the prop to begin with and not bother creating state in the component that "tracks" the prop changes. Once a component creates a piece of state, it is not meant to be overridden from a prop coming in from the outside; the state is meant to be completely controlled by the component.
 
 ```javascript
 function App() {
@@ -21,7 +22,8 @@ function App() {
 }
 
 function CounterDisplay({ parentCounterVal }) {
-  // once counter is part of the component state, it is something completely controlled by the component
+  // counter is initialized with parentCounterVal but can only be changed by calling setCounter once initialized; a different parentCounterVal passed in once the component has rendered will not change the UI
+
   const [counter, setCounter] = React.useState(parentCounterVal);
 
   return (
@@ -43,35 +45,32 @@ function SmarterCounterDisplay({ parentCounterVal }) {
 
 [Here is a little demo on CodeSandbox](https://codesandbox.io/s/use-prop-to-set-initial-state-with-usestate-wps9h)
 
-While we are on `useState`, I recently learned that you can lazily initialize a piece of state with it, but I wasn't really clear on why you would want to do that. I know now. 👍🏼 It is because `useState` is called on _every_ render, and in order for React to call it, it of course needs to calculate its arguments, so it knows what to call it with.  You use lazy initialization when calculating these arguments is an expensive task.
+
+If you are calling an expensive function to create the initial state, doing so could hurt performance. Though the return value is only used on first render, the function is still called each time.
 
 ```javascript
 // Example 1
 
-// In order for React to call useState on every render it needs to first grab the value from local storage (even though it doesn't use it) and this is relatively expensive.
-const [name, setName] = useState(window.localStorage.getItem("name") || "");
+// localStorage is read and parsed every render, although the result is used only once.
+const [count, setCount] = useState(JSON.parse(window.localStorage.getItem("counterValue")) || 0);
 
 // Example 2
 
-// React needs to know what the cool number is before calling use state, and this is done on every render
-const [coolNumber, setCoolNumber] = useState(calculateCoolNumber());
-
-// You can think of the above example this way. On every render, coolNumber is defined and then passed to useState.
-
-const coolNumber = calculateCoolNumber();
-const [coolNumber, setCoolNumber] = useState(calculateCoolNumber);
-
+// calculateLongArray is called every render, although its return value is used only once
+const [longArray, setLongArray] = useState(calculateLongArray());
 ```
 
-When you pass a function into `useState`, the function is defined and saved into memory on every render, but it is only called on the initial render and the value created, which is now in memory, is returned (but not used!).
+When you pass a _function_ into `useState`, the function is only called on the initial render. That means we can pass a function so that the expensive calculation like grabbing something from localStorage or calling `calculateLongArray` is only done once.
 
 ```javascript
 function App() {
-  const [count, setCount] = React.useState(
+  const [count, setCount] = useState(
     () => JSON.parse(window.localStorage.getItem("counterValue")) || 0
   );
 
-  React.useEffect(() => {
+  const [longArray, setLongArray] = useState(calculateLongArray);
+
+  useEffect(() => {
     window.localStorage.setItem("counterValue", JSON.stringify(count));
   }, [count]);
 
@@ -84,6 +83,14 @@ function App() {
       <div>
         <button onClick={() => setCount(count - 1)}>Decrement</button>
       </div>
+      <div>
+        <button onClick={() => setLongArray([...longArray, Math.round(Math.random() * 10)])}>
+          Add value to array
+        </button>
+      </div>
+      <pre>
+        {JSON.stringify(longArray)}
+      </pre>
     </div>
   );
 }
