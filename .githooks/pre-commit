@@ -1,3 +1,5 @@
 #!/bin/sh
-# Stamps `updated:` on edited posts. Enabled by `yarn install` (see "prepare" in package.json).
+# Checks links in staged posts, then stamps `updated:` on edited posts.
+# Enabled by `yarn install` (see "prepare" in package.json).
+node scripts/check-links.mjs --staged || exit 1
 exec node scripts/stamp-updated.mjs

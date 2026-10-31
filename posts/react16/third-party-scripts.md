@@ -56,4 +56,4 @@ function ThirdPartyCodeExample() {
 That worked. The `src` was downloaded one time and one time only even when the component rerenders due to changes in state.
 
 
-[Here is the code in Code Sandbox.](https://codesandbox.io/s/third-party-script-c4ki9)
+[Here is the code in CodeSandbox.](https://codesandbox.io/s/third-party-script-c4ki9)

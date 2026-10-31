@@ -104,4 +104,4 @@ export default function App() {
 }
 ```
 
-[Here is the code on CodePen.](https://codesandbox.io/p/sandbox/blog-state-reducer-pattern-eyrsc)
+[Here is the code on CodeSandbox.](https://codesandbox.io/p/sandbox/blog-state-reducer-pattern-eyrsc)
