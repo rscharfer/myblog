@@ -1,7 +1,6 @@
 ---
 title: The React version of HTML's <select> component
 created: October 26, 2020
-updated: October 31, 2026
 subtitle: The compound component pattern has a root component implicitly sharing state with a set of possible children.
 ---
 

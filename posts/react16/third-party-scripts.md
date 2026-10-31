@@ -1,7 +1,6 @@
 ---
 title: Why you can't add a third party script in the render function
 created: October 18, 2020
-updated: October 31, 2026
 subtitle: Turns out scripts added with innerHTML are inert.
 ---
 

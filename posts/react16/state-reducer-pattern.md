@@ -1,7 +1,6 @@
 ---
 title: Control a child component's inner state
 created: November 10, 2020
-updated: October 31, 2026
 subtitle: This works if you are using the state reducer pattern. 
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: Using React context to implicitly share state in compound components
 created: April 7, 2026
-updated: October 31, 2026
 subtitle: Fun fact{:} This was previously accomplished with React.cloneElement
 ---
 

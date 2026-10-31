@@ -1,7 +1,6 @@
 ---
 title: Use a prop, not another piece of state
 created: October 18, 2020
-updated: October 31, 2026
 subtitle: The argument passed to useState is only used once.
 
 ---

@@ -1,7 +1,6 @@
 ---
 title: Conditionally rendering JSX
 created: October 18, 2020
-updated: October 31, 2026
 subtitle: Some conditional rendering tools to add to your toolbox.
 ---
 
