@@ -1,6 +1,7 @@
 ---
 title: Use a prop, not another piece of state
 created: October 18, 2020
+updated: October 31, 2026
 subtitle: The argument passed to useState is only used once.
 
 ---
@@ -41,7 +42,7 @@ function SmarterCounterDisplay({ parentCounterVal }) {
 }
 ```
 
-[Here is a little demo on CodePen] (<https://codesandbox.io/s/use-prop-to-set-initial-state-with-usestate-wps9h>)
+[Here is a little demo on CodePen](https://codesandbox.io/s/use-prop-to-set-initial-state-with-usestate-wps9h)
 
 While we are on `useState`, I recently learned that you can lazily initialize a piece of state with it, but I wasn't really clear on why you would want to do that. I know now. 👍🏼 It is because `useState` is called on _every_ render, and in order for React to call it, it of course needs to calculate its arguments, so it knows what to call it with.  You use lazy initialization when calculating these arguments is an expensive task.
 
@@ -89,4 +90,4 @@ function App() {
 }
 ```
 
-[Here is the code in CodePen] (<https://codesandbox.io/s/blog-lazy-initialization-ployt>)
+[Here is the code in CodePen](https://codesandbox.io/s/blog-lazy-initialization-ployt)

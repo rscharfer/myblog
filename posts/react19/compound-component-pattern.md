@@ -1,6 +1,7 @@
 ---
 title: Using React context to implicitly share state in compound components
 created: April 7, 2026
+updated: October 31, 2026
 subtitle: Fun fact{:} This was previously accomplished with React.cloneElement
 ---
 
@@ -22,7 +23,7 @@ You first create a root component which wraps its children in a context provider
 
 ## React 16 (class component) approach vs React 19 (functional component) approach
 
-[A previous blog post of mine](<https://ryansblog.netlify.app/post/compoundComponents>) showed a way the compound component pattern was implemented in the days of React 16. At that time, class components were in full swing. 
+[A previous blog post of mine](/post/react16/compound-component-pattern) showed a way the compound component pattern was implemented in the days of React 16. At that time, class components were in full swing. 
 
 The way for a root component to implicitly share state and functionality with its children was for the root component to map its children to clones of themselves. The clones would receive the parent's state and functionality via their props. 
 

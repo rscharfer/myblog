@@ -1,6 +1,7 @@
 ---
 title: The React version of HTML's <select> component
 created: October 26, 2020
+updated: October 31, 2026
 subtitle: The compound component pattern has a root component implicitly sharing state with a set of possible children.
 ---
 
@@ -29,4 +30,4 @@ You can think of compound components as components that cannot live without each
 
 ## Ok. Let's see an example.
 
-[Here is an example on Code Pen. Make sure to read the comments!] (<https://codesandbox.io/s/blog-compound-components-09bdz>)
+[Here is an example on Code Pen. Make sure to read the comments!](https://codesandbox.io/s/blog-compound-components-09bdz)
