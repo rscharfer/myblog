@@ -8,7 +8,7 @@ const Index = ({ posts }) => {
   // Posts arrive newest first, so years come out in descending order too.
   const postsByYear = new Map();
   for (const post of posts) {
-    postsByYear.set(post.date.year, [...(postsByYear.get(post.date.year) || []), post]);
+    postsByYear.set(post.created.year, [...(postsByYear.get(post.created.year) || []), post]);
   }
 
   return (
@@ -16,7 +16,7 @@ const Index = ({ posts }) => {
       <header className="post index-head">
         <h1>Posts</h1>
         <p className="subtitle">{site.description}</p>
-        <p className="datenote">{posts.length} posts · dates show when a post was last updated</p>
+        <p className="datenote">{posts.length} posts, newest first by the date each was published</p>
       </header>
       <main className="plist">
         {Array.from(postsByYear).map(([year, yearsPosts]) => (

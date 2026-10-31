@@ -1,0 +1,3 @@
+#!/bin/sh
+# Stamps `updated:` on edited posts. Enabled by `yarn install` (see "prepare" in package.json).
+exec node scripts/stamp-updated.mjs

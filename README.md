@@ -22,7 +22,7 @@ Add a Markdown file under `posts/<topic>/`. Its path is its URL: `posts/git/work
 ```markdown
 ---
 title: Git worktree in my own words
-published: June 15, 2026
+created: June 15, 2026
 subtitle: Why are worktrees so awesome?
 ---
 
@@ -30,7 +30,8 @@ Post body…
 ```
 
 - `title` and `subtitle` are required. The subtitle is also the page's meta description, so make it a real sentence. To include a colon in front matter, write `{:}`.
-- `published` must be in the form `Month D, YYYY`; the build fails otherwise. It's shown as the last-updated date, and posts are listed newest first.
+- `created` must be in the form `Month D, YYYY`; the build fails otherwise. Posts are listed newest first by this date.
+- Don't write `updated` by hand. When a commit changes an existing post, the pre-commit hook ([scripts/stamp-updated.mjs](scripts/stamp-updated.mjs)) adds or bumps `updated: <today>`. Changes to only the date lines don't count. The Posts page then shows "Updated …" under the created date, and the post shows "Updated …" above its title instead of the date in the meta row. To skip the stamp for a trivial commit, use `git commit --no-verify`. `yarn install` turns the hook on (it sets `core.hooksPath` to `.githooks`).
 - Optional: `related` (a "Related reading" list) and `icons` (see below).
 
 The home page, sitemap, reading time and table of contents (built from `##` and `###` headings) all update automatically.

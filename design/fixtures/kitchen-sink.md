@@ -1,6 +1,6 @@
 ---
 title: OAuth — What is the purpose of PKCE?
-published: October 29, 2026
+created: October 29, 2026
 # Not a real post. Built only with SHOW_FIXTURES=1, at /post/_fixtures/kitchen-sink.
 # Shows the Markdown syntax for every element in design/HANDOFF.md.
 subtitle: How does it work? (Fixture — every post element, mirroring design/reference)

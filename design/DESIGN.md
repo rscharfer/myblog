@@ -8,8 +8,8 @@ The reference page is the PKCE post (*OAuth — What is the purpose of PKCE?*), 
 
 Three page types share the top bar, `layout`, type scale and footer:
 
-- **Posts** (`PostsPage`): the home page. Every post newest first, grouped by year under a kicker and an ink rule. Each row shows the topic (taken from the URL path: Authentication, Git, React 19, React 16), the last-updated date, the title and the subtitle, and the whole row is the link.
-- **Post** (`PostEditorial`): the article itself.
+- **Posts** (`PostsPage`): the home page. Every post newest first, grouped by year under a kicker and an ink rule. Each row shows the topic (taken from the URL path: Authentication, Git, React 19, React 16), the created date (plus a small-caps "Updated …" line if the post was edited later), the title and the subtitle, and the whole row is the link.
+- **Post** (`PostEditorial`): the article itself. An edited post gets a kicker above the title, with the topic in `link` and "Updated <date>", and the meta row drops its date.
 - **About** (`AboutPage`): name, location, a few paragraphs at 21px, and an "Elsewhere" link list. Add paragraphs as plain `<p>` inside `.about-body`.
 
 **Top bar:** two links, Posts (`/`) and About (`/about`), plus the sun/moon theme button. The current page is underlined in `ink`; on a post, Posts stays underlined because posts live under it.

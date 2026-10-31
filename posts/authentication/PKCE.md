@@ -1,6 +1,7 @@
 ---
 title: OAuth - What is the purpose of PKCE?
-published: October 29, 2026
+created: October 29, 2026
+updated: October 31, 2026
 subtitle: How does it work?
 icons:
   Resource owner: role

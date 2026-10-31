@@ -1,6 +1,6 @@
 ---
 title: Updating the state reducer pattern to use TypeScript
-published: April 8, 2026
+created: April 8, 2026
 subtitle: We don't need the actionTypes variable anymore.
 ---
 

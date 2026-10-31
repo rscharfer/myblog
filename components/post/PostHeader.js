@@ -10,6 +10,15 @@ export default function PostHeader({ post }) {
 
   return (
     <header className="post">
+      {post.updated && (
+        <p className="post-kicker kicker">
+          <span className="topic">{post.topic}</span>
+          <span className="upd">
+            <Icon name="refresh" />
+            <time dateTime={post.updated.iso}>Updated {post.updated.long}</time>
+          </span>
+        </p>
+      )}
       <h1>{post.title}</h1>
       {post.subtitle && <p className="subtitle">{post.subtitle}</p>}
       <div className="meta">
@@ -17,10 +26,13 @@ export default function PostHeader({ post }) {
           <Avatar />
           {site.author}
         </span>
-        <span className="m">
-          <Icon name="calendar" />
-          <time dateTime={post.date.iso}>{post.date.long}</time>
-        </span>
+        {/* An updated post shows its date in the kicker above the title instead. */}
+        {!post.updated && (
+          <span className="m">
+            <Icon name="calendar" />
+            <time dateTime={post.created.iso}>{post.created.long}</time>
+          </span>
+        )}
         <span className="m">
           <Icon name="clock" />
           {post.readingTime} min read
