@@ -95,5 +95,3 @@ function App() {
   );
 }
 ```
-
-[Here is the code in CodeSandbox](https://codesandbox.io/s/blog-lazy-initialization-ployt)
