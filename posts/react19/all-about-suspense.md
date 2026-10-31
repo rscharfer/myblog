@@ -1,6 +1,6 @@
 ---
 title: Implementing the loading spinner in React
-published: April 22, 2026
+created: April 22, 2026
 subtitle: Different ways to use React's <Suspense> to provide a pleasant UX as a page loads
 ---
 

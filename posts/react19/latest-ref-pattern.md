@@ -1,6 +1,6 @@
 ---
 title: Get the latest props in an async click handler by using the "latest ref" pattern
-published: April 7, 2026
+created: April 7, 2026
 subtitle: Closure in JavaScript makes this a challenge otherwise.
 ---
 

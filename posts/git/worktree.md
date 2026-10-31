@@ -1,6 +1,6 @@
 ---
 title: git worktree in my own words
-published: June 15, 2026
+created: June 15, 2026
 subtitle: Why are worktrees so awesome?
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Export helpers from a "context module"
-published: October 26, 2020
+created: October 26, 2020
 subtitle: Rather than passing helpers down in the context value, exporting them separately could have readability and performance advantages. 
 ---
 

@@ -1,4 +1,4 @@
-// validate post date with helpful error messages
+// validate post dates (`created`, `updated`) with helpful error messages
 
 type DateValidator = (date: string) => Date;
 
@@ -7,12 +7,12 @@ export const validateDate: DateValidator = (date) => {
 
   if (!validDateFormat.test(date))
     throw new Error(
-      `publish date "${date}" should be in the format "Month D, YYYY" such as "April 7, 2026"`
+      `post date "${date}" should be in the format "Month D, YYYY" such as "April 7, 2026"`
     );
 
   const parsed = new Date(date);
   if (isNaN(parsed.getTime()))
-    throw new Error(`publish date "${date}" is not a valid date`);
+    throw new Error(`post date "${date}" is not a valid date`);
 
   return parsed;
 };

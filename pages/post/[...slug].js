@@ -18,7 +18,12 @@ export default function BlogPost({ post }) {
       docTitle={`${post.title} — ${site.name}`}
       description={post.subtitle}
       path={`/post/${post.slug}`}
-      article={{ title: post.title, description: post.subtitle, date: post.date.iso }}
+      article={{
+        title: post.title,
+        description: post.subtitle,
+        published: post.created.iso,
+        modified: (post.updated || post.created).iso,
+      }}
     >
       <PostHeader post={post} />
       {post.toc.length > 0 && <TocSide toc={post.toc} />}

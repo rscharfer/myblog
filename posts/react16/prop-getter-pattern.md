@@ -1,6 +1,6 @@
 ---
 title: Use prop collections to pass on aria attributes
-published: November 9, 2020
+created: November 9, 2020
 subtitle: Package up the props which always need to be passed to a component in a hook.
 ---
 
