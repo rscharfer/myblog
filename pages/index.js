@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import PostList from "../components/PostList";
 import { allPosts } from "../lib/posts";
+import { writeSitemap } from "../lib/sitemap";
 import { site } from "../lib/site";
 
 const Index = ({ posts }) => {
@@ -11,7 +12,7 @@ const Index = ({ posts }) => {
   }
 
   return (
-    <Layout docTitle={site.name} description={site.description}>
+    <Layout docTitle={site.name} description={site.description} path="/">
       <header className="post index-head">
         <h1>Posts</h1>
         <p className="subtitle">{site.description}</p>
@@ -27,7 +28,9 @@ const Index = ({ posts }) => {
 };
 
 export async function getStaticProps() {
-  return { props: { posts: allPosts() } };
+  const posts = allPosts();
+  writeSitemap(posts);
+  return { props: { posts } };
 }
 
 export default Index;

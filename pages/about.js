@@ -7,7 +7,7 @@ import Layout from "../components/Layout";
 import { site } from "../lib/site";
 
 const About = ({ markdown }) => (
-  <Layout docTitle={`About — ${site.name}`} description={`About ${site.author}, full-stack engineer in ${site.location}.`}>
+  <Layout docTitle={`About — ${site.name}`} description={`About ${site.author}, full-stack engineer in ${site.location}.`} path="/about">
     <header className="post">
       <h1>About</h1>
     </header>
