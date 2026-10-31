@@ -1,6 +1,7 @@
 ---
 title: Export helpers from a "context module"
 created: October 26, 2020
+updated: October 31, 2026
 subtitle: Rather than passing helpers down in the context value, exporting them separately could have readability and performance advantages. 
 ---
 
@@ -51,10 +52,10 @@ export async function updateUser(dispatch, user, updates) {
 1. More flexibility is not always something you want. It may be easier on the user if you restrict what the user can do with the updater. This can be done by passing down helpers such as `increment` via the provider, and not the naked updater function.
 
 ---
-[The context module pattern on Code Sandbox](https://codesandbox.io/s/context-module-function-8z83p)
+[The context module pattern on CodeSandbox](https://codesandbox.io/s/context-module-function-8z83p)
 
 ## How can you enhance this pattern?
 
 You can pass the updater and the actual state into two different providers. That way the user of one does not have to subscribe to the other. For example, if the component just subscribes to the updater function, it will not be rerendered just because the state part of the context value changes. 
 
-[Enhanced pattern on Code Sandbox](https://codesandbox.io/s/two-providers-for-state-and-state-updater-yu3sn)
+[Enhanced pattern on CodeSandbox](https://codesandbox.io/s/two-providers-for-state-and-state-updater-yu3sn)

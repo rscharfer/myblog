@@ -1,6 +1,7 @@
 ---
 title: Conditionally rendering JSX
 created: October 18, 2020
+updated: October 31, 2026
 subtitle: Some conditional rendering tools to add to your toolbox.
 ---
 
@@ -100,4 +101,4 @@ function App() {
 
 Rather than using an immediately invoked function expression, we are using an object literal mapping different states of the component to React elements and passing in the state we want rendered with bracket notation. Cool, isn't it?
 
-[Play with the code here in Code Sandbox](https://codesandbox.io/s/blog-three-conditional-rendering-patterns-o57kq)
+[Play with the code here in CodeSandbox](https://codesandbox.io/s/blog-three-conditional-rendering-patterns-o57kq)
