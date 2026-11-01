@@ -212,10 +212,11 @@ footer.site .links svg{width:15px;height:15px;fill:none;stroke:currentColor;stro
 .index-head{padding-bottom:8px}
 .index-head .subtitle{margin-bottom:20px}
 .datenote{font:13px/1.5 var(--font-body);color:var(--muted);margin:0 0 8px}
-.year{margin:56px 0 0;padding-bottom:12px;border-bottom:1px solid var(--ink)}
+.year{margin:72px 0 0;padding-bottom:8px;border-bottom:2px solid var(--ink);font:700 clamp(44px,7vw,64px)/1 var(--font-display);letter-spacing:-.03em;text-transform:none;color:var(--link)}
 .plist ol{list-style:none;margin:0;padding:0}
-.pitem{display:grid;grid-template-columns:120px 1fr;gap:4px 28px;padding:24px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink)}
-.pmeta{display:flex;flex-direction:column;gap:4px;font:13px/1.45 var(--font-body);color:var(--muted);padding-top:6px}
+/* the 1fr row takes any extra height from a tall .pmeta (one with an Updated line), so the title-to-subtitle gap stays fixed */
+.pitem{display:grid;grid-template-columns:120px 1fr;grid-template-rows:auto 1fr;gap:4px 28px;padding:24px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.pmeta{grid-row:span 2;display:flex;flex-direction:column;gap:4px;font:13px/1.45 var(--font-body);color:var(--muted);padding-top:6px}
 .pmeta .topic{font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:11.5px;color:var(--link)}
 .pmeta time{font-variant-numeric:tabular-nums}
 .pmeta .updated{font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:10.5px;margin-top:2px}
@@ -241,10 +242,10 @@ footer.site .links svg{width:15px;height:15px;fill:none;stroke:currentColor;stro
 .elsewhere li a span{font:14px var(--font-body);color:var(--muted)}
 .elsewhere li a:hover{color:var(--link)}
 @media (max-width:640px){
-  .pitem{grid-template-columns:1fr;gap:6px;padding:20px 0}
-  .pmeta{flex-direction:row;gap:12px;padding-top:0;align-items:baseline}
+  .pitem{grid-template-columns:1fr;grid-template-rows:none;gap:6px;padding:20px 0}
+  .pmeta{grid-row:auto;flex-direction:row;gap:12px;padding-top:0;align-items:baseline}
   .psub{grid-column:1;font-size:16.5px}
   .ptitle{font-size:21px}
-  .year{margin-top:44px}
+  .year{margin-top:56px}
   .about-body{font-size:18px}
 }

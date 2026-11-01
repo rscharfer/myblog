@@ -1,8 +1,8 @@
 ---
-title: git worktree in my own words
+title: Git worktree in my own words
 created: June 15, 2026
 updated: November 1, 2026
-subtitle: Why are worktrees so awesome?
+subtitle: Work on several branches at once without stashing or committing your changes.
 ---
 
 
