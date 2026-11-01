@@ -1,13 +1,14 @@
 ---
 title: The React version of HTML's <select> component
 created: October 26, 2020
+updated: November 1, 2026
 subtitle: The compound component pattern has a root component implicitly sharing state with a set of possible children.
 ---
 
 
 ## What does Kent mean that a select element has state?
 
-That state that Kent is referring to is the `value` property on the `select` element, which is always set to the `value` attribute of the currently selected `option`.
+That state that Kent is referring to is the `value` property on the `select` element, which is set to the `value` attribute of the currently selected `option` (or its text, if it has no `value` attribute).
 
 ## What are some other things that are helpful to know?
 
