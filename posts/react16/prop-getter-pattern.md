@@ -1,6 +1,7 @@
 ---
 title: Use prop collections to pass on aria attributes
 created: November 9, 2020
+updated: November 1, 2026
 subtitle: Package up the props which always need to be passed to a component in a hook.
 ---
 
@@ -18,7 +19,7 @@ function useToggle() {
 		on,
 		toggle,
 		togglerProps: {
-			'aria-checked': on,
+			'aria-pressed': on,
 			onClick: toggle,
 		},
 	}
