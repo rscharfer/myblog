@@ -1,6 +1,7 @@
 ---
 title: git worktree in my own words
 created: June 15, 2026
+updated: November 1, 2026
 subtitle: Why are worktrees so awesome?
 ---
 
@@ -23,8 +24,8 @@ Let's dissect that command a bit.
 * The directory will be located at the path defined in the argument passed to `git worktree add` i.e. `../worktrees/hot-fix`.
 * Inside that directory will be the same code i.e. all the project files of the repo. (Git calls this new directory and the files inside of it the new worktree.)
 * The last part of the argument passed to `git worktree add` i.e. `hot-fix` will be the name of the branch that is checked out for you within that directory/worktree.
-* If you want to check out a branch that already exists, just make sure the last part of that path i.e. the part after the last forward slash is the name of the branch.
-* If the branch does not already exist, a new branch by that name will be created.
+* If you want to check out a branch that already exists locally, just make sure the last part of that path i.e. the part after the last forward slash is the name of the branch.
+* If the branch does not already exist locally, a new branch by that name will be created from your current branch, even if a co-worker's branch by that name exists on the remote. To check out theirs, run `git fetch` and then add `--guess-remote`: `git worktree add --guess-remote ../worktrees/hot-fix`.
 * _Navigating_ to that directory is how you work on the branch that is checked out there i.e. use the _cd_ command or open the new directory/worktree in a different instance of your IDE.
 * You cannot check out a branch in the new directory if it is already checked out in the main worktree i.e. you cannot work on the same branch in two worktrees/directories.
 * When you use the `git worktree add` command, you are creating the path to the new directory as well as the name of the branch you want to check out.
