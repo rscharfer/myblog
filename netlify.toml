@@ -4,3 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "18"
+# Send the old Netlify subdomain to the custom domain so search engines see one site.
+[[redirects]]
+  from = "https://ryansblog.netlify.app/*"
+  to = "https://ryanscharfer.blog/:splat"
+  status = 301
+  force = true

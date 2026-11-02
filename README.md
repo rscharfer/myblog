@@ -1,6 +1,6 @@
 # Second Draft
 
-Source for [Second Draft](https://ryansblog.netlify.app), Ryan Scharfer's blog: tutorials and notes on React, JavaScript, authentication and the tools around them.
+Source for [Second Draft](https://ryanscharfer.blog), Ryan Scharfer's blog: tutorials and notes on React, JavaScript, authentication and the tools around them.
 
 It's a Next.js 13 site (pages router) exported to static HTML and hosted on Netlify. Posts are plain Markdown files rendered with react-markdown.
 

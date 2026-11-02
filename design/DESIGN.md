@@ -1,6 +1,6 @@
 # Ryan's Blog
 
-The visual system for ryansblog.netlify.app: a calm, typographic long-read built for developers who land on one tutorial from search or LinkedIn. The goal is that they're glad they landed and keep reading. Readability comes first, code blocks are first-class, and light and dark modes are equal citizens.
+The visual system for ryanscharfer.blog: a calm, typographic long-read built for developers who land on one tutorial from search or LinkedIn. The goal is that they're glad they landed and keep reading. Readability comes first, code blocks are first-class, and light and dark modes are equal citizens.
 
 The reference page is the PKCE post (*OAuth — What is the purpose of PKCE?*), shown at desktop, tablet (820px) and phone (390px) widths under **Post page**.
 
