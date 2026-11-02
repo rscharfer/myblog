@@ -1,4 +1,4 @@
-/* giscus theme for Second Draft (dark). Colours are the design tokens in design/tokens.json.
+/* giscus theme for Worked Examples (dark). Colours are the design tokens in design/tokens.json.
    Builds on giscus's borderless theme and overrides its variables. Loaded by components/post/Comments.js. */
 @import url("https://giscus.app/themes/noborder_dark.css");
 @import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;600&display=swap");

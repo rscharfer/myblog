@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Ryan Scharfer's blog, "Second Draft": Next.js 13 (pages router), statically exported and hosted on Netlify. Posts are Markdown under `posts/<topic>/`.
+Ryan Scharfer's blog, "Worked Examples": Next.js 13 (pages router), statically exported and hosted on Netlify. Posts are Markdown under `posts/<topic>/`.
 
 Read [README.md](README.md) for the post format, front matter rules, Markdown extras and where things live. Read [design/DESIGN.md](design/DESIGN.md) before changing anything visual or the way content is written.
 
