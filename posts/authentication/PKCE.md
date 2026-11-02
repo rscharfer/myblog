@@ -1,8 +1,8 @@
 ---
 title: OAuth - What is the purpose of PKCE?
 created: October 29, 2026
-updated: October 31, 2026
-subtitle: How does it work?
+updated: November 1, 2026
+subtitle: The trick that keeps OAuth logins from being hijacked
 icons:
   Resource owner: role
   Client: role
