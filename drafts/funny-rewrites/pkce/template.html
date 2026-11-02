@@ -1,0 +1,274 @@
+<title>PKCE Comedy Tryouts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Figtree:ital,wght@0,400..700;1,400..600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the blog's reading column on the left, a sticky scorecard in the right margin; compare mode swaps the column for side-by-side sections. Tokens are Second Draft's own. */
+:root{
+  --paper:#fdfcfa; --ink:#1c1b19; --muted:#68645d; --rule:#e6e1d8; --link:#9a3412;
+  --code-bg:#f5f2ec; --code-hl:#efe3d2; --good:#2f6b3a; --warn:#8a5a00; --bad:#9b2c2c;
+  --font-display:"Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body:"Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#131312; --ink:#ebe7e0; --muted:#a29d94; --rule:#2d2b28; --link:#f39b6f;
+  --code-bg:#1c1b19; --code-hl:#2b2620; --good:#7fc28a; --warn:#e0b45a; --bad:#ef8a8a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131312; --ink:#ebe7e0; --muted:#a29d94; --rule:#2d2b28; --link:#f39b6f;
+  --code-bg:#1c1b19; --code-hl:#2b2620; --good:#7fc28a; --warn:#e0b45a; --bad:#ef8a8a; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;font-optical-sizing:auto}
+a{color:var(--link);text-underline-offset:4px;text-decoration-thickness:1px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.kicker{font:600 12px/1.3 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+header.top{padding-block:48px 24px;border-bottom:1px solid var(--rule)}
+header.top h1{font:650 clamp(34px,6vw,52px)/1.05 var(--font-display);letter-spacing:-.025em;margin:10px 0 12px;text-wrap:balance}
+header.top p{margin:0;max-width:62ch;color:var(--muted);font-size:17px}
+
+.bar{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--paper)}
+.bar .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;padding-block:10px}
+.tabs{display:flex;flex-wrap:wrap;gap:4px 18px}
+.tab{background:none;border:0;border-bottom:2px solid transparent;padding:8px 0;cursor:pointer;color:var(--muted);font:600 15px/1.2 var(--font-display);display:flex;align-items:center;gap:7px}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tab .dot{width:8px;height:8px;border-radius:50%;border:1px solid var(--muted)}
+.tab .dot.done{background:var(--link);border-color:var(--link)}
+.tab.orig{font-weight:500}
+.mode{display:inline-flex;border:1px solid var(--rule)}
+.mode button{background:none;border:0;padding:6px 12px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)}
+.mode button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+main{padding-block:40px 64px}
+.grid{display:grid;grid-template-columns:minmax(0,706px) 320px;gap:56px;justify-content:space-between;align-items:start}
+@media (max-width:1100px){.grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Article: mirrors the post page */
+.post .style{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.post .style .kicker{color:var(--link)}
+.post h1{font:650 clamp(32px,5.4vw,50px)/1.08 var(--font-display);letter-spacing:-.025em;margin:12px 0 0;text-wrap:balance}
+.post .subtitle{font:400 clamp(20px,3vw,25px)/1.35 var(--font-display);color:var(--muted);margin:14px 0 36px}
+.prose{font-size:18px;line-height:1.72}
+.prose h2{font:650 28px/1.2 var(--font-display);letter-spacing:-.015em;margin:56px 0 16px;padding-top:22px;position:relative;text-wrap:balance}
+.prose h2::before{content:"";position:absolute;top:0;left:0;width:40px;border-top:2px solid var(--ink)}
+.prose h3{font:650 21px/1.3 var(--font-display);margin:34px 0 10px}
+.prose p,.prose ul{margin:0 0 20px}
+.prose ul{padding-left:22px}
+.prose li{margin-bottom:6px}
+.prose code{font:500 .86em var(--font-mono);background:var(--code-bg);padding:1px 5px;overflow-wrap:anywhere}
+.prose > *:first-child{margin-top:0}
+
+/* Scorecard */
+aside.card{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 76px);border:1px solid var(--rule);padding:20px;display:grid;gap:20px;max-height:calc(100vh - 100px);overflow:auto}
+@media (max-width:1100px){aside.card{position:static;max-height:none;border-width:1px 0 0;padding:28px 0 0}}
+aside.card h2{font:650 20px/1.2 var(--font-display);margin:4px 0 0}
+.field{display:grid;gap:8px}
+.field > label,.field > .lbl{font:600 13px/1.3 var(--font-body);color:var(--ink)}
+.field .hint{font-size:12.5px;color:var(--muted);font-weight:400}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.scale button,.verdict button{border:1px solid var(--rule);background:none;padding:7px 0;cursor:pointer;font-weight:600;font-variant-numeric:tabular-nums}
+.scale button:hover,.verdict button:hover{border-color:var(--muted)}
+.scale button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.scale-ends{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)}
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.verdict button{font-size:13px}
+.verdict button[data-v="Publish"][aria-pressed="true"]{background:var(--good);border-color:var(--good);color:var(--paper)}
+.verdict button[data-v="Maybe"][aria-pressed="true"]{background:var(--warn);border-color:var(--warn);color:var(--paper)}
+.verdict button[data-v="No"][aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:var(--paper)}
+.facts{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.facts label{display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:13.5px;line-height:1.4;cursor:pointer;align-items:start}
+.facts input{margin:2px 0 0;accent-color:var(--link)}
+.factcount{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:400}
+textarea{width:100%;min-height:84px;resize:vertical;border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:8px 10px;font:14px/1.5 var(--font-body)}
+textarea:focus{border-color:var(--muted);outline:none}
+.orig-note{font-size:14px;color:var(--muted)}
+
+/* Compare */
+.sections{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+.sections button{border:1px solid var(--rule);background:none;padding:6px 12px;cursor:pointer;font-size:13.5px;font-weight:500}
+.sections button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cmp-opts{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);margin-bottom:20px}
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px}
+.cmp article{min-width:0;border-top:2px solid var(--ink);padding-top:14px}
+.cmp article.is-orig{border-top-color:var(--rule)}
+.cmp header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:12px}
+.cmp header b{font:650 18px/1.2 var(--font-display)}
+.cmp .prose{font-size:15.5px;line-height:1.65}
+.cmp .prose h2{display:none}
+.cmp .prose h3{font-size:17px;margin:20px 0 8px}
+.cmp .prose p,.cmp .prose ul{margin-bottom:14px}
+
+/* Results */
+.results{border-top:1px solid var(--rule);padding-block:40px 72px}
+.results h2{font:650 28px/1.2 var(--font-display);margin:8px 0 6px}
+.results > .wrap > p{color:var(--muted);margin:0 0 20px;max-width:62ch}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:600 12px/1.3 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.name{font:650 16px/1.3 var(--font-display)}
+td.notes{color:var(--muted);font-size:14px;max-width:34ch}
+.pill{display:inline-block;padding:1px 8px;font-size:12.5px;font-weight:600;border:1px solid currentColor}
+.pill.Publish{color:var(--good)} .pill.Maybe{color:var(--warn)} .pill.No{color:var(--bad)}
+.empty{color:var(--muted)}
+tr.lead td.name::after{content:"Leading";margin-left:8px;font:600 11px var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--link)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:22px}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:9px 16px;cursor:pointer;font-weight:600;font-size:14px}
+.btn.ghost{background:none;color:var(--ink)}
+.status{font-size:13.5px;color:var(--muted)}
+#copybox{width:100%;min-height:160px;font:13px/1.5 var(--font-mono);margin-top:12px}
+@media (prefers-reduced-motion:no-preference){.tab,.scale button,.verdict button{transition:color .15s,background-color .15s,border-color .15s}}
+@media (max-width:640px){.prose{hyphens:none}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="kicker">Second Draft · Comedy experiment</div>
+  <h1>PKCE, four ways</h1>
+  <p>The same post, rewritten in four comic voices with every technical claim kept. Read each one, score it in the card, and tick off the facts you've checked. Your scores are kept in this browser, and Copy results gives you text to paste back to Claude.</p>
+</div></header>
+
+<nav class="bar" aria-label="Versions"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="mode" role="group" aria-label="View">
+    <button type="button" id="m-read" aria-pressed="true">Read one</button>
+    <button type="button" id="m-cmp" aria-pressed="false">Compare by section</button>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <div id="read" class="grid">
+    <div class="post" id="post"></div>
+    <aside class="card" id="card" aria-label="Scorecard"></aside>
+  </div>
+  <div id="compare" hidden>
+    <div class="sections" id="secbtns" role="group" aria-label="Section"></div>
+    <label class="cmp-opts"><input type="checkbox" id="withorig"> Include the original</label>
+    <div class="cmp" id="cmp"></div>
+  </div>
+</main>
+
+<section class="results"><div class="wrap">
+  <div class="kicker">Scoreboard</div>
+  <h2>How they stack up</h2>
+  <p>Leading means the highest combined funny and clarity score among the versions you haven't rejected.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Version</th><th>Funny</th><th>Clear</th><th>Facts checked</th><th>Verdict</th><th>Notes</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table></div>
+  <div class="actions">
+    <button type="button" class="btn" id="copy">Copy results</button>
+    <button type="button" class="btn ghost" id="reset">Clear scores</button>
+    <span class="status" id="status" role="status"></span>
+  </div>
+  <textarea id="copybox" hidden readonly aria-label="Results text"></textarea>
+</div></section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+<script>
+const VERSIONS = /*DATA*/;
+const SECTIONS = ["High level","How it works","Glossary","Problems solved","Why not the token?","The name"];
+const CLAIMS = [
+  "Code verifier is a random string; code challenge is its hash, sent with the method (S256) on the front channel",
+  "Authorization code comes back in the redirect",
+  "Server-to-server request sends the code plus the original string",
+  "Auth server re-hashes the string and compares it to the first hash",
+  "A hash can't be reversed, so only the creator holds the string",
+  "Static app: verifier in sessionStorage, fetch does the exchange; BFF or in-memory token over localStorage",
+  "Login CSRF: victim tricked into the attacker's callback link",
+  "Interception: custom URI schemes aren't unique on mobile",
+  "Implicit flow: pre-CORS, token in URL, its risks, now deprecated",
+  "PKCE = Proof Key for Code Exchange"
+];
+const KEY = "pkce-tryouts-v1";
+let scores = {}; try { scores = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(scores)); } catch (e) {} };
+const S = id => (scores[id] ||= { funny: 0, clear: 0, verdict: "", notes: "", facts: [] });
+const scored = VERSIONS.filter(v => v.id !== "original");
+let current = scored[0].id, mode = "read", section = 0;
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const md = s => window.marked ? marked.parse(s) : "<pre>" + esc(s) + "</pre>";
+const parts = v => v.md.split(/^(?=## )/m).filter(p => p.trim().startsWith("## "));
+const isDone = id => { const s = scores[id]; return s && s.funny && s.clear && s.verdict; };
+
+function renderTabs() {
+  $("#tabs").innerHTML = VERSIONS.map(v => `<button type="button" role="tab" class="tab${v.id === "original" ? " orig" : ""}" data-id="${v.id}" aria-selected="${v.id === current}">${v.id === "original" ? "" : `<span class="dot${isDone(v.id) ? " done" : ""}" aria-hidden="true"></span>`}${esc(v.label)}</button>`).join("");
+  $("#tabs").querySelectorAll(".tab").forEach(b => b.onclick = () => { current = b.dataset.id; if (mode !== "read") setMode("read"); renderAll(); window.scrollTo({ top: 0 }); });
+}
+
+function renderPost() {
+  const v = VERSIONS.find(x => x.id === current);
+  $("#post").innerHTML = `<div class="style"><span class="kicker">${esc(v.style)}</span></div><h1>${esc(v.title)}</h1><p class="subtitle">${esc(v.subtitle)}</p><div class="prose">${md(v.md)}</div>`;
+}
+
+function scaleRow(field, lo, hi) {
+  const val = S(current)[field];
+  return `<div class="scale" role="group">${[1,2,3,4,5].map(n => `<button type="button" data-f="${field}" data-n="${n}" aria-pressed="${val === n}">${n}</button>`).join("")}</div><div class="scale-ends"><span>${lo}</span><span>${hi}</span></div>`;
+}
+
+function renderCard() {
+  const card = $("#card");
+  if (current === "original") { card.innerHTML = `<div class="kicker">Reference</div><h2>The original</h2><p class="orig-note">This is the live post, unscored. Use it to check the rewrites against.</p>`; return; }
+  const v = VERSIONS.find(x => x.id === current), s = S(current);
+  card.innerHTML = `
+    <div><div class="kicker">Scorecard</div><h2>${esc(v.label)}</h2></div>
+    <div class="field"><span class="lbl">How funny is it?</span>${scaleRow("funny", "Not at all", "Laughed out loud")}</div>
+    <div class="field"><span class="lbl">Does it still teach PKCE?</span>${scaleRow("clear", "Jokes bury it", "As clear as the original")}</div>
+    <div class="field"><span class="lbl">Would you publish it?</span><div class="verdict" role="group">${["Publish","Maybe","No"].map(x => `<button type="button" data-v="${x}" aria-pressed="${s.verdict === x}">${x}</button>`).join("")}</div></div>
+    <div class="field"><span class="lbl">Facts I've checked <span class="factcount">${s.facts.length}/${CLAIMS.length}</span></span>
+      <ul class="facts">${CLAIMS.map((c, i) => `<li><label><input type="checkbox" id="f-${current}-${i}" data-i="${i}" ${s.facts.includes(i) ? "checked" : ""}><span>${esc(c)}</span></label></li>`).join("")}</ul></div>
+    <div class="field"><label for="notes-${current}">Notes <span class="hint">Favourite line, what falls flat</span></label><textarea id="notes-${current}">${esc(s.notes)}</textarea></div>`;
+  card.querySelectorAll(".scale button").forEach(b => b.onclick = () => { s[b.dataset.f] = +b.dataset.n; save(); renderCard(); renderTabs(); renderTable(); });
+  card.querySelectorAll(".verdict button").forEach(b => b.onclick = () => { s.verdict = s.verdict === b.dataset.v ? "" : b.dataset.v; save(); renderCard(); renderTabs(); renderTable(); });
+  card.querySelectorAll(".facts input").forEach(b => b.onchange = () => { const i = +b.dataset.i; s.facts = b.checked ? [...new Set([...s.facts, i])] : s.facts.filter(x => x !== i); save(); card.querySelector(".factcount").textContent = `${s.facts.length}/${CLAIMS.length}`; renderTable(); });
+  card.querySelector("textarea").oninput = e => { s.notes = e.target.value; save(); renderTable(); };
+}
+
+function renderCompare() {
+  $("#secbtns").innerHTML = SECTIONS.map((n, i) => `<button type="button" data-i="${i}" aria-pressed="${i === section}">${n}</button>`).join("");
+  $("#secbtns").querySelectorAll("button").forEach(b => b.onclick = () => { section = +b.dataset.i; renderCompare(); });
+  const list = $("#withorig").checked ? [VERSIONS.find(v => v.id === "original"), ...scored] : scored;
+  $("#cmp").innerHTML = list.map(v => `<article class="${v.id === "original" ? "is-orig" : ""}"><header><b>${esc(v.label)}</b><span class="kicker">${esc(v.style)}</span></header><div class="prose">${md(parts(v)[section] || "")}</div></article>`).join("");
+}
+
+function renderTable() {
+  const live = scored.filter(v => S(v.id).verdict !== "No" && (S(v.id).funny || S(v.id).clear));
+  const best = live.sort((a, b) => (S(b.id).funny + S(b.id).clear) - (S(a.id).funny + S(a.id).clear))[0];
+  $("#tbody").innerHTML = scored.map(v => { const s = S(v.id); const d = x => x ? `${x}/5` : `<span class="empty">–</span>`;
+    return `<tr class="${best && best.id === v.id ? "lead" : ""}"><td class="name">${esc(v.label)}</td><td>${d(s.funny)}</td><td>${d(s.clear)}</td><td>${s.facts.length}/${CLAIMS.length}</td><td>${s.verdict ? `<span class="pill ${s.verdict}">${s.verdict}</span>` : `<span class="empty">–</span>`}</td><td class="notes">${s.notes ? esc(s.notes) : `<span class="empty">–</span>`}</td></tr>`; }).join("");
+}
+
+function resultsText() {
+  return "My scores for the PKCE comedy rewrites:\n\n" + scored.map(v => { const s = S(v.id);
+    const miss = CLAIMS.filter((c, i) => !s.facts.includes(i));
+    return `${v.label} (${v.style})\n  Funny: ${s.funny || "-"}/5 · Clear: ${s.clear || "-"}/5 · Verdict: ${s.verdict || "-"}\n  Facts checked: ${s.facts.length}/${CLAIMS.length}${miss.length && s.facts.length ? `\n  Not yet checked: ${miss.join("; ")}` : ""}${s.notes ? `\n  Notes: ${s.notes}` : ""}`; }).join("\n\n");
+}
+
+function setMode(m) {
+  mode = m; $("#read").hidden = m !== "read"; $("#compare").hidden = m === "read";
+  $("#m-read").setAttribute("aria-pressed", m === "read"); $("#m-cmp").setAttribute("aria-pressed", m !== "read");
+  if (m !== "read") renderCompare();
+}
+
+function renderAll() { renderTabs(); renderPost(); renderCard(); renderTable(); }
+
+$("#m-read").onclick = () => setMode("read");
+$("#m-cmp").onclick = () => setMode("compare");
+$("#withorig").onchange = renderCompare;
+$("#copy").onclick = () => {
+  const text = resultsText(), box = $("#copybox");
+  navigator.clipboard.writeText(text).then(() => { $("#status").textContent = "Copied. Paste it into Claude."; box.hidden = true; })
+    .catch(() => { box.value = text; box.hidden = false; box.select(); $("#status").textContent = "Couldn't reach the clipboard. The text is selected below; copy it from there."; });
+};
+let armed = false;
+$("#reset").onclick = () => {
+  if (!armed) { armed = true; $("#reset").textContent = "Click again to clear"; setTimeout(() => { armed = false; $("#reset").textContent = "Clear scores"; }, 3000); return; }
+  scores = {}; save(); armed = false; $("#reset").textContent = "Clear scores"; $("#status").textContent = "Scores cleared."; renderAll();
+};
+renderAll();
+</script>
