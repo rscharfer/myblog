@@ -32,7 +32,7 @@ Post body…
 - `title` and `subtitle` are required. The subtitle is also the page's meta description, so make it a real sentence. To include a colon in front matter, write `{:}`.
 - `created` must be in the form `Month D, YYYY`; the build fails otherwise. Posts are listed newest first by this date.
 - Don't write `updated` by hand. When a commit changes an existing post, the pre-commit hook ([scripts/stamp-updated.mjs](scripts/stamp-updated.mjs)) adds or bumps `updated: <today>`. Changes to only the date lines don't count. The Posts page then shows "Updated …" under the created date, and the post shows "Updated …" above its title instead of the date in the meta row. To skip the stamp for a trivial commit, use `git commit --no-verify`. `yarn install` turns the hook on (it sets `core.hooksPath` to `.githooks`).
-- Optional: `related` (a "Related reading" list) and `icons` (see below).
+- Optional: `related` (a "Related reading" list), `icons` (see below) and `image` (see [Open Graph images](#open-graph-images)).
 
 The home page, sitemap, reading time and table of contents (built from `##` and `###` headings) all update automatically.
 
@@ -85,3 +85,13 @@ Then deploy and set `customTheme: true`.
 ## SEO
 
 Every page gets a title, description, canonical URL and Open Graph/Twitter tags from `components/Layout.js`. Posts also get `BlogPosting` structured data. `sitemap.xml` is generated on each build, and `public/robots.txt` points to it. If the domain changes, update `url` in `lib/site.js` and the sitemap line in `robots.txt`.
+
+### Open Graph images
+
+Pages share with the avatar unless a post sets `image: /og/<topic>/<name>.png` in its front matter, which gives it a large 1200×630 card on LinkedIn, Slack and the like. Each card's source is an HTML page in `design/og/` using the blog's light-theme colours and fonts. After editing one, render it with Chrome:
+
+```sh
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
+  --allow-file-access-from-files --window-size=1200,630 --virtual-time-budget=3000 \
+  --screenshot=public/og/authentication/PKCE.png "file://$PWD/design/og/PKCE.html"
+```

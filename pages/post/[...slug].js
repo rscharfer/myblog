@@ -18,6 +18,7 @@ export default function BlogPost({ post }) {
       docTitle={`${post.title} — ${site.name}`}
       description={post.subtitle}
       path={`/post/${post.slug}`}
+      image={post.image}
       article={{
         title: post.title,
         description: post.subtitle,

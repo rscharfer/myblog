@@ -5,10 +5,11 @@ import SiteFooter from "./SiteFooter";
 import { site } from "../lib/site";
 
 // `path` is the page's URL path ("/", "/about", "/post/react19/hooks"), used for the
-// canonical and og:url. Pass `article` ({ title, description, published, modified }) on post pages.
-export default function Layout({ children, docTitle, description, path, article }) {
+// canonical and og:url. Pass `article` ({ title, description, published, modified }) on post pages,
+// and `image` (a path under public/, 1200x630) for a large share card instead of the avatar.
+export default function Layout({ children, docTitle, description, path, article, image: cardImage }) {
   const url = path && site.url + path;
-  const image = site.url + site.avatar;
+  const image = site.url + (cardImage || site.avatar);
   const jsonLd = article && {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -38,7 +39,7 @@ export default function Layout({ children, docTitle, description, path, article 
         <meta property="og:image" content={image} />
         {article && <meta property="article:published_time" content={article.published} />}
         {article && <meta property="article:modified_time" content={article.modified} />}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content={cardImage ? "summary_large_image" : "summary"} />
         {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
       </Head>
       <Header />
