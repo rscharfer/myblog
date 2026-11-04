@@ -1,7 +1,7 @@
 ---
 title: OAuth - What is the purpose of PKCE?
 created: October 29, 2026
-updated: November 1, 2026
+updated: November 4, 2026
 subtitle: The trick that keeps OAuth logins from being hijacked
 image: /og/authentication/PKCE.png
 icons:
@@ -18,9 +18,9 @@ icons:
 ---
 
 
-## What is it at a very high level?
+## What is PKCE at a very high level?
 
-In its most general terms, it's challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. When one request kicks off the request for something very valuable, and the other request receives what is requested, the server has to somehow know the requests are from the same entity. In the context of PKCE, this "very valuable" thing is an *access token* which allows the entity to access a set of APIs.
+In its most general terms, PKCE is challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. The first request will include a hash of a random string and a later request will include the random string itself.  Because only an entity that has a string could have created a hash of the that string, the server knows the requests came from the same entity.
 
 ## How it works (at a high level) in the context of the authorization code flow with a web server in play †
 
