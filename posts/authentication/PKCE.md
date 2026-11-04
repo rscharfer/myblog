@@ -20,7 +20,7 @@ icons:
 
 ## What is PKCE at a very high level?
 
-In its most general terms, PKCE is challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. The first request will include a hash of a random string and a later request will include the random string itself.  Because only an entity that has a string could have created a hash of the that string, the server knows the requests came from the same entity.
+In its most general terms, PKCE is challenge-response authentication. It's how a server knows that two separate requests it receives are from the same entity. The first request will include a hash of a random string and a later request will include the random string itself.  Because only an entity that has a string could have created a hash of the that string, the server knows the requests came from the same entity. It is a security measure created to alleviate security problems discussed below.
 
 ## How it works (at a high level) in the context of the authorization code flow with a web server in play †
 
