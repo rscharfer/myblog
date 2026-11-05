@@ -138,6 +138,22 @@ figure{margin:44px 0}
 .diagram figcaption .kicker{margin-right:8px;color:var(--ink)}
 .note{margin:44px 0;padding:24px 0 6px;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
 .note p{font-size:18px;line-height:1.65;margin:10px 0 18px}
+/* Sidenotes: a highlighted passage (.side-ref) and its note (aside.side). In the flow after
+   the paragraph below 1220px; in the right margin above it, placed by useSidenotes.js. */
+.side-ref{text-decoration:underline dotted var(--muted);text-decoration-thickness:1.5px;text-underline-offset:5px;text-decoration-skip-ink:none;transition:text-decoration-color .15s}
+@media (hover:hover){.side-ref.is-hot{text-decoration-color:var(--ink)}.side.is-hot{color:var(--ink)}}
+.side{font:14.5px/1.55 var(--font-body);color:var(--muted);margin:-8px 0 30px;padding-left:16px;border-left:1px solid var(--rule);transition:color .15s}
+/* Below 1220px (with JS) a passage is a toggle; the marker is inline-block so it isn't underlined. */
+.side-tap .side-ref{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.side-tap .side-ref::after{content:"+";content:"+" / "";display:inline-block;margin-left:3px;font:600 .8em/1 var(--font-body);color:var(--link)}
+.side-tap .side-ref[aria-expanded="true"]{text-decoration-color:var(--ink)}
+.side-tap .side-ref[aria-expanded="true"]::after{content:"−";content:"−" / ""}
+.side p{margin:0 0 8px;font-size:inherit;line-height:inherit}
+.side p:last-child{margin-bottom:0}
+@media (min-width:1220px){
+  article{position:relative}
+  .side{position:absolute;left:calc(100% + 48px);width:160px;margin:0;padding:0;border:0;font-size:14px}
+}
 .steps{padding:0;margin:0 0 32px;list-style:none;counter-reset:s}
 .steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;margin:0 0 14px}
 .steps li::before{content:counter(s,decimal-leading-zero);font:500 13px/2.6 var(--font-body);color:var(--link);letter-spacing:.06em;font-variant-numeric:tabular-nums}

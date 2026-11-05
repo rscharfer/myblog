@@ -20,6 +20,12 @@ Three page types share the top bar, `layout`, type scale and footer:
 - **Bold** names a concept the first time it appears; *italic* stresses the one word an argument turns on (*actual string*, *their* credentials).
 - Every code block gets a one-line caption saying what to notice; highlighted lines are the ones the caption points at.
 - Footnotes use an asterisk that links to the note.
+- Choose between a sidenote, footnote and note by what the extra text is about and whether a reader can skip it:
+  - **Sidenote** (`:side` / `:::side`): a skippable "by the way" about one specific word, phrase or sentence (another name for a term, where a value comes from, why something exists).
+  - **Footnote** (`†` on a heading): a caveat about a whole section's premise.
+  - **Note** (`:::note`): something every reader should see, or anything long or containing code.
+  - The test: if a reader never looked at it, would the post still be correct? If not, it isn't a sidenote.
+- Sidenotes: highlight the smallest passage the note is actually about ("sets a cookie", not the whole sentence). Keep each note to one to three sentences of plain prose, with no code blocks or lists. Allow at most one per paragraph where possible, since notes that crowd together get pushed down away from their passages.
 - No GIFs, memes or emoji.
 
 ## Visual foundations
@@ -44,6 +50,8 @@ Three page types share the top bar, `layout`, type scale and footer:
 | ≤ 640px (phone) | Same bar | Hidden (byline lives in the footer) | Wraps with hanging indent | Narrow 340px version |
 
 Phones also turn off hyphenation.
+
+**Sidenotes:** at ≥ 1220px each note sits in the otherwise empty right column, level with its highlighted passage, in 14px Figtree `muted` with no border. When notes would overlap, the lower one is pushed down (`components/post/useSidenotes.js`). Below 1220px the note is hidden until the reader taps its passage, which is then a toggle button (`aria-expanded`, Enter/Space) with a small `link` "+" after it that becomes "−". The open note follows its paragraph in 14.5px `muted` with a `rule` hairline on the left. Without JavaScript the notes are always shown there. Highlighted passages have a dotted `muted` underline; on devices with hover, hovering a passage or its note turns both `ink`.
 
 ## Iconography
 

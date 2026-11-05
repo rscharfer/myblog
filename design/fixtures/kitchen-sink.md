@@ -105,3 +105,25 @@ PKCE stands for **Proof Key for Code Exchange**. The client is basically saying:
 > Here's a key that is proof that I am the same entity that started the flow.
 >
 > — The client, to the authorization server
+
+## Where the flow starts
+
+PKCE is an add-on to one of OAuth's :side[flows]{#flows}, the Authorization Code Flow. :side[This is how the Authorization Code Flow (with OpenID Connect) implemented by a client could look.]{#could-look}
+
+:::side{#flows}
+Also called *grants*, flows are protocols a client uses to get an access token for a particular API.
+:::
+
+:::side{#could-look}
+All apps can do this differently. For example, some apps open a pop-up to Google rather than forwarding the browser there.
+:::
+
+The client sends the browser to :side[the `/auth` endpoint]{#endpoints} with the scopes it wants. Once the user consents, the endpoint returns a 301, :side[sets a cookie]{#consent-cookie} recording that consent, and forwards the user to the redirect URL.
+
+:::side{#endpoints}
+The exact endpoints are provided by the authorization server — Google in this case.
+:::
+
+:::side{#consent-cookie}
+The cookie means the user isn't asked to grant access again if they land on this page later. The page might just say "Log in as {user name}".
+:::

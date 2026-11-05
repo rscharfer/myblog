@@ -5,6 +5,7 @@ import PostHeader from "../../components/post/PostHeader";
 import { TocSide } from "../../components/post/Toc";
 import Comments from "../../components/post/Comments";
 import usePostBehaviour from "../../components/post/usePostBehaviour";
+import useSidenotes from "../../components/post/useSidenotes";
 import { markdownComponents } from "../../components/post/markdownComponents";
 import { remarkPlugins } from "../../lib/markdown";
 import { site } from "../../lib/site";
@@ -12,6 +13,7 @@ import { loadPost, postSlugs } from "../../lib/posts";
 
 export default function BlogPost({ post }) {
   usePostBehaviour();
+  useSidenotes(post.slug);
 
   return (
     <Layout

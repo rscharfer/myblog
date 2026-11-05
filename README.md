@@ -44,12 +44,31 @@ Beyond standard Markdown, the post template supports:
 |---|---|
 | Code block with title, highlighted lines and caption | ```` ```js title="pkce.js" {2-3,11} caption="What to notice" ```` |
 | Note | `:::note[Label]{#id}` … `:::` |
+| Sidenote | `:side[highlighted passage]{#id}` in the text, then `:::side{#id}` … `:::` after the paragraph |
 | Footnote | End a heading with `†` and start a paragraph with `† ` |
 | Steps | Any ordered list |
 | Icon list | A bullet list where every item is `**Term:** definition`, with `icons: { Term: role \| artifact \| channel }` in front matter |
 | Figure | `::figure{wide="a.svg" narrow="b.svg" caption="…"}`, with the SVGs next to the `.md` file |
 | Pull-quote | A blockquote whose last line starts with `— ` |
 | Related reading | Front matter `related: [{ label, title, href, description }]` |
+
+A sidenote is a short remark about a word, phrase or sentence, like a comment in the margin of a Google Doc. On wide screens (1220px and up) it sits in the right margin, level with its highlighted passage, and hovering either one highlights both. On narrower screens the passage gets a small "+" and tapping it opens the note below the paragraph (without JavaScript, the notes are simply shown there). The `#id` links the passage to its note; the build warns if one is missing its pair.
+
+```markdown
+The endpoint returns a 301, :side[sets a cookie]{#consent-cookie} recording that consent, and forwards the user on.
+
+:::side{#consent-cookie}
+The cookie means the user isn't asked to grant access again if they land on this page later.
+:::
+```
+
+Which to use for extra information:
+
+- **Sidenote:** a "by the way" about one specific word, phrase or sentence that readers can skip.
+- **Footnote (`†`):** a caveat about a whole section's premise, e.g. "with a web server in play".
+- **Note (`:::note`):** something every reader should see, or anything long or containing code.
+
+The test: if a reader never looked at it, would the post still be correct? If yes, use a sidenote. If no, put it in the text or in a note. See [design/DESIGN.md](design/DESIGN.md) for more on writing sidenotes.
 
 Raw HTML in Markdown is escaped. To see every element on one page, run `SHOW_FIXTURES=1 npm run build && npx next start` and open `/post/_fixtures/kitchen-sink` (the source is [design/fixtures/kitchen-sink.md](design/fixtures/kitchen-sink.md)).
 
