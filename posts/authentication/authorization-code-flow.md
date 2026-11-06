@@ -30,11 +30,11 @@ related:
     description: Where the openid scope and the ID token are defined.
 ---
 
-## Brief OAuth summary
+## OAuth and OpenID Connect in brief
 
-OAuth was created to give apps limited access to a user's data hosted at the likes of Google, Facebook, etc. After a user agrees, the app that wants the data receives a key from one of these sites (an **access token**) and uses it to make API calls to those sites for the data it needs. The key only opens what the user agreed to.
+OAuth was created to give apps limited access to a user's data hosted at the likes of Google and Facebook. After a user agrees, the app that wants the data receives a key from one of these sites (an **access token**) and uses it to make API calls to those sites for the data it needs. The key only opens what the user agreed to. This is *authorization*: deciding what an app may access.
 
-After a while, developers tried to use OAuth to identify users too. The idea was that if Google's login server (the *authorization server*) had logged the user in, then the access token must represent a logged-in-in-some-fashion user, and that's good enough. In reality, though, the access token is unreadable to the app (*opaque*), so it was a poor way to tell who the user is. With this in mind, OpenID Connect was developed, and login servers started to return a second token as well: a note the app can read that says who the user is (an **ID token**).
+After a while, developers tried to use OAuth to identify users too (*authentication*). The idea was that if Google's login server (the *authorization server*) had logged the user in, then the access token must represent a user Google had logged in, and that's good enough. Some apps even used the access token to ask Google's API who the user was. In reality, though, the access token isn't meant for the app to read (it's *opaque*), and it only says that whoever holds it may call the API. It doesn't say which app it was issued to or when the user logged in, so a token issued to a different app could be used to log someone into yours. That made it a poor way to tell who the user is. With this in mind, OpenID Connect was developed as a standard layer on top of OAuth, and login servers started to return a second token as well: a signed note the app can read that says who the user is and which app it's for (an **ID token**).
 
 ## Who and what is involved
 
@@ -46,7 +46,7 @@ The flow has four players, passes around three artifacts, and sends them along t
 - **Resource server:** Google's API, which holds the user's data
 - **Scope:** the permissions the app asks for, such as reading the user's contacts
 - **Authorization code:** a one-time claim ticket the app receives once the user consents, and trades for tokens
-- **Access token:** the key the app sends with its API calls to get the data. It works for whoever holds it (a *bearer* token) and is unreadable to the app (*opaque*). The app can't verify it, but Google's API can.
+- **Access token:** the key the app sends with its API calls to get the data. It works for whoever holds it (a *bearer* token) and isn't meant for the app to read (*opaque*). The app can't verify it, but Google's API can.
 - **:oidc[ID token]:** a signed note that tells the app who the user is. The app verifies it and reads the user's details from it.
 - **PKCE:** a one-time proof that the request that starts the flow and the request that finishes it come from the same app
 - **Front channel:** through the browser, carried in redirects and URLs
@@ -54,16 +54,13 @@ The flow has four players, passes around three artifacts, and sends them along t
 
 ## Authorization Code Flow
 
-OAuth describes a number of recipes an app can use to get an access token, called :side[flows]{#flows}. The Authorization Code Flow is probably the most widely used. Today it's used for two jobs:
+OAuth describes a number of recipes an app can use to get an access token, called :side[flows]{#flows}. The Authorization Code Flow is probably the most widely used, both for authorization and, with OpenID Connect, for authentication.
 
 :::side{#flows}
 Flows are also called *grants*. Other flows described in the OAuth documentation include the Client Credentials Flow and the Device Authorization Flow.
 :::
 
-- **OAuth:** gives an app limited access to a subset of a user's data at another entity (*authorization*)
-- **OpenID Connect (OIDC):** tells the app who the user is (*authentication*), which the access token can't do
-
-OpenID Connect adds only a few things to the OAuth flow. In this overview, each one is labeled :oidc[like this], and the last section lists them.
+OpenID Connect (OIDC) adds only a few things to the OAuth flow. In this overview, each one is labeled :oidc[like this], and the last section lists them.
 
 
 ## The flow at a glance
