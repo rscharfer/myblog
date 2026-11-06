@@ -41,14 +41,14 @@ The problem is that access tokens are *opaque* to the app, i.e. unreadable. It c
 
 ## Who and what is involved
 
-The flow has four players, passes around three artifacts, and sends them along two channels. Two of the artifacts do most of the work: the authorization code and the access token. Here is what OAuth calls each piece, with the plain words for it first.
+The flow has four players, passes around three artifacts, and sends them along two channels. Two of the artifacts do most of the work: the authorization code and the access token. Here is what OAuth calls each piece.
 
-- **User:** the person logging in, who owns the data (OAuth calls them the *resource owner*)
+- **Resource Owner:** the person logging in, who owns the data
 - **Client:** the app that wants the data, YourFavoriteApp in this post
-- **Authorization server:** Google's login and permissions server. It logs the user in, asks for their consent and hands out tokens.
-- **Resource server:** Google's API, which holds the user's data
-- **Scope:** the permissions the app asks for, such as reading the user's contacts
-- **Authorization code:** a one-time claim ticket the app receives once the user consents, and trades for tokens
+- **Authorization server:** Google's login and permissions server in this post. It logs the user in, asks for their consent and hands out tokens.
+- **Resource server:** Google's API in this post, which holds the user's data
+- **Scope:** the permissions the app asks for, such as reading the user's contacts. Also the data the app asks for.
+- **Authorization code:** a one-time code the app receives once the user consents, which the app trades for tokens
 - **Access token:** the key the app sends with its API calls to get the data. It works for whoever holds it (a *bearer* token) and isn't meant for the app to read (*opaque*). The app can't verify it, but Google's API can.
 - **:oidc[ID token]:** a signed note that tells the app who the user is. The app verifies it and reads the user's details from it.
 - **PKCE:** a one-time proof that the request that starts the flow and the request that finishes it come from the same app
