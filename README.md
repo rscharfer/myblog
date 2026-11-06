@@ -43,6 +43,8 @@ Beyond standard Markdown, the post template supports:
 | Element | Syntax |
 |---|---|
 | Code block with title, highlighted lines and caption | ```` ```js title="pkce.js" {2-3,11} caption="What to notice" ```` |
+| OIDC label in code | ```` ```js mark="openid,id_token,nonce@6" ```` underlines every occurrence of each string (`@6`: only on line 6) and labels its line |
+| OIDC label in text | `:oidc[the ID token]` |
 | Note | `:::note[Label]{#id}` … `:::` |
 | Sidenote | `:side[highlighted passage]{#id}` in the text, then `:::side{#id}` … `:::` after the paragraph |
 | Footnote | End a heading with `†` and start a paragraph with `† ` |
@@ -51,6 +53,7 @@ Beyond standard Markdown, the post template supports:
 | Figure | `::figure{wide="a.svg" narrow="b.svg" caption="…"}`, with the SVGs next to the `.md` file |
 | Pull-quote | A blockquote whose last line starts with `— ` |
 | Related reading | Front matter `related: [{ label, title, href, description }]` |
+| Interactive flow chart | `::flowchart{flow="authorization-code"}` on its own line |
 
 A sidenote is a short remark about a word, phrase or sentence, like a comment in the margin of a Google Doc. On wide screens (1220px and up) it sits in the right margin, level with its highlighted passage, and hovering either one highlights both. On narrower screens the passage gets a small "+" and tapping it opens the note below the paragraph (without JavaScript, the notes are simply shown there). The `#id` links the passage to its note; the build warns if one is missing its pair.
 
@@ -70,7 +73,61 @@ Which to use for extra information:
 
 The test: if a reader never looked at it, would the post still be correct? If yes, use a sidenote. If no, put it in the text or in a note. See [design/DESIGN.md](design/DESIGN.md) for more on writing sidenotes.
 
+The OIDC label is a small grey "OIDC" tag for what OpenID Connect adds on top of OAuth (the `openid` scope, the nonce, the ID token). In text it sits in front of the passage; in code it ends each line that has a marked string, and the string gets a dotted underline. The tag names itself, but still say once near the top of the post what it means, e.g. "Each thing OpenID Connect adds on top of OAuth is labeled :oidc[like this]." Label the term, not the sentences that explain it. In code, a marked string can sit inside a string or span several tokens (`mark="id_token: idToken"`); the Copy button still copies the plain code. Use `{2-3}` line highlights for what the caption points at, and marks for what belongs to OIDC; a line can have both.
+
+The interactive flow chart is a step-by-step walkthrough of a whole flow: swimlanes with Start and End, Back/Next buttons (or the arrow keys), and a panel explaining the current step with its request, each parameter's badge (Required, Recommended, Optional) and why it's needed. Selecting a parameter highlights its line in the request. Its content lives in code, not Markdown: `flow="authorization-code"` reads [components/post/flows/authorizationCode.js](components/post/flows/authorizationCode.js), so edit the wording there. To add another flow, add a file next to it and register it in `FLOWS` in [components/post/flowchart/FlowChart.js](components/post/flowchart/FlowChart.js). Put it under its own `##` heading so it can be linked to (the Authorization Code Flow post links to `#explore-the-whole-flow`).
+
 Raw HTML in Markdown is escaped. To see every element on one page, run `SHOW_FIXTURES=1 npm run build && npx next start` and open `/post/_fixtures/kitchen-sink` (the source is [design/fixtures/kitchen-sink.md](design/fixtures/kitchen-sink.md)).
+
+#### What each extra looks like
+
+These screenshots are from the kitchen-sink page in the light theme at desktop width. They live in [docs/extras/](docs/extras/); retake them if an element's design changes.
+
+**Code block** with a title, two highlighted lines and a caption:
+
+![Code block](docs/extras/code-block.png)
+
+**OIDC label** in text and in a code block:
+
+![OIDC label](docs/extras/oidc-mark.png)
+
+**Note:**
+
+![Note](docs/extras/note.png)
+
+**Sidenote** in the right margin on wide screens:
+
+![Sidenotes in the margin](docs/extras/sidenote.png)
+
+…and on a phone, where tapping the passage opens the note ("flows" is open, "could look" is closed):
+
+![Sidenote on a phone](docs/extras/sidenote-phone.png)
+
+**Footnote:** the marker at the end of the heading links to the note at the end of the section:
+
+![Footnote marker on a heading](docs/extras/footnote-marker.png)
+
+![Footnote note](docs/extras/footnote-note.png)
+
+**Steps:**
+
+![Steps](docs/extras/steps.png)
+
+**Icon list:**
+
+![Icon list](docs/extras/icon-list.png)
+
+**Figure** (wide version; phones get the narrow SVG):
+
+![Figure](docs/extras/figure.png)
+
+**Pull-quote:**
+
+![Pull-quote](docs/extras/pull-quote.png)
+
+**Related reading:**
+
+![Related reading](docs/extras/related-reading.png)
 
 ## Where things live
 

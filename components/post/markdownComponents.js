@@ -1,6 +1,7 @@
 import React from "react";
 
 import CodeBlock from "./CodeBlock";
+import FlowChart from "./flowchart/FlowChart";
 import Icon from "../icons";
 
 function Heading({ level, id, children }) {
@@ -35,6 +36,14 @@ export function markdownComponents({ figures = {} } = {}) {
         <span className={className} {...props}>
           {children}
         </span>
+      );
+    },
+    div({ node, className, children, ...props }) {
+      if (className === "flowchart") return <FlowChart flow={props["data-flow"]} />;
+      return (
+        <div className={className} {...props}>
+          {children}
+        </div>
       );
     },
     figure({ node, className, children, ...props }) {

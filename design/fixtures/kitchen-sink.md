@@ -127,3 +127,26 @@ The exact endpoints are provided by the authorization server — Google in this 
 :::side{#consent-cookie}
 The cookie means the user isn't asked to grant access again if they land on this page later. The page might just say "Log in as {user name}".
 :::
+
+## What OpenID Connect adds
+
+Each thing OpenID Connect adds on top of OAuth is labeled :oidc[like this]. The client asks for :oidc[the `openid` scope], and the token response comes back with an :oidc[ID token] alongside the access token.
+
+```js title="login.js" mark="openid,nonce,id_token: idToken,id_token@10" caption="The OIDC parts: the openid scope and the nonce on the way out, the ID token on the way back."
+const params = new URLSearchParams({
+  response_type: "code",
+  client_id: CLIENT_ID,
+  redirect_uri: "https://app.example.com/callback",
+  scope: "openid profile email",
+  nonce: crypto.randomUUID(),
+});
+
+const { access_token, id_token: idToken } = await res.json();
+// id_token is a JWT: header.payload.signature
+```
+
+## The whole flow
+
+An interactive walkthrough of the flow. Back and Next (or the arrow keys) move through it; selecting a parameter highlights its line.
+
+::flowchart{flow="authorization-code"}
