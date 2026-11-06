@@ -2,8 +2,8 @@
 // flow chart. Each step says where it happens (lanes), what is sent (message) and why each
 // parameter is there (params). Param `line` is the 1-based line of the message it sits on.
 //
-// Levels: required / recommended / optional for things the app sends;
-//         always / sometimes for things it receives.
+// Levels: required / recommended / optional for things the app sends. Things it
+// receives have no level, so no badge.
 
 export const authorizationCode = {
   title: "Authorization Code Flow",
@@ -35,7 +35,6 @@ export const authorizationCode = {
       id: "prepare",
       short: "App prepares a one-time proof",
       title: "The app prepares a one-time proof",
-      tags: ["pkce"],
       at: "app",
       summary:
         "Before sending the user to Google, the app makes a random string for PKCE, the code verifier, and saves it in the user's session. It hashes the verifier into a code challenge. Only the hash will travel through the browser; the verifier stays on the server until step 6.",
@@ -54,14 +53,12 @@ export const authorizationCode = {
           name: "code verifier",
           line: 1,
           level: "recommended",
-          tags: ["pkce"],
           why: "A secret random string. The app keeps it on the server and reveals it only to Google's token endpoint in step 6, which proves the app finishing the flow is the one that started it.",
         },
         {
           name: "code challenge",
           line: 2,
           level: "recommended",
-          tags: ["pkce"],
           why: "The SHA-256 hash of the verifier. It's safe to send through the browser because the verifier can't be worked out from it.",
         },
       ],
@@ -70,7 +67,7 @@ export const authorizationCode = {
       id: "authorize",
       short: "App sends the browser to Google",
       title: "The app sends the browser to Google",
-      tags: ["pkce", "oidc"],
+      tags: ["oidc"],
       arrows: [
         { from: "app", to: "browser", channel: "front", label: "302" },
         { from: "browser", to: "auth", channel: "front", label: "GET /auth" },
@@ -81,7 +78,7 @@ export const authorizationCode = {
         title: "App's redirect to Google's /auth endpoint",
         lang: "http",
         mark: "openid",
-        caption: "One parameter per line for reading; the real Location is a single URL. Google's scope values are full URLs, shortened here.",
+        caption: "Google's scope values are full URLs, shortened here.",
         code: [
           "HTTP/1.1 302 Found",
           "Location: https://accounts.google.com/o/oauth2/v2/auth",
@@ -123,14 +120,12 @@ export const authorizationCode = {
           name: "code_challenge",
           line: 7,
           level: "recommended",
-          tags: ["pkce"],
           why: "The hash from step 2. Google stores it with the code it issues, so only the app holding the original verifier can redeem that code. OAuth's security best practice is to always send it.",
         },
         {
           name: "code_challenge_method",
           line: 8,
           level: "recommended",
-          tags: ["pkce"],
           why: "How the challenge was made. S256 means SHA-256. Without it, Google assumes the challenge is the verifier itself, which protects nothing.",
         },
       ],
@@ -177,7 +172,6 @@ export const authorizationCode = {
         {
           name: "code",
           line: 3,
-          level: "always",
           why: "The authorization code: a short-lived, one-time ticket. It's useless on its own: redeeming it takes the app's client secret and the PKCE verifier, neither of which ever passes through the browser.",
         },
       ],
@@ -186,14 +180,12 @@ export const authorizationCode = {
       id: "token",
       short: "App trades the code for tokens",
       title: "The app trades the code for tokens",
-      tags: ["pkce"],
       arrows: [{ from: "app", to: "auth", channel: "back", label: "POST /token" }],
       summary:
         "The app's server calls Google's token endpoint directly, server to server. This is where it proves who it is, which is why the code alone is worthless to anyone who steals it from the browser.",
       message: {
         title: "App to Google's /token endpoint",
         lang: "http",
-        caption: "One body parameter per line for reading.",
         code: [
           "POST /token HTTP/1.1",
           "Host: oauth2.googleapis.com",
@@ -242,7 +234,6 @@ export const authorizationCode = {
           name: "code_verifier",
           line: 10,
           level: "required",
-          tags: ["pkce"],
           why: "Required because step 3 sent a code_challenge. Google hashes it and compares the result with the challenge it stored; if they differ, it refuses.",
         },
       ],
@@ -273,36 +264,30 @@ export const authorizationCode = {
         {
           name: "access_token",
           line: 2,
-          level: "always",
           why: "The key to the API. The app treats it as opaque: it never reads it, it just sends it to the API.",
         },
         {
           name: "token_type",
           line: 3,
-          level: "always",
           why: "How to use the token. Bearer means whoever holds it can use it, so the app must keep it secret.",
         },
         {
           name: "expires_in",
           line: 4,
-          level: "always",
           why: "Seconds until the access token stops working (about an hour at Google). The app can't read this from the token itself, because the token is opaque.",
         },
         {
           name: "scope",
           line: 5,
-          level: "sometimes",
           why: "The permissions actually granted. The user may have allowed less than the app asked for.",
         },
         {
           name: "id_token",
           line: 6,
-          level: "sometimes",
           tags: ["oidc"],
           why: "Sent only because scope included openid. A signed JWT saying who the user is; the app checks it in the next step.",
         },
       ],
-      notShown: "refresh_token, which Google sends only when the app asked for offline access.",
     },
     {
       id: "verify",
@@ -330,35 +315,30 @@ export const authorizationCode = {
         {
           name: "iss",
           line: 2,
-          level: "always",
           tags: ["oidc"],
           why: "Who issued the token. The app checks that it's Google.",
         },
         {
           name: "aud",
           line: 3,
-          level: "always",
           tags: ["oidc"],
           why: "Who the token is for. It must be this app's client_id, so an ID token issued to some other app is rejected.",
         },
         {
           name: "sub",
           line: 4,
-          level: "always",
           tags: ["oidc"],
           why: "The user's permanent Google ID. This is what the app should store to recognise the user next time, not the email, which can change.",
         },
         {
           name: "email",
           line: 5,
-          level: "sometimes",
           tags: ["oidc"],
           why: "Present because the app asked for the email scope.",
         },
         {
           name: "exp",
           line: 6,
-          level: "always",
           tags: ["oidc"],
           why: "When the token expires. The app rejects it after this time.",
         },

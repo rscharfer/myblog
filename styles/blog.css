@@ -321,20 +321,15 @@ button.fc-row:hover{background:color-mix(in srgb,var(--code-bg) 80%,transparent)
 .fc-key-dot{display:inline-block;width:9px;height:9px;background:var(--ink)}
 
 /* Step detail */
-.fc-detail-title{font:650 21px/1.3 var(--font-display);margin:0 0 6px;outline:none}
+.fc-detail-title{font:650 21px/1.3 var(--font-display);margin:0 0 10px;outline:none}
 .fc-detail-title .fc-n{font-size:15px;min-width:22px}
-.fc-route{font-size:13px;color:var(--muted);margin:0 0 10px}
-.fc-channel.fc-back{color:var(--link)}
 .fc-summary{font-size:16.5px;line-height:1.6;margin:0 0 14px!important}
 .fc-checks{margin:0 0 14px}
 .fc-checks ul{margin:6px 0 0;padding-left:18px;font-size:14.5px}
 .fc .code{margin:14px 0 4px}
 .fc .code pre{margin:0;font-size:13.5px}
 .fc .code .ln{padding:0 16px}
-.fc-hint{font-size:13px;color:var(--muted);margin:8px 0 0!important}
-.fc-params-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:16px 0 6px}
-.fc-toggle{display:inline-flex;gap:6px;align-items:center;font-size:13.5px;color:var(--ink);cursor:pointer}
-.fc-toggle input{accent-color:var(--ink);width:16px;height:16px;margin:0}
+.fc-params-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 6px}
 .fc-params ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .fc-params li{border-bottom:1px solid var(--rule)}
 .fc-param{display:block;width:100%;padding:10px 8px 12px}
@@ -344,10 +339,10 @@ button.fc-row:hover{background:color-mix(in srgb,var(--code-bg) 80%,transparent)
 .fc-param code{font-size:13.5px;font-weight:600;background:none;padding:0}
 .fc-why{display:block;font-size:14.5px;line-height:1.55}
 .fc-badge,.fc-tag{font:600 10.5px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;padding:4px 6px;border:1px solid var(--rule);color:var(--muted)}
-.fc-required,.fc-always{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.fc-required{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .fc-recommended{border-color:var(--muted);color:var(--ink)}
 .fc-tags{display:inline-flex;gap:6px;vertical-align:2px}
-.fc-hidden-note,.fc-notshown{font-size:13px;color:var(--muted);margin:10px 0 0!important}
+.fc-notshown{font-size:13px;color:var(--muted);margin:10px 0 0!important}
 
 /* Walkthrough */
 .fc-walkthrough .fc-terminal{margin:0}

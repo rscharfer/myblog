@@ -6,7 +6,6 @@ import { Legend, StepDetail, SwimLanes, Terminal } from "./shared";
 // in the diagram and explained in the panel below it. Left/right arrow keys also step.
 export default function Walkthrough({ flow }) {
   const [i, setI] = useState(0);
-  const [requiredOnly, setRequiredOnly] = useState(false);
   const titleRef = useRef(null);
   const n = flow.steps.length;
 
@@ -16,7 +15,7 @@ export default function Walkthrough({ flow }) {
     if (focus) requestAnimationFrame(() => titleRef.current?.focus({ preventScroll: true }));
   };
   const onKeyDown = (e) => {
-    if (e.target.closest("input, .fc-param, pre")) return;
+    if (e.target.closest(".fc-param, pre")) return;
     if (e.key === "ArrowRight") go(i + 1);
     if (e.key === "ArrowLeft") go(i - 1);
   };
@@ -47,14 +46,7 @@ export default function Walkthrough({ flow }) {
         ))}
       </div>
 
-      <StepDetail
-        key={i}
-        flow={flow}
-        index={i}
-        requiredOnly={requiredOnly}
-        onRequiredOnly={setRequiredOnly}
-        titleRef={titleRef}
-      />
+      <StepDetail key={i} flow={flow} index={i} titleRef={titleRef} />
     </div>
   );
 }

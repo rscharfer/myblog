@@ -63,24 +63,26 @@ OAuth describes a number of recipes an app can use to get an access token, calle
 Flows are also called *grants*. Other flows described in the OAuth documentation include the Client Credentials Flow and the Device Authorization Flow.
 :::
 
-OpenID Connect (OIDC) adds only a few things to the OAuth flow. In this overview, each one is labeled :oidc[like this], and the last section lists them.
+OpenID Connect (OIDC) adds only a few things to the OAuth flow. In this overview, each one is labeled :oidc[like this].
 
 
 ## The flow at a glance
 
-The access token can't be handed to the app in one step, because that would mean passing secrets through the browser as query parameters: the access token and the client secret. Instead, the flow is roughly split into two parts: one that goes through the browser (the *front channel*) and one that goes directly from the app's server to Google (the *back channel*).
+The access token can't be handed to the app in one step, because that would mean passing the access token and client secret through the browser as query parameters. Instead, the flow is split into two main parts: one that goes through the browser (the *front channel*) to get the authorization code, and one that goes directly from the app's server to Google to get the access token (the *back channel*).
 
 1. The user clicks "Log in with Google". (front channel)
-2. The app prepares a one-time proof it will use later. (on the app's server)
+2. The app prepares a :side[one-time proof]{#one-time-proof} it will use later. (on the app's server)
 3. The browser is sent to Google's `/auth` endpoint. (front channel)
 4. The user grants the app access. (front channel)
 5. Google redirects the browser back to the app with an **authorization code**. (front channel)
 6. The app trades the authorization code for tokens. (back channel)
 7. Google responds with an **access token** and an :oidc[ID token]. (back channel)
-8. The app checks the :oidc[ID token] to learn who the user is. (on the app's server)
+8. The app checks the :oidc[ID token] to learn who the user is, and logs them in with its own session cookie. (on the app's server)
 9. The app calls Google's API with the access token. (back channel)
 
+:::side{#one-time-proof}
 The one-time proof, called [PKCE](/post/authentication/PKCE), makes this flow more secure. It's how Google's authorization server knows that the request in step 3 and the request in step 6 come from the same app.
+:::
 
 ## Explore the whole flow
 
@@ -116,7 +118,7 @@ The web server responds with a 302 that forwards the browser to :side[the `/auth
 The exact endpoints are provided by the authorization server, Google in this case.
 :::
 
-```http title="GET to Google's /auth endpoint" mark="openid" caption="One query parameter (and one scope) per line for reading. In the real request this is a single URL with space-separated scopes and URL-encoded values."
+```http title="GET to Google's /auth endpoint" mark="openid" caption="In the real request this is a single URL with space-separated scopes and URL-encoded values."
 GET https://accounts.google.com/o/oauth2/v2/auth
   ?client_id=1234567890-abc123.apps.googleusercontent.com
   &response_type=code
@@ -134,10 +136,10 @@ The query parameters are how the app passes information to Google's `/auth` endp
 - **`response_type`:** tells the authorization server what is being requested. Set to `code`, it says the client wants an authorization code.
 - **`scope`:** the permissions the client is asking for, such as reading contacts and sending email. It also includes :oidc[`openid`], because the client is using this flow to authenticate the user as well.
 - **`redirect_uri`:** the URL the client wants the authorization code returned to. It also has to be registered with the authorization server.
-- **`code_challenge`:** the [PKCE](/post/authentication/PKCE) hash, so the authorization server knows that a later request is part of this same flow. 
-- **`code_challenge_method`:** names the algorithm used to make it.
+- **`code_challenge`:** the [PKCE](/post/authentication/PKCE) hash, so the authorization server knows that a later request is part of this same flow.
+- **`code_challenge_method`:** names the algorithm used to make the [PKCE](/post/authentication/PKCE) hash.
 
-:::note[What the user can grant]
+:::note[What the user can't grant]
 If the user doesn't have access to something themselves, they can't grant the client access to it, so it isn't available to the client. In other words, what the client can access is limited by what the user can access.
 :::
 
@@ -169,7 +171,7 @@ The app exchanges the authorization code for an access token. It makes a POST to
 - **`client_id` and `client_secret`:** so the client can prove to the authorization server that it is who it says it is
 - **`code`:** the authorization code, which is tied to what the client is allowed to access
 - **`grant_type`:** set to `authorization_code`, it distinguishes this request from other grants
-- **`code_verifier`:** the PKCE verifier, so the authorization server knows the request comes from the same entity that started the flow
+- **`code_verifier`:** the [PKCE](/post/authentication/PKCE) verifier, so the authorization server knows the request comes from the same entity that started the flow
 
 ```http title="POST to Google's /token endpoint" {6} caption="One body parameter per line for reading. This request goes straight from the app's server to Google, so the client secret never passes through the browser."
 POST /token HTTP/1.1
@@ -186,7 +188,7 @@ grant_type=authorization_code
 
 ### 7. Google returns the tokens
 
-If the authorization server is happy with what comes over the wire, it responds with the access token. The response includes:
+If the authorization server is happy with what comes over the wire, it responds with the access token and the :oidc[ID token]. The response includes:
 
 - **`token_type`:** almost always `Bearer`
 - **`access_token`:** the access token itself

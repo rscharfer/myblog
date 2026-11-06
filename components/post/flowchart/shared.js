@@ -2,32 +2,15 @@ import { useState } from "react";
 
 import CodeBlock from "../CodeBlock";
 
-// Badge text per level. "Required only" keeps the levels marked `core`.
+// Badge text per level. A parameter with no level (e.g. in a response) gets no badge.
 export const LEVELS = {
-  required: { label: "Required", core: true },
+  required: { label: "Required" },
   recommended: { label: "Recommended" },
   optional: { label: "Optional" },
-  always: { label: "Always sent", core: true },
-  sometimes: { label: "Sometimes sent" },
 };
 
 const laneIndex = (flow, id) => flow.lanes.findIndex((l) => l.id === id);
 const center = (flow, i) => `${((i + 0.5) / flow.lanes.length) * 100}%`;
-
-// "Browser → App server → Google login", and which channel the step travels on.
-export function route(flow, step) {
-  const name = (id) => flow.lanes[laneIndex(flow, id)].short;
-  if (step.at) return { path: `On the ${name(step.at).toLowerCase()}`, channel: null };
-  const path = [step.arrows[0].from, ...step.arrows.map((a) => a.to)].map(name).join(" → ");
-  const channels = new Set(step.arrows.map((a) => a.channel));
-  const channel = channels.size === 1 ? [...channels][0] : null;
-  return { path, channel };
-}
-
-export const CHANNEL_TEXT = {
-  front: "through the browser (front channel)",
-  back: "server to server (back channel)",
-};
 
 export function Tags({ tags = [] }) {
   if (!tags.length) return null;
@@ -43,6 +26,7 @@ export function Tags({ tags = [] }) {
 }
 
 export function Badge({ level }) {
+  if (!level) return null;
   const l = LEVELS[level];
   return <span className={`fc-badge fc-${level}`}>{l.label}</span>;
 }
@@ -129,22 +113,15 @@ export function Legend() {
   );
 }
 
-export function ParamList({ step, requiredOnly, onRequiredOnly, active, onActive }) {
+export function ParamList({ step, active, onActive }) {
   const params = step.params || [];
-  const hasOptional = params.some((p) => !LEVELS[p.level].core);
-  const shown = requiredOnly ? params.filter((p) => LEVELS[p.level].core) : params;
   return (
     <div className="fc-params">
       <div className="fc-params-head">
         <span className="kicker">{step.paramsLabel || "Parameters"}</span>
-        {hasOptional && (
-          <label className="fc-toggle">
-            <input type="checkbox" checked={requiredOnly} onChange={(e) => onRequiredOnly(e.target.checked)} /> Required only
-          </label>
-        )}
       </div>
       <ul>
-        {shown.map((p) => (
+        {params.map((p) => (
           <li key={p.name}>
             <button
               type="button"
@@ -160,20 +137,14 @@ export function ParamList({ step, requiredOnly, onRequiredOnly, active, onActive
           </li>
         ))}
       </ul>
-      {requiredOnly && shown.length < params.length && (
-        <p className="fc-hidden-note">
-          {params.length - shown.length} more hidden. Untick “Required only” to see them.
-        </p>
-      )}
     </div>
   );
 }
 
-// Everything about one step: where it happens, what it does, the message and its parameters.
-export function StepDetail({ flow, index, requiredOnly, onRequiredOnly, titleRef }) {
+// Everything about one step: what it does, the message and its parameters.
+export function StepDetail({ flow, index, titleRef }) {
   const step = flow.steps[index];
   const [active, setActive] = useState(null);
-  const { path, channel } = route(flow, step);
   const activeLine = step.params?.find((p) => p.name === active)?.line;
   const m = step.message;
   const meta = m
@@ -184,10 +155,6 @@ export function StepDetail({ flow, index, requiredOnly, onRequiredOnly, titleRef
     <div className="fc-detail">
       <div className="fc-detail-title" ref={titleRef} tabIndex={-1}>
         <span className="fc-n">{index + 1}</span> {step.title} <Tags tags={step.tags} />
-      </div>
-      <div className="fc-route">
-        {path}
-        {channel && <span className={`fc-channel fc-${channel}`}> · {CHANNEL_TEXT[channel]}</span>}
       </div>
       <p className="fc-summary">{step.summary}</p>
       {step.checks && (
@@ -201,18 +168,7 @@ export function StepDetail({ flow, index, requiredOnly, onRequiredOnly, titleRef
         </div>
       )}
       {m && <CodeBlock key={`${step.id}-${activeLine || 0}`} code={m.code} lang={m.lang} meta={meta} />}
-      {step.params && step.params.length > 0 && (
-        <>
-          <p className="fc-hint">Select a parameter to highlight its line.</p>
-          <ParamList
-            step={step}
-            requiredOnly={requiredOnly}
-            onRequiredOnly={onRequiredOnly}
-            active={active}
-            onActive={setActive}
-          />
-        </>
-      )}
+      {step.params && step.params.length > 0 && <ParamList step={step} active={active} onActive={setActive} />}
       {step.notShown && <p className="fc-notshown">Not shown: {step.notShown}</p>}
     </div>
   );
