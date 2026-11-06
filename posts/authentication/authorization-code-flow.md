@@ -1,6 +1,7 @@
 ---
 title: Authorization Code Flow
 created: November 5, 2026
+updated: November 6, 2026
 subtitle: The canonical OAuth flow used for delegated access to data
 image: /og/authentication/authorization-code-flow.png
 icons:
@@ -30,11 +31,13 @@ related:
     description: Where the openid scope and the ID token are defined.
 ---
 
-## OAuth and OpenID Connect in brief
+## OAuth and OpenID Connect in a nutshell
 
-OAuth was created to give apps limited access to a user's data hosted at the likes of Google and Facebook. After a user agrees, the app that wants the data receives a key from one of these sites (an **access token**) and uses it to make API calls to those sites for the data it needs. The key only opens what the user agreed to. This is *authorization*: deciding what an app may access.
+OAuth was created to give apps limited access to a user's data. Before an app receives access to the data, the user has to give their consent. The data is often hosted at a social site like Google. Once the user agrees to let an app access part of their data, the app receives an **access token**, which it can then use to gain entry to the data. "Entry" to the data is typically the social site's API. The access token provides access to only those API end points the user has consented to. Determining what an app may access is called *authorization*, and that's what OAuth is all about. Historically, anyway...
 
-After a while, developers tried to use OAuth to identify users too (*authentication*). The idea was that if Google's login server (the *authorization server*) had logged the user in, then the access token must represent a user Google had logged in, and that's good enough. Some apps even used the access token to ask Google's API who the user was. In reality, though, the access token isn't meant for the app to read (it's *opaque*), and it only says that whoever holds it may call the API. It doesn't say which app it was issued to or when the user logged in, so a token issued to a different app could be used to log someone into yours. That made it a poor way to tell who the user is. With this in mind, OpenID Connect was developed as a standard layer on top of OAuth, and login servers started to return a second token as well: a signed note the app can read that says who the user is and which app it's for (an **ID token**).
+After a while, developers tried to use OAuth to identify users too, which is a process called *authentication*, and it is something OAuth was not designed to do. The developers' idea was that as long as an app had an access token that worked for a social site's API, that was enough to log in the user to _their_ site. They'd use the access token to ask who the user was, issue a session token, and voila... the user was signed into the app.
+
+The problem is that access tokens are *opaque* to the app, i.e. unreadable. It cannot determine what user is represented by the token and they cannot determine for what app it is; it just gives them access to a certain set of API end points. If the token was somehow injected by a bad actor, which the bad actor legitimately got for a different site, the victim could be logged in as the bad actor. With security issues like this and other issues in mind, OpenID Connect was developed as a standard layer on top of OAuth, and social sites started to return a second token as well: one the app can read that says who the user is and which app it's for (an **ID token**).
 
 ## Who and what is involved
 
