@@ -1,8 +1,8 @@
 ---
-title: Authorization Code Flow
+title: How "Sign in with Google" Works
 created: November 5, 2026
-updated: November 6, 2026
-subtitle: The canonical OAuth flow used for delegated access to data
+updated: November 10, 2026
+subtitle: Authorization Code Flow{:} the OAuth and OpenID Connect handshake behind nearly every social login
 image: /og/authentication/authorization-code-flow.png
 icons:
   User: role
