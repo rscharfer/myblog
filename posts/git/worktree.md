@@ -1,8 +1,8 @@
 ---
-title: Git worktree in my own words
+title: Work on several branches at once with git worktree
 created: June 15, 2026
-updated: November 1, 2026
-subtitle: Work on several branches at once without stashing or committing your changes.
+updated: November 10, 2026
+subtitle: No stashing and no half-finished commits, because each branch gets its own folder.
 ---
 
 

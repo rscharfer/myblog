@@ -1,7 +1,8 @@
 ---
-title: Using React context to implicitly share state in compound components
+title: Compound components in React 19 use context, not cloneElement
 created: April 7, 2026
-subtitle: Fun fact{:} This was previously accomplished with React.cloneElement
+updated: November 10, 2026
+subtitle: How a parent implicitly shares state with its children, and what changed since React 16.
 ---
 
 

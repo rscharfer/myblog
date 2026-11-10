@@ -1,8 +1,8 @@
 ---
-title: OAuth - What is the purpose of PKCE?
+title: The trick that keeps OAuth logins from being hijacked
 created: October 29, 2026
-updated: November 4, 2026
-subtitle: The trick that keeps OAuth logins from being hijacked
+updated: November 10, 2026
+subtitle: PKCE{:} how a random string and its hash make a stolen authorization code useless
 image: /og/authentication/PKCE.png
 icons:
   Resource owner: role

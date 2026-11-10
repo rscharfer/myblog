@@ -1,7 +1,8 @@
 ---
-title: Implementing the loading spinner in React
+title: Loading spinners in React 19 without useEffect
 created: April 22, 2026
-subtitle: Different ways to use React's <Suspense> to provide a pleasant UX as a page loads
+updated: November 10, 2026
+subtitle: How <Suspense> and use show a fallback while your data loads.
 ---
 
 In the old days, you might fetch data in a `useEffect` hook, set some state inside the hook once you have the data, and show a spinner if that state is not yet set.

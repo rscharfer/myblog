@@ -1,8 +1,8 @@
 ---
-title: Use prop collections to pass on aria attributes
+title: Stop retyping the same aria attributes
 created: November 9, 2020
-updated: November 1, 2026
-subtitle: Package up the props which always need to be passed to a component in a hook.
+updated: November 10, 2026
+subtitle: Prop collections and prop getters package the props a component always needs into a hook.
 ---
 
 

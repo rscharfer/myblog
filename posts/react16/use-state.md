@@ -1,8 +1,8 @@
 ---
-title: Use a prop, not another piece of state
+title: Why your state doesn't update when the prop changes
 created: October 18, 2020
-updated: October 31, 2026
-subtitle: The argument passed to useState is only used once.
+updated: November 10, 2026
+subtitle: useState only reads its argument on the first render.
 
 ---
 

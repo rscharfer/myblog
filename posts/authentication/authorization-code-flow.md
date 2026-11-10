@@ -1,5 +1,5 @@
 ---
-title: How "Sign in with Google" Works
+title: How "Sign in with Google" works
 created: November 5, 2026
 updated: November 10, 2026
 subtitle: Authorization Code Flow{:} the OAuth and OpenID Connect handshake behind nearly every social login
@@ -18,9 +18,9 @@ icons:
   Back channel: channel
 related:
   - label: Also on this blog
-    title: OAuth - What is the purpose of PKCE?
+    title: The trick that keeps OAuth logins from being hijacked
     href: /post/authentication/PKCE
-    description: The trick that keeps OAuth logins from being hijacked.
+    description: How a random string and its hash make a stolen authorization code useless.
   - label: Spec
     title: "RFC 6749: The OAuth 2.0 Authorization Framework"
     href: https://www.rfc-editor.org/rfc/rfc6749#section-4.1

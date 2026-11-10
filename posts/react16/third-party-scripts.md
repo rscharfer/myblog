@@ -1,6 +1,7 @@
 ---
-title: Why you can't add a third party script in the render function
+title: Why a <script> tag in your JSX never runs
 created: October 18, 2020
+updated: November 10, 2026
 subtitle: Turns out scripts added with innerHTML are inert.
 ---
 

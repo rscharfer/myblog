@@ -1,7 +1,8 @@
 ---
-title: Conditionally rendering JSX
+title: Three conditional rendering patterns worth knowing
 created: October 18, 2020
-subtitle: Some conditional rendering tools to add to your toolbox.
+updated: November 10, 2026
+subtitle: Higher-order components, switch statements and enum objects, with an example of each.
 ---
 
 There are three conditional rendering patterns which I have recently learned about and I am excited about using more of in the future. Two are cool and one is **really** cool. Here is a short description of each:

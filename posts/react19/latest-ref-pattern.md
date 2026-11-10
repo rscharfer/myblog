@@ -1,7 +1,8 @@
 ---
-title: Get the latest props in an async click handler by using the "latest ref" pattern
+title: Why your async click handler sees stale props
 created: April 7, 2026
-subtitle: Closure in JavaScript makes this a challenge otherwise.
+updated: November 10, 2026
+subtitle: A closure keeps the values from the render it was created in. The "latest ref" pattern gets around that.
 ---
 
 

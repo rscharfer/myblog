@@ -1,7 +1,8 @@
 ---
-title: Updating the state reducer pattern to use TypeScript
+title: The state reducer pattern in React 19, with TypeScript
 created: April 8, 2026
-subtitle: We don't need the actionTypes variable anymore.
+updated: November 10, 2026
+subtitle: TypeScript's types replace the old actionTypes variable.
 ---
 
 The premise: A stateful component (or hook) uses `useReducer` to keep track of state. The consumer of this stateful component (or hook) can pass in its _own_ reducer, which is then passed to `useReducer` and used instead of the stateful component's (or hook's) default one. In this way, the consumer can control state updates from the "outside". This is an example of [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control).

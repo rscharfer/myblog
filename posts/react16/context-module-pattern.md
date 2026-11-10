@@ -1,7 +1,8 @@
 ---
-title: Export helpers from a "context module"
+title: Should helper functions live in your React context value?
 created: October 26, 2020
-subtitle: Rather than passing helpers down in the context value, exporting them separately could have readability and performance advantages. 
+updated: November 10, 2026
+subtitle: The context module pattern exports them separately, which can help readability and performance.
 ---
 
 Essentially, what Kent C. Dodds dubs the "context module pattern" is a combination of two things:
