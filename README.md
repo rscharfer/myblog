@@ -160,11 +160,11 @@ Then deploy and set `customTheme: true`.
 
 ## SEO
 
-Every page gets a title, description, canonical URL and Open Graph/Twitter tags from `components/Layout.js`. Posts also get `BlogPosting` structured data. `sitemap.xml` is generated on each build, and `public/robots.txt` points to it. If the domain changes, update `url` in `lib/site.js` and the sitemap line in `robots.txt`.
+Every page gets a title, description, canonical URL and Open Graph/Twitter tags from `components/Layout.js`. Posts also get `BlogPosting` structured data. `sitemap.xml` is generated on each build, and `public/robots.txt` points to it. Page titles end with `titleSuffix` from `lib/site.js`. If the domain changes, update `url` in `lib/site.js` and the sitemap line in `robots.txt`.
 
 ### Open Graph images
 
-Pages share with the avatar unless a post sets `image: /og/<topic>/<name>.png` in its front matter, which gives it a large 1200×630 card on LinkedIn, Slack and the like. Each card's source is an HTML page in `design/og/` using the blog's light-theme colours and fonts. After editing one, render it with Chrome:
+Pages share with the avatar unless a post has a card at `public/og/<topic>/<name>.png` (picked up automatically from the post's path) or sets `image:` in its front matter, which gives it a large 1200×630 card on LinkedIn, Slack and the like. Each card's source is an HTML page in `design/og/` (the newer ones are `design/og/<topic>/<name>.html` sharing `design/og/card.css`) using the blog's light-theme colours and fonts: kicker, headline, then one simple diagram or code snippet that shows the post's idea at a glance. After editing one, render it with Chrome:
 
 ```sh
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \

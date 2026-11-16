@@ -17,7 +17,7 @@ export default function BlogPost({ post }) {
 
   return (
     <Layout
-      docTitle={`${post.title} — ${site.name}`}
+      docTitle={`${post.title}${site.titleSuffix}`}
       description={post.subtitle}
       path={`/post/${post.slug}`}
       image={post.image}

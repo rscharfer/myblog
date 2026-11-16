@@ -50,6 +50,8 @@ export default function Layout({ children, docTitle, description, path, article,
         {url && <meta property="og:url" content={url} />}
         <meta property="og:type" content={article ? "article" : "website"} />
         <meta property="og:image" content={image} />
+        {cardImage && <meta property="og:image:width" content="1200" />}
+        {cardImage && <meta property="og:image:height" content="630" />}
         {cardImage && <meta property="og:image:alt" content={article ? article.title : docTitle} />}
         <link rel="alternate" type="application/rss+xml" title={site.name} href={`${site.url}/feed.xml`} />
         {article && <meta property="article:published_time" content={asUtc(article.published)} />}
