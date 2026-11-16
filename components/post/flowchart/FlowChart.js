@@ -1,8 +1,9 @@
 import { authorizationCode } from "../flows/authorizationCode";
+import { recordANote } from "../flows/recordANote";
 import Walkthrough from "./Walkthrough";
 
 // ::flowchart{flow="authorization-code"} in Markdown.
-const FLOWS = { "authorization-code": authorizationCode };
+const FLOWS = { "authorization-code": authorizationCode, "record-a-note": recordANote };
 
 export default function FlowChart({ flow }) {
   const data = FLOWS[flow];
