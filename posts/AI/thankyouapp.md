@@ -29,7 +29,7 @@ I transferred the audio to my laptop, opened up Claude Desktop and began. I kick
 I kept it conversational on purpose. This usually gets you a much fuller answer than you asked for, but in this brainstorming session, that was fine.
 :::
 
-Not only did Claude give me some ideas for some new features, but because I purposely didn’t put any constraints on its feedback, it also prototyped the whole idea by extracting the thank-yous out of the audio I had attached. It proposed a flow to use for converting the audio files to itemized thank-yous and a :side[teaser]{#teaser}. It suggested a milestone flag, which I thought was great. I mentioned I wanted funny moments tagged as those that would be especially fun to re-experience. Together, we decided what would be included in a “day” view, and Claude suggested a progressive web app in lieu of a native app. (After all, I just wanted something that the two of us would have on our phones.)
+Not only did Claude give me some ideas for some new features, but because I purposely didn’t put any constraints on its feedback, it also prototyped the whole idea by extracting the things I was grateful for out of the audio I had attached. It proposed a flow to use for converting the audio files to itemized gratitude lists and a :side[teaser]{#teaser}. It suggested a milestone flag, which I thought was great. I mentioned I wanted funny moments tagged as those that would be especially fun to re-experience. Together, we decided what would be included in a “day” view, and Claude suggested a progressive web app in lieu of a native app. (After all, I just wanted something that the two of us would have on our phones.)
 
 :::side{#teaser}
 A summary of what I was thankful for on that particular day, to be used in the notification.
@@ -84,7 +84,7 @@ Same model either way: Whisper large-v3-turbo.
 
 ## v1: implementing the model end-to-end with one month
 
-With the engine and model chosen, and our list of features on the side, I had Claude implement a :side[tracer-bullet]{#vertical-slice} using a month of thank-you messages (about 16–20 notes) and about :side[10 done criteria]{#done-criteria}. 
+With the engine and model chosen, and our list of features on the side, I had Claude implement a :side[tracer-bullet]{#vertical-slice} using a month of gratitude messages (about 16–20 notes) and about :side[10 done criteria]{#done-criteria}. 
 
 I installed the implemented app on both of our phones as progressive web apps, confirmed the features and the notification worked, gave Claude feedback, and had it make changes I wanted.
 
@@ -99,7 +99,7 @@ Claude drafted them; I confirmed them. One example: "You've read every day's ite
 
 ::figure{src="03-timeline-all.png" alt="The timeline with cards in date order, month dividers and year buttons" caption="The timeline after that feedback: cards in date order, month dividers, and a row of year buttons."}
 
-From there I tried a whole month’s worth of audio and made changes where necessary. During this phase, I decided I wanted my wife’s thank-you messages to be styled differently in the UI. It also became clear the transcription model would have to transcribe both English and German, and sometimes in the same message. (My wife is German.) It also had to spell family members’ names correctly. 
+From there I tried a whole month’s worth of audio and made changes where necessary. During this phase, I decided I wanted my wife’s gratitude messages to be styled differently in the UI. It also became clear the transcription model would have to transcribe both English and German, and sometimes in the same message. (My wife is German.) It also had to spell family members’ names correctly. 
 
 This called for another modification to the Whisper prompt.
 
@@ -141,17 +141,17 @@ The product spec was what was created by the product session and then shared and
 
 ## v2: recording in the app
 
-Processing the audio on my local machine would be very painful if I had to do it that way for future thank-you messages. I needed the ability to record thank-yous in the app itself, and have the processing done in the cloud.
+Processing the audio on my local machine would be very painful if I had to do it that way for future gratitude messages. I needed the ability to record gratitude messages in the app itself, and have the processing done in the cloud.
 
-I had Claude add UI for recording a thank-you inside the app and the ability to approve a processed thank-you before sending it. This would not only allow the user to re-record the message if they wanted, but also help me stay on top of how well Whisper was transcribing and Claude was extracting meaning.
+I had Claude add UI for recording a gratitude message inside the app and the ability to approve a processed gratitude message before sending it. This would not only allow the user to re-record the message if they wanted, but also help me stay on top of how well Whisper was transcribing and Claude was extracting meaning.
 
-::figure{src="06-record-review.png" alt="The review screen shown after recording a thank-you" caption="Review before send: nothing goes out until the user approves it."}
+::figure{src="06-record-review.png" alt="The review screen shown after recording a gratitude message" caption="Review before send: nothing goes out until the user approves it."}
 
 ## When the AI got it wrong: Kinderschokolade?
 
-One morning I recorded a thank-you message in the app, and waited for the write-up to appear on my phone for approval. The write-up showed that I was thankful for … Kinderschokolade? This word had appeared in my previous messages, but I most definitely did not say it this time.
+One morning I recorded a gratitude message in the app, and waited for the write-up to appear on my phone for approval. The write-up showed that I was thankful for … Kinderschokolade? This word had appeared in my previous messages, but I most definitely did not say it this time.
 
-I was excited to see where in the pipeline things went wrong. I saw that Whisper had included it in its transcription, and learned via Googling that Whisper tended to fill silence with words from its prompt! That was what happened here. I had Claude start recording :side[traces]{#trace} for each thank-you message here on out, so that the next time the processing goes awry, we can see exactly where.
+I was excited to see where in the pipeline things went wrong. I saw that Whisper had included it in its transcription, and learned via Googling that Whisper tended to fill silence with words from its prompt! That was what happened here. I had Claude start recording :side[traces]{#trace} for each gratitude message here on out, so that the next time the processing goes awry, we can see exactly where.
 
 
 :::side{#trace}
@@ -191,6 +191,6 @@ A small piece of server code that Supabase hosts and runs on request, so it does
 
 I had created the entire app inside Claude Desktop. I looked at the code a bit, but not much. The discussion I had with Claude in the review session was as deep as I wanted to interrogate the code for this two-person app.
 
-Although I like the result, the anticipation was a bit greater than the result. Like old photos, some old thank-yous are better than others, and not all are worth revisiting. 
+Although I like the result, the anticipation was a bit greater than the result. Like old photos, some old messages are better than others, and not all are worth revisiting. 
 
 Still, at the very least, I can say it was fun being able to whip up an app I had thought about making for a long time, but that was probably never going to be feasible until the advent of LLMs, which are able to extract meaning out of text. 
