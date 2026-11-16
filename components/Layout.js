@@ -7,10 +7,15 @@ import { site } from "../lib/site";
 // `path` is the page's URL path ("/", "/about", "/post/react19/hooks"), used for the
 // canonical and og:url. Pass `article` ({ title, description, published, modified }) on post pages,
 // and `image` (a path under public/, 1200x630) for a large share card instead of the avatar.
+// Front matter dates are calendar days with no time. Google recommends a timezone on schema.org dates,
+// so pin them to midnight UTC.
+const asUtc = (day) => day && `${day}T00:00:00Z`;
+const sameAs = [site.github, site.linkedin].filter(Boolean);
+
 export default function Layout({ children, docTitle, description, path, article, image: cardImage }) {
   const url = path && site.url + path;
   const image = site.url + (cardImage || site.avatar);
-  const jsonLd = article && {
+  const jsonLd = article ? {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: article.title,
@@ -18,11 +23,19 @@ export default function Layout({ children, docTitle, description, path, article,
     url,
     mainEntityOfPage: url,
     image,
-    datePublished: article.published,
-    dateModified: article.modified,
-    author: { "@type": "Person", name: site.author, url: `${site.url}/about` },
-    publisher: { "@type": "Person", name: site.author },
-  };
+    datePublished: asUtc(article.published),
+    dateModified: asUtc(article.modified),
+    author: { "@type": "Person", name: site.author, url: `${site.url}/about`, sameAs },
+    publisher: { "@type": "Person", name: site.author, url: `${site.url}/about` },
+  } : path === "/" ? {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: site.name,
+    url: site.url,
+    description: site.description,
+    inLanguage: "en",
+    author: { "@type": "Person", name: site.author, url: `${site.url}/about`, sameAs },
+  } : null;
 
   return (
     <>
@@ -37,8 +50,10 @@ export default function Layout({ children, docTitle, description, path, article,
         {url && <meta property="og:url" content={url} />}
         <meta property="og:type" content={article ? "article" : "website"} />
         <meta property="og:image" content={image} />
-        {article && <meta property="article:published_time" content={article.published} />}
-        {article && <meta property="article:modified_time" content={article.modified} />}
+        {cardImage && <meta property="og:image:alt" content={article ? article.title : docTitle} />}
+        <link rel="alternate" type="application/rss+xml" title={site.name} href={`${site.url}/feed.xml`} />
+        {article && <meta property="article:published_time" content={asUtc(article.published)} />}
+        {article && <meta property="article:modified_time" content={asUtc(article.modified)} />}
         <meta name="twitter:card" content={cardImage ? "summary_large_image" : "summary"} />
         {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
       </Head>

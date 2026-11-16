@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import PostList from "../components/PostList";
 import { allPosts } from "../lib/posts";
 import { writeSitemap } from "../lib/sitemap";
+import { writeFeed } from "../lib/feed";
 import { site } from "../lib/site";
 
 const Index = ({ posts }) => {
@@ -30,6 +31,7 @@ const Index = ({ posts }) => {
 export async function getStaticProps() {
   const posts = allPosts();
   writeSitemap(posts);
+  writeFeed(posts);
   return { props: { posts } };
 }
 

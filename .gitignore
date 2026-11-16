@@ -35,3 +35,6 @@ yarn-error.log*
 
 # copied from posts/ at build time by lib/posts.js
 /public/post-images/
+
+# generated at build time by lib/feed.js
+/public/feed.xml
