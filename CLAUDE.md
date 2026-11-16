@@ -27,8 +27,19 @@ There are no tests. To verify a change, run `npm run build` (it fails on bad `cr
 - Write commit messages as a short imperative sentence describing the change ("Align the updated date with the topic in the post kicker").
 - Don't push or deploy; Ryan does that.
 
+### Commit at task boundaries
+
+- Before starting work that is unrelated to the previous task (different files or a different goal), or when Ryan signals he's done, check for uncommitted changes from that task. If there are any, ask whether to commit them, and include the proposed commit message and file list in the question.
+- If Ryan says yes, stage only the files changed for that task by explicit path (never `git add -A` / `git add .`), then commit. A yes counts as permission to commit.
+- Follow the rules above for message style and the pre-commit hook.
+
 ## Ignore
 
 - `oldPosts/` and `othermarkdown/` are retired drafts and aren't built.
-- `.next/` and `out/` are build output. `public/sitemap.xml` is generated.
+- `.next/`, `.next-dev/` (dev server only) and `out/` are build output. `public/sitemap.xml` is generated.
 - `design/reference/` and `design/screenshots/` are the redesign's reference material, not live code.
+
+
+## Making changes
+
+- when you make changes to the repo, build the app to see that is still builds and run test in the browser to make sure it still works. Use Chrome Dev tools to check if you see anything out of the ordinary. If something fails, fix it.
