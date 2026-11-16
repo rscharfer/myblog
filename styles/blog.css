@@ -65,6 +65,8 @@ svg [class]{vector-effect:non-scaling-stroke}
 .figscroll svg{min-width:600px;display:block}
 .fig-narrow{display:none}.fig-narrow svg{display:block;width:100%;height:auto}
 @media (max-width:640px){.fig-wide{display:none}.fig-narrow{display:block}}
+.fig-img{display:flex;justify-content:center;align-items:flex-start;gap:16px}
+.fig-img img{display:block;flex:0 1 340px;min-width:0;max-width:100%;height:auto;border:1px solid var(--rule);border-radius:12px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:18px;line-height:1.72;font-optical-sizing:auto}

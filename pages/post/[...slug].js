@@ -33,7 +33,7 @@ export default function BlogPost({ post }) {
       <article>
         <ReactMarkdown
           remarkPlugins={remarkPlugins({ icons: post.icons })}
-          components={markdownComponents({ figures: post.figures })}
+          components={markdownComponents({ figures: post.figures, imageBase: post.imageBase })}
         >
           {post.markdown}
         </ReactMarkdown>

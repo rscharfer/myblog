@@ -32,3 +32,6 @@ yarn-error.log*
 
 # generated at build time by lib/sitemap.js
 /public/sitemap.xml
+
+# copied from posts/ at build time by lib/posts.js
+/public/post-images/

@@ -17,7 +17,7 @@ function Heading({ level, id, children }) {
 
 // react-markdown component overrides for the post body. `figures` maps an SVG
 // file name to its source, loaded at build time by lib/posts.js.
-export function markdownComponents({ figures = {} } = {}) {
+export function markdownComponents({ figures = {}, imageBase = "" } = {}) {
   return {
     h2: Heading,
     h3: Heading,
@@ -48,6 +48,22 @@ export function markdownComponents({ figures = {} } = {}) {
     },
     figure({ node, className, children, ...props }) {
       if (className !== "diagram") return <figure className={className}>{children}</figure>;
+      if (props["data-src"]) {
+        const names = props["data-src"].split(",").map((n) => n.trim());
+        return (
+          <figure className="diagram">
+            <div className="fig-img">
+              {names.map((name) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={name} src={`${imageBase}/${name}`} alt={props["data-alt"] || ""} loading="lazy" />
+              ))}
+            </div>
+            <figcaption>
+              <span className="kicker">{props["data-label"]}</span> {props["data-caption"]}
+            </figcaption>
+          </figure>
+        );
+      }
       const wide = figures[props["data-wide"]];
       const narrow = figures[props["data-narrow"]];
       return (
